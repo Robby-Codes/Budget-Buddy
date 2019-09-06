@@ -14,7 +14,7 @@ WindowManager:
         Label:
             canvas:
                 Color:
-                    rgb: 0, 0.5, 0.3, 1
+                    rgb: 0.6, 0.6, 0.6, 1
                 Rectangle:
                     pos: self.pos
                     size: self.size
@@ -22,12 +22,22 @@ WindowManager:
         Label:
             canvas:
                 Color:
-                    rgb: 0, 0.3, 0.1, 1
+                    rgb: 0, 0, 0, 1
                 Rectangle:
                     pos: self.pos
                     size: self.size
-            size_hint: 0.5, 0.055
-            pos_hint: {'top': 0.8, 'x': 0.25}
+            size_hint: 1, 0.03
+            pos_hint: {'top': 1}
+
+        Label:
+            canvas:
+                Color:
+                    rgb: 0, 0.25, 0.1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            size_hint: 0.3, 0.055
+            pos_hint: {'top': 0.8, 'x': 0.35}
 
         Label:
             canvas:
@@ -36,8 +46,8 @@ WindowManager:
                 Rectangle:
                     pos: self.pos
                     size: self.size
-            size_hint: 0.5, 0.6
-            pos_hint: {'top': 0.745, 'x': 0.25}
+            size_hint: 0.3, 0.6
+            pos_hint: {'top': 0.745, 'x': 0.35}
 
         Label:
             text: 'Welcome To Budget Buddy!'
@@ -48,44 +58,80 @@ WindowManager:
         Label:
             text: 'Log in'
             font_size: 30
-            size_hint: 0.2, 0.2
-            pos_hint: {'top': 0.875, 'x': 0.2}
+            size_hint: 0.1, 0.1
+            pos_hint: {'top': 0.82, 'x': 0.33}
 
         Label:
             text: 'User Name'
             font_size: 20
             color: 0, 0, 0, 1
             size_hint: 0.3, 0.2
-            pos_hint: {'top': 0.78, 'x': 0.171}
+            pos_hint: {'top': 0.78, 'x': 0.26}
 
         TextInput:
             multiline: False
-            size_hint: 0.42, 0.05
-            pos_hint: {'top': 0.66, 'x': 0.289}
+            size_hint: 0.22, 0.04
+            pos_hint: {'top': 0.66, 'x': 0.378}
 
         Label:
             text: 'Password'
             font_size: 20
             color: 0, 0, 0, 1
             size_hint: 0.3, 0.2
-            pos_hint: {'top': 0.63, 'x': 0.168}
+            pos_hint: {'top': 0.66, 'x': 0.256}
 
         TextInput:
             multiline: False
-            size_hint: 0.42, 0.07
-            pos_hint: {'top': 0.50, 'x': 0.289}
+            size_hint: 0.22, 0.04
+            pos_hint: {'top': 0.54, 'x': 0.378}
+            password: True
+
+        Button:
+            text: ' Create\nAccount'
+            font_size: 15
+            size_hint: 0.05, 0.05
+            pos_hint: {'top': 0.30, 'x': 0.378}
+        
+        Button:
+            text: 'Sign In'
+            font_size: 15
+            size_hint: 0.05, 0.05
+            pos_hint: {'top': 0.45, 'x': 0.55}
+
+        Button:
+            text: 'Forgot?'
+            font_size: 15
+            size_hint: 0.05, 0.05
+            pos_hint: {'top': 0.45, 'x': 0.378}
 
         Label:
-            text: 'Email'
-            font_size: 20
-            color: 0, 0, 0, 1
-            size_hint: 0.3, 0.2
-            pos_hint: {'top': 0.48, 'x': 0.155}
+            text: 'Remember Me:'
+            color: 1, 0, 0, 1
+            size_hint: 0.02, 0.04
+            pos_hint: {'top': 0.30, 'x': 0.54}
 
-        TextInput:
-            multiline: False
-            size_hint: 0.42, 0.07
-            pos_hint: {'top': 0.36, 'x': 0.289}
+        Label:
+            canvas:
+                Color:
+                    rgb: 1, 1, 0, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            size_hint: 0.01, 0.02
+            pos_hint: {'top': 0.29, 'x': 0.588}
+
+        CheckBox:
+            size_hint: 0.01, 0.02
+            pos_hint: {'top': 0.29, 'x': 0.588}
+
+        Button:
+            text: 'X'
+            size_hint: 0.03, 0.03
+            pos_hint: {'top': 1, 'x': 0.97}
+            background_color: 0.95, 0, 0, 1
+            on_release:
+                exit()
+
 
 
 <Dashboard>:
