@@ -8,13 +8,15 @@ class LoginScreen(Screen):
     pass
 
 
+class Dashboard(Screen):
+    pass
+
+
 class WindowManager(ScreenManager):
     pass
 
 
 kv = Builder.load_file('gui.kv')
-
-Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 
 
 class BudgetBuddyApp(App):
@@ -24,4 +26,6 @@ class BudgetBuddyApp(App):
 
 
 if __name__ == '__main__':
+    Config.set('graphics', 'window_state', 'maximized')
+    Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
     BudgetBuddyApp().run()

@@ -4,12 +4,92 @@
 WindowManager:
     transition: NoTransition()
     LoginScreen:
+    Dashboard:
 
 <LoginScreen>:
     name: 'logins'
 
-    GridLayout:
-        cols: 1
+    FloatLayout:
 
         Label:
-            text: 'budget buddy is currently under construction'
+            canvas:
+                Color:
+                    rgb: 0, 0.5, 0.3, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+        Label:
+            canvas:
+                Color:
+                    rgb: 0, 0.3, 0.1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            size_hint: 0.5, 0.055
+            pos_hint: {'top': 0.8, 'x': 0.25}
+
+        Label:
+            canvas:
+                Color:
+                    rgb: 1, 1, 1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            size_hint: 0.5, 0.6
+            pos_hint: {'top': 0.745, 'x': 0.25}
+
+        Label:
+            text: 'Welcome To Budget Buddy!'
+            font_size: 50
+            size_hint: 0.5, 0.2
+            pos_hint: {'top': 1, 'x': 0.25}
+
+        Label:
+            text: 'Log in'
+            font_size: 30
+            size_hint: 0.2, 0.2
+            pos_hint: {'top': 0.875, 'x': 0.2}
+
+        Label:
+            text: 'User Name'
+            font_size: 20
+            color: 0, 0, 0, 1
+            size_hint: 0.3, 0.2
+            pos_hint: {'top': 0.78, 'x': 0.171}
+
+        TextInput:
+            multiline: False
+            size_hint: 0.42, 0.05
+            pos_hint: {'top': 0.66, 'x': 0.289}
+
+        Label:
+            text: 'Password'
+            font_size: 20
+            color: 0, 0, 0, 1
+            size_hint: 0.3, 0.2
+            pos_hint: {'top': 0.63, 'x': 0.168}
+
+        TextInput:
+            multiline: False
+            size_hint: 0.42, 0.07
+            pos_hint: {'top': 0.50, 'x': 0.289}
+
+        Label:
+            text: 'Email'
+            font_size: 20
+            color: 0, 0, 0, 1
+            size_hint: 0.3, 0.2
+            pos_hint: {'top': 0.48, 'x': 0.155}
+
+        TextInput:
+            multiline: False
+            size_hint: 0.42, 0.07
+            pos_hint: {'top': 0.36, 'x': 0.289}
+
+
+<Dashboard>:
+    name: 'dashs'
+
+    FloatLayout:
+
