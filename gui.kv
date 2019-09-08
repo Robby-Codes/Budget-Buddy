@@ -95,6 +95,8 @@ WindowManager:
             font_size: 15
             size_hint: 0.05, 0.05
             pos_hint: {'top': 0.45, 'x': 0.55}
+            on_release:
+                app.root.current = 'dashboards'
 
         Button:
             text: 'Forgot?'
@@ -328,7 +330,120 @@ WindowManager:
                 exit()
 
 <Dashboard>:
-    name: 'dashs'
+    name: 'dashboards'
 
     FloatLayout:
 
+        Label:
+            canvas:
+                Color:
+                    rgb: 0.6, 0.6, 0.6, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+        Label:
+            canvas:
+                Color:
+                    rgb: 0, 0, 0, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            size_hint: 1, 0.03
+            pos_hint: {'top': 1}
+
+        Label:
+            canvas:
+                Color:
+                    rgb: 0, 0.5, 0, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            size_hint: 1, 0.05
+            pos_hint: {'top': 0.97}
+
+        Label:
+            canvas:
+                Color:
+                    rgb: 0, 0, 0, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            size_hint: 1, 0.05
+
+        Label:
+            text: 'Dashboard - Budget Buddy'
+            font_size: 15
+            size_hint: 0.1, 0.03
+            pos_hint: {'top': 1, 'x': 0.45}
+
+        Label:
+            text: 'Budgeting'
+            font_size: 20
+            size_hint: 0.1, 0.05
+            pos_hint: {'top': 0.97, 'x': 0.125}
+
+        Label:
+            text: 'Spending'
+            font_size: 20
+            size_hint: 0.1, 0.05
+            pos_hint: {'top': 0.97, 'x': 0.45}
+
+        Label:
+            text: 'Log New Transactions'
+            font_size: 20
+            size_hint: 0.1, 0.05
+            pos_hint: {'top': 0.97, 'x': 0.78}
+
+        Button:
+            text: 'X'
+            size_hint: 0.03, 0.03
+            pos_hint: {'top': 1, 'x': 0.97}
+            background_color: 0.95, 0, 0, 1
+            on_release:
+                exit()
+
+        FloatLayout:
+            canvas:
+                Color:
+                    rgb: 1, 1, 1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            size_hint: 0.32, 0.87
+            pos_hint: {'top': 0.92, 'x': 0.01}
+            
+            ScrollView:
+                size_hint: 0.98, 1
+                pos_hint: {'top': 1, 'x': 0.02}
+                do_scroll_x: False
+                do_scroll_y: True
+                bar_width: 4
+                Label:
+                    text: 'Groceries'
+                    color: 0, 0, 0, 1
+                    font_size: 30
+                    size_hint_x: 1
+                    size_hint_y: None
+                    text_size: self.width, None
+                    height: self.texture_size[1]
+
+        FloatLayout:
+            canvas:
+                Color:
+                    rgb: 1, 1, 1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            size_hint: 0.32, 0.87
+            pos_hint: {'top': 0.92, 'x': 0.34}
+
+        FloatLayout:
+            canvas:
+                Color:
+                    rgb: 1, 1, 1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            size_hint: 0.32, 0.87
+            pos_hint: {'top': 0.92, 'x': 0.67}
