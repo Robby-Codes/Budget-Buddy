@@ -419,14 +419,43 @@ WindowManager:
                 do_scroll_x: False
                 do_scroll_y: True
                 bar_width: 4
-                Label:
-                    text: 'Groceries'
-                    color: 0, 0, 0, 1
-                    font_size: 30
-                    size_hint_x: 1
+                bar_color: 0, 0, 0, 1
+
+                GridLayout:
+                    size_hint_x: 0.97
                     size_hint_y: None
-                    text_size: self.width, None
-                    height: self.texture_size[1]
+                    cols: 2
+                    row_default_height: root.height*0.04
+                    height: self.minimum_height
+
+                    Label:
+                        text: 'Groceries'
+                        font_size: 30
+                        color: 0, 0, 0, 1
+                        text_size: self.size
+                        halign: 'left'
+
+                    Label:
+                        text: '$46.88'
+                        font_size: 25
+                        color: 0, 0, 0, 1
+                        text_size: self.size
+                        halign: 'right'
+
+                    ProgressBar:
+                        min: 0
+                        max: 1000
+                        value: 250
+                        bar_color: 1, 0, 0, 1
+
+                    Label:
+                        text: '$1000.00'
+                        color: 0.3, 0.3, 0.3, 1
+                        text_size: self.size
+                        halign: 'right'
+                        valign: 'top'
+
+
 
         FloatLayout:
             canvas:
