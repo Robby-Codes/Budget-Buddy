@@ -9,6 +9,7 @@ WindowManager:
     ForgotScreen:
     DashboardScreen:
 
+
 <LoginScreen>:
     name: 'logins'
 
@@ -395,7 +396,7 @@ WindowManager:
             font_size: 20
             size_hint: 0.1, 0.05
             pos_hint: {'top': 0.97, 'x': 0.78}
-
+            
         Button:
             text: 'X'
             size_hint: 0.03, 0.03
@@ -444,17 +445,18 @@ WindowManager:
                         halign: 'right'
 
                     ProgressBar:
+                        id: freetousebar
                         min: 0
-                        max: 1000
-                        value: 250
-                        bar_color: 1, 0, 0, 1
 
-                    Label:
-                        text: ''
+                    TextInput:
+                        id: freetouse
+                        multiline: False
                         color: 0.3, 0.3, 0.3, 1
                         text_size: self.size
                         halign: 'right'
                         valign: 'top'
+                        on_text_validate:
+                            freetousebar.max = freetouse.text if freetouse.text != '' and func.new_budget_check(freetouse.text) else freetousebar.max
 
                     Label:
                         text: 'Utilities'
@@ -471,17 +473,18 @@ WindowManager:
                         halign: 'right'
 
                     ProgressBar:
+                        id: utilitiesbar
                         min: 0
-                        max: 1000
-                        value: 250
-                        bar_color: 1, 0, 0, 1
 
-                    Label:
-                        text: ''
+                    TextInput:
+                        id: utilities
+                        multiline: False
                         color: 0.3, 0.3, 0.3, 1
                         text_size: self.size
                         halign: 'right'
                         valign: 'top'
+                        on_text_validate:
+                            utilitiesbar.max = utilities.text if utilities.text != '' and func.new_budget_check(utilities.text) else utilitiesbar.max
 
                     Label:
                         text: 'Groceries'
@@ -498,18 +501,19 @@ WindowManager:
                         halign: 'right'
 
                     ProgressBar:
+                        id: groceriesbar
                         min: 0
-                        max: 1000
-                        value: 250
-                        bar_color: 1, 0, 0, 1
 
-                    Label:
-                        text: ''
+                    TextInput:
+                        id: groceries
+                        multiline: False
                         color: 0.3, 0.3, 0.3, 1
                         text_size: self.size
                         halign: 'right'
                         valign: 'top'
-                    
+                        on_text_validate:
+                            groceriesbar.max = groceries.text if groceries.text != '' and func.new_budget_check(groceries.text) else groceriesbar.max
+
                     Label:
                         text: 'Internet'
                         font_size: 30
@@ -525,17 +529,18 @@ WindowManager:
                         halign: 'right'
 
                     ProgressBar:
+                        id: internetbar
                         min: 0
-                        max: 1000
-                        value: 250
-                        bar_color: 1, 0, 0, 1
 
-                    Label:
-                        text: ''
+                    TextInput:
+                        id: internet
+                        multiline: False
                         color: 0.3, 0.3, 0.3, 1
                         text_size: self.size
                         halign: 'right'
                         valign: 'top'
+                        on_text_validate:
+                            internetbar.max = internet.text if internet.text != '' and func.new_budget_check(internet.text) else internetbar.max
 
                     Label:
                         text: 'Cell Phone'
@@ -552,17 +557,18 @@ WindowManager:
                         halign: 'right'
 
                     ProgressBar:
+                        id: cellphonebar
                         min: 0
-                        max: 1000
-                        value: 250
-                        bar_color: 1, 0, 0, 1
 
-                    Label:
-                        text: ''
+                    TextInput:
+                        id: cellphone
+                        multiline: False
                         color: 0.3, 0.3, 0.3, 1
                         text_size: self.size
                         halign: 'right'
                         valign: 'top'
+                        on_text_validate:
+                            cellphonebar.max = cellphone.text if cellphone.text != '' and func.new_budget_check(cellphone.text) else cellphonebar.max
 
                     Label:
                         text: 'Gas'
@@ -579,17 +585,18 @@ WindowManager:
                         halign: 'right'
 
                     ProgressBar:
+                        id: gasbar
                         min: 0
-                        max: 1000
-                        value: 250
-                        bar_color: 1, 0, 0, 1
 
-                    Label:
-                        text: ''
+                    TextInput:
+                        id: gas
+                        multiline: False
                         color: 0.3, 0.3, 0.3, 1
                         text_size: self.size
                         halign: 'right'
                         valign: 'top'
+                        on_text_validate:
+                            gasbar.max = gas.text if gas.text != '' and func.new_budget_check(gas.text) else gasbar.max
 
                     Label:
                         text: 'Rent'
@@ -606,17 +613,18 @@ WindowManager:
                         halign: 'right'
 
                     ProgressBar:
+                        id: rentbar
                         min: 0
-                        max: 1000
-                        value: 250
-                        bar_color: 1, 0, 0, 1
 
-                    Label:
-                        text: ''
+                    TextInput:
+                        id: rent
+                        multiline: False
                         color: 0.3, 0.3, 0.3, 1
                         text_size: self.size
                         halign: 'right'
                         valign: 'top'
+                        on_text_validate:
+                            rentbar.max = rent.text if rent.text != '' and func.new_budget_check(rent.text) else rentbar.max
 
                     Label:
                         text: 'Bank Account'
@@ -633,17 +641,18 @@ WindowManager:
                         halign: 'right'
 
                     ProgressBar:
+                        id: bankaccountbar
                         min: 0
-                        max: 1000
-                        value: 250
-                        bar_color: 1, 0, 0, 1
 
-                    Label:
-                        text: ''
+                    TextInput:
+                        id: bankaccount
+                        multiline: False
                         color: 0.3, 0.3, 0.3, 1
                         text_size: self.size
                         halign: 'right'
                         valign: 'top'
+                        on_text_validate:
+                            bankaccountbar.max = bankaccount.text if bankaccount.text != '' and func.new_budget_check(bankaccount.text) else bankaccountbar.max
 
                     Label:
                         text: 'Car Insurance'
@@ -660,17 +669,18 @@ WindowManager:
                         halign: 'right'
 
                     ProgressBar:
+                        id: carinsbar
                         min: 0
-                        max: 1000
-                        value: 250
-                        bar_color: 1, 0, 0, 1
 
-                    Label:
-                        text: ''
+                    TextInput:
+                        id: carins
+                        multiline: False
                         color: 0.3, 0.3, 0.3, 1
                         text_size: self.size
                         halign: 'right'
                         valign: 'top'
+                        on_text_validate:
+                            carinsbar.max = carins.text if carins.text != '' and func.new_budget_check(carins.text) else carinsbar.max
 
                     Label:
                         text: 'Health Insurance'
@@ -687,17 +697,18 @@ WindowManager:
                         halign: 'right'
 
                     ProgressBar:
+                        id: healthinsbar
                         min: 0
-                        max: 1000
-                        value: 250
-                        bar_color: 1, 0, 0, 1
 
-                    Label:
-                        text: ''
+                    TextInput:
+                        id: healthins
+                        multiline: False
                         color: 0.3, 0.3, 0.3, 1
                         text_size: self.size
                         halign: 'right'
                         valign: 'top'
+                        on_text_validate:
+                            healthinsbar.max = healthins.text if healthins.text != '' and func.new_budget_check(healthins.text) else healthinsbar.max
 
                     Label:
                         text: 'Other (unexpected)'
@@ -714,17 +725,19 @@ WindowManager:
                         halign: 'right'
 
                     ProgressBar:
+                        id: otherbar
                         min: 0
-                        max: 1000
-                        value: 250
-                        bar_color: 1, 0, 0, 1
 
-                    Label:
-                        text: ''
+                    TextInput:
+                        id: other
+                        multiline: False
                         color: 0.3, 0.3, 0.3, 1
                         text_size: self.size
                         halign: 'right'
                         valign: 'top'
+                        on_text_validate:
+                            otherbar.max = other.text if other.text != '' and func.new_budget_check(other.text) else otherbar.max
+
 
         FloatLayout:
             canvas:
@@ -745,3 +758,4 @@ WindowManager:
                     size: self.size
             size_hint: 0.32, 0.87
             pos_hint: {'top': 0.92, 'x': 0.67}
+
