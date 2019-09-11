@@ -16,7 +16,7 @@ class ForgotScreen(Screen):
     pass
 
 
-class Dashboard(Screen):
+class DashboardScreen(Screen):
     pass
 
 

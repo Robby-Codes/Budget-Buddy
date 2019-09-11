@@ -1,3 +1,4 @@
+#:import func functionality
 #:import NoTransition kivy.uix.screenmanager.NoTransition
 
 
@@ -6,7 +7,7 @@ WindowManager:
     LoginScreen:
     NewAccountScreen:
     ForgotScreen:
-    Dashboard:
+    DashboardScreen:
 
 <LoginScreen>:
     name: 'logins'
@@ -329,7 +330,7 @@ WindowManager:
             on_release:
                 exit()
 
-<Dashboard>:
+<DashboardScreen>:
     name: 'dashboards'
 
     FloatLayout:
@@ -425,18 +426,18 @@ WindowManager:
                     size_hint_x: 0.97
                     size_hint_y: None
                     cols: 2
-                    row_default_height: root.height*0.04
+                    row_default_height: root.height*0.05
                     height: self.minimum_height
 
                     Label:
-                        text: 'Groceries'
+                        text: 'Free To Use'
                         font_size: 30
                         color: 0, 0, 0, 1
                         text_size: self.size
                         halign: 'left'
 
                     Label:
-                        text: '$46.88'
+                        text: ''
                         font_size: 25
                         color: 0, 0, 0, 1
                         text_size: self.size
@@ -449,13 +450,281 @@ WindowManager:
                         bar_color: 1, 0, 0, 1
 
                     Label:
-                        text: '$1000.00'
+                        text: ''
                         color: 0.3, 0.3, 0.3, 1
                         text_size: self.size
                         halign: 'right'
                         valign: 'top'
 
+                    Label:
+                        text: 'Utilities'
+                        font_size: 30
+                        color: 0, 0, 0, 1
+                        text_size: self.size
+                        halign: 'left'
 
+                    Label:
+                        text: ''
+                        font_size: 25
+                        color: 0, 0, 0, 1
+                        text_size: self.size
+                        halign: 'right'
+
+                    ProgressBar:
+                        min: 0
+                        max: 1000
+                        value: 250
+                        bar_color: 1, 0, 0, 1
+
+                    Label:
+                        text: ''
+                        color: 0.3, 0.3, 0.3, 1
+                        text_size: self.size
+                        halign: 'right'
+                        valign: 'top'
+
+                    Label:
+                        text: 'Groceries'
+                        font_size: 30
+                        color: 0, 0, 0, 1
+                        text_size: self.size
+                        halign: 'left'
+
+                    Label:
+                        text: ''
+                        font_size: 25
+                        color: 0, 0, 0, 1
+                        text_size: self.size
+                        halign: 'right'
+
+                    ProgressBar:
+                        min: 0
+                        max: 1000
+                        value: 250
+                        bar_color: 1, 0, 0, 1
+
+                    Label:
+                        text: ''
+                        color: 0.3, 0.3, 0.3, 1
+                        text_size: self.size
+                        halign: 'right'
+                        valign: 'top'
+                    
+                    Label:
+                        text: 'Internet'
+                        font_size: 30
+                        color: 0, 0, 0, 1
+                        text_size: self.size
+                        halign: 'left'
+
+                    Label:
+                        text: ''
+                        font_size: 25
+                        color: 0, 0, 0, 1
+                        text_size: self.size
+                        halign: 'right'
+
+                    ProgressBar:
+                        min: 0
+                        max: 1000
+                        value: 250
+                        bar_color: 1, 0, 0, 1
+
+                    Label:
+                        text: ''
+                        color: 0.3, 0.3, 0.3, 1
+                        text_size: self.size
+                        halign: 'right'
+                        valign: 'top'
+
+                    Label:
+                        text: 'Cell Phone'
+                        font_size: 30
+                        color: 0, 0, 0, 1
+                        text_size: self.size
+                        halign: 'left'
+
+                    Label:
+                        text: ''
+                        font_size: 25
+                        color: 0, 0, 0, 1
+                        text_size: self.size
+                        halign: 'right'
+
+                    ProgressBar:
+                        min: 0
+                        max: 1000
+                        value: 250
+                        bar_color: 1, 0, 0, 1
+
+                    Label:
+                        text: ''
+                        color: 0.3, 0.3, 0.3, 1
+                        text_size: self.size
+                        halign: 'right'
+                        valign: 'top'
+
+                    Label:
+                        text: 'Gas'
+                        font_size: 30
+                        color: 0, 0, 0, 1
+                        text_size: self.size
+                        halign: 'left'
+
+                    Label:
+                        text: ''
+                        font_size: 25
+                        color: 0, 0, 0, 1
+                        text_size: self.size
+                        halign: 'right'
+
+                    ProgressBar:
+                        min: 0
+                        max: 1000
+                        value: 250
+                        bar_color: 1, 0, 0, 1
+
+                    Label:
+                        text: ''
+                        color: 0.3, 0.3, 0.3, 1
+                        text_size: self.size
+                        halign: 'right'
+                        valign: 'top'
+
+                    Label:
+                        text: 'Rent'
+                        font_size: 30
+                        color: 0, 0, 0, 1
+                        text_size: self.size
+                        halign: 'left'
+
+                    Label:
+                        text: ''
+                        font_size: 25
+                        color: 0, 0, 0, 1
+                        text_size: self.size
+                        halign: 'right'
+
+                    ProgressBar:
+                        min: 0
+                        max: 1000
+                        value: 250
+                        bar_color: 1, 0, 0, 1
+
+                    Label:
+                        text: ''
+                        color: 0.3, 0.3, 0.3, 1
+                        text_size: self.size
+                        halign: 'right'
+                        valign: 'top'
+
+                    Label:
+                        text: 'Bank Account'
+                        font_size: 30
+                        color: 0, 0, 0, 1
+                        text_size: self.size
+                        halign: 'left'
+
+                    Label:
+                        text: ''
+                        font_size: 25
+                        color: 0, 0, 0, 1
+                        text_size: self.size
+                        halign: 'right'
+
+                    ProgressBar:
+                        min: 0
+                        max: 1000
+                        value: 250
+                        bar_color: 1, 0, 0, 1
+
+                    Label:
+                        text: ''
+                        color: 0.3, 0.3, 0.3, 1
+                        text_size: self.size
+                        halign: 'right'
+                        valign: 'top'
+
+                    Label:
+                        text: 'Car Insurance'
+                        font_size: 30
+                        color: 0, 0, 0, 1
+                        text_size: self.size
+                        halign: 'left'
+
+                    Label:
+                        text: ''
+                        font_size: 25
+                        color: 0, 0, 0, 1
+                        text_size: self.size
+                        halign: 'right'
+
+                    ProgressBar:
+                        min: 0
+                        max: 1000
+                        value: 250
+                        bar_color: 1, 0, 0, 1
+
+                    Label:
+                        text: ''
+                        color: 0.3, 0.3, 0.3, 1
+                        text_size: self.size
+                        halign: 'right'
+                        valign: 'top'
+
+                    Label:
+                        text: 'Health Insurance'
+                        font_size: 30
+                        color: 0, 0, 0, 1
+                        text_size: self.size
+                        halign: 'left'
+
+                    Label:
+                        text: ''
+                        font_size: 25
+                        color: 0, 0, 0, 1
+                        text_size: self.size
+                        halign: 'right'
+
+                    ProgressBar:
+                        min: 0
+                        max: 1000
+                        value: 250
+                        bar_color: 1, 0, 0, 1
+
+                    Label:
+                        text: ''
+                        color: 0.3, 0.3, 0.3, 1
+                        text_size: self.size
+                        halign: 'right'
+                        valign: 'top'
+
+                    Label:
+                        text: 'Other (unexpected)'
+                        font_size: 20
+                        color: 0, 0, 0, 1
+                        text_size: self.size
+                        halign: 'left'
+
+                    Label:
+                        text: ''
+                        font_size: 25
+                        color: 0, 0, 0, 1
+                        text_size: self.size
+                        halign: 'right'
+
+                    ProgressBar:
+                        min: 0
+                        max: 1000
+                        value: 250
+                        bar_color: 1, 0, 0, 1
+
+                    Label:
+                        text: ''
+                        color: 0.3, 0.3, 0.3, 1
+                        text_size: self.size
+                        halign: 'right'
+                        valign: 'top'
 
         FloatLayout:
             canvas:
