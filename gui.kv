@@ -67,6 +67,7 @@ WindowManager:
             pos_hint: {'top': 0.78, 'x': 0.26}
 
         TextInput:
+            id: username
             multiline: False
             size_hint: 0.22, 0.04
             pos_hint: {'top': 0.66, 'x': 0.378}
@@ -79,6 +80,7 @@ WindowManager:
             pos_hint: {'top': 0.66, 'x': 0.256}
 
         TextInput:
+            id: password
             multiline: False
             size_hint: 0.22, 0.04
             pos_hint: {'top': 0.54, 'x': 0.378}
@@ -98,7 +100,7 @@ WindowManager:
             size_hint: 0.05, 0.05
             pos_hint: {'top': 0.45, 'x': 0.55}
             on_release:
-                app.root.current = 'dashboards'
+                app.root.current = 'dashboards' if func.log_in(username.text, password.text) else app.root.current
 
         Button:
             text: 'Forgot?'
@@ -194,6 +196,7 @@ WindowManager:
             pos_hint: {'top': 0.78, 'x': 0.26}
 
         TextInput:
+            id: username
             multiline: False
             size_hint: 0.22, 0.04
             pos_hint: {'top': 0.66, 'x': 0.378}
@@ -206,6 +209,7 @@ WindowManager:
             pos_hint: {'top': 0.66, 'x': 0.256}
 
         TextInput:
+            id: password
             multiline: False
             size_hint: 0.22, 0.04
             pos_hint: {'top': 0.42, 'x': 0.378}
@@ -219,6 +223,7 @@ WindowManager:
             pos_hint: {'top': 0.54, 'x': 0.244}
 
         TextInput:
+            id: email
             multiline: False
             size_hint: 0.22, 0.04
             pos_hint: {'top': 0.54, 'x': 0.378}
@@ -238,7 +243,7 @@ WindowManager:
             size_hint: 0.05, 0.05
             pos_hint: {'top': 0.3, 'x': 0.378}
             on_release:
-                app.root.current = 'logins'
+                app.root.current = 'logins' if func.new_account(username.text, password.text, email.text) else app.root.current
 
         Button:
             text: 'X'
@@ -447,6 +452,7 @@ WindowManager:
                     ProgressBar:
                         id: freetousebar
                         min: 0
+                        value: 50
 
                     TextInput:
                         id: freetouse
