@@ -213,6 +213,12 @@ WindowManager:
             multiline: False
             size_hint: 0.22, 0.04
             pos_hint: {'top': 0.42, 'x': 0.378}
+
+        TextInput:
+            id: password
+            multiline: False
+            size_hint: 0.22, 0.04
+            pos_hint: {'top': 0.54, 'x': 0.378}
             password: True
 
         Label:
@@ -226,8 +232,7 @@ WindowManager:
             id: email
             multiline: False
             size_hint: 0.22, 0.04
-            pos_hint: {'top': 0.54, 'x': 0.378}
-            password: True
+            pos_hint: {'top': 0.42, 'x': 0.378}
 
         Button:
             text: 'Done'
@@ -235,7 +240,7 @@ WindowManager:
             size_hint: 0.05, 0.05
             pos_hint: {'top': 0.3, 'x': 0.55}
             on_release:
-                app.root.current = 'logins'
+                app.root.current = 'logins' if func.new_account(username.text, password.text, email.text) else 'newas'
 
         Button:
             text: 'Back'
@@ -243,7 +248,7 @@ WindowManager:
             size_hint: 0.05, 0.05
             pos_hint: {'top': 0.3, 'x': 0.378}
             on_release:
-                app.root.current = 'logins' if func.new_account(username.text, password.text, email.text) else app.root.current
+                app.root.current = 'logins'
 
         Button:
             text: 'X'
@@ -453,16 +458,18 @@ WindowManager:
                         id: freetousebar
                         min: 0
                         value: 50
+                        max: eval(freetouse.text)
 
                     TextInput:
                         id: freetouse
                         multiline: False
+                        text: func.remember_budget('FreeToUse')
                         color: 0.3, 0.3, 0.3, 1
                         text_size: self.size
                         halign: 'right'
                         valign: 'top'
                         on_text_validate:
-                            freetousebar.max = freetouse.text if freetouse.text != '' and func.new_budget_check(freetouse.text) else freetousebar.max
+                            freetousebar.max = freetouse.text if freetouse.text != '' and func.new_budget_check('FreeToUse', freetouse.text) else freetousebar.max
 
                     Label:
                         text: 'Utilities'
@@ -481,16 +488,18 @@ WindowManager:
                     ProgressBar:
                         id: utilitiesbar
                         min: 0
+                        max: eval(utilities.text)
 
                     TextInput:
                         id: utilities
                         multiline: False
+                        text: func.remember_budget('Utilities')
                         color: 0.3, 0.3, 0.3, 1
                         text_size: self.size
                         halign: 'right'
                         valign: 'top'
                         on_text_validate:
-                            utilitiesbar.max = utilities.text if utilities.text != '' and func.new_budget_check(utilities.text) else utilitiesbar.max
+                            utilitiesbar.max = utilities.text if utilities.text != '' and func.new_budget_check('Utilities', utilities.text) else utilitiesbar.max
 
                     Label:
                         text: 'Groceries'
@@ -509,16 +518,18 @@ WindowManager:
                     ProgressBar:
                         id: groceriesbar
                         min: 0
+                        max: eval(groceries.text)
 
                     TextInput:
                         id: groceries
                         multiline: False
+                        text: func.remember_budget('Groceries')
                         color: 0.3, 0.3, 0.3, 1
                         text_size: self.size
                         halign: 'right'
                         valign: 'top'
                         on_text_validate:
-                            groceriesbar.max = groceries.text if groceries.text != '' and func.new_budget_check(groceries.text) else groceriesbar.max
+                            groceriesbar.max = groceries.text if groceries.text != '' and func.new_budget_check('Groceries', groceries.text) else groceriesbar.max
 
                     Label:
                         text: 'Internet'
@@ -537,16 +548,18 @@ WindowManager:
                     ProgressBar:
                         id: internetbar
                         min: 0
+                        max: eval(internet.text)
 
                     TextInput:
                         id: internet
                         multiline: False
+                        text: func.remember_budget('Internet')
                         color: 0.3, 0.3, 0.3, 1
                         text_size: self.size
                         halign: 'right'
                         valign: 'top'
                         on_text_validate:
-                            internetbar.max = internet.text if internet.text != '' and func.new_budget_check(internet.text) else internetbar.max
+                            internetbar.max = internet.text if internet.text != '' and func.new_budget_check('Internet', internet.text) else internetbar.max
 
                     Label:
                         text: 'Cell Phone'
@@ -565,16 +578,18 @@ WindowManager:
                     ProgressBar:
                         id: cellphonebar
                         min: 0
+                        max: eval(cellphone.text)
 
                     TextInput:
                         id: cellphone
                         multiline: False
+                        text: func.remember_budget('CellPhone')
                         color: 0.3, 0.3, 0.3, 1
                         text_size: self.size
                         halign: 'right'
                         valign: 'top'
                         on_text_validate:
-                            cellphonebar.max = cellphone.text if cellphone.text != '' and func.new_budget_check(cellphone.text) else cellphonebar.max
+                            cellphonebar.max = cellphone.text if cellphone.text != '' and func.new_budget_check('CellPhone', cellphone.text) else cellphonebar.max
 
                     Label:
                         text: 'Gas'
@@ -593,16 +608,18 @@ WindowManager:
                     ProgressBar:
                         id: gasbar
                         min: 0
+                        max: eval(gas.text)
 
                     TextInput:
                         id: gas
                         multiline: False
+                        text: func.remember_budget('Gas')
                         color: 0.3, 0.3, 0.3, 1
                         text_size: self.size
                         halign: 'right'
                         valign: 'top'
                         on_text_validate:
-                            gasbar.max = gas.text if gas.text != '' and func.new_budget_check(gas.text) else gasbar.max
+                            gasbar.max = gas.text if gas.text != '' and func.new_budget_check('Gas', gas.text) else gasbar.max
 
                     Label:
                         text: 'Rent'
@@ -621,16 +638,18 @@ WindowManager:
                     ProgressBar:
                         id: rentbar
                         min: 0
+                        max: eval(rent.text)
 
                     TextInput:
                         id: rent
                         multiline: False
+                        text: func.remember_budget('Rent')
                         color: 0.3, 0.3, 0.3, 1
                         text_size: self.size
                         halign: 'right'
                         valign: 'top'
                         on_text_validate:
-                            rentbar.max = rent.text if rent.text != '' and func.new_budget_check(rent.text) else rentbar.max
+                            rentbar.max = rent.text if rent.text != '' and func.new_budget_check('Rent', rent.text) else rentbar.max
 
                     Label:
                         text: 'Bank Account'
@@ -649,16 +668,18 @@ WindowManager:
                     ProgressBar:
                         id: bankaccountbar
                         min: 0
+                        max: eval(bankaccount.text)
 
                     TextInput:
                         id: bankaccount
                         multiline: False
+                        text: func.remember_budget('BankAccount')
                         color: 0.3, 0.3, 0.3, 1
                         text_size: self.size
                         halign: 'right'
                         valign: 'top'
                         on_text_validate:
-                            bankaccountbar.max = bankaccount.text if bankaccount.text != '' and func.new_budget_check(bankaccount.text) else bankaccountbar.max
+                            bankaccountbar.max = bankaccount.text if bankaccount.text != '' and func.new_budget_check('BankAccount', bankaccount.text) else bankaccountbar.max
 
                     Label:
                         text: 'Car Insurance'
@@ -677,16 +698,18 @@ WindowManager:
                     ProgressBar:
                         id: carinsbar
                         min: 0
+                        max: eval(carins.text)
 
                     TextInput:
                         id: carins
                         multiline: False
+                        text: func.remember_budget('CarInsurance')
                         color: 0.3, 0.3, 0.3, 1
                         text_size: self.size
                         halign: 'right'
                         valign: 'top'
                         on_text_validate:
-                            carinsbar.max = carins.text if carins.text != '' and func.new_budget_check(carins.text) else carinsbar.max
+                            carinsbar.max = carins.text if carins.text != '' and func.new_budget_check('CarInsurance', carins.text) else carinsbar.max
 
                     Label:
                         text: 'Health Insurance'
@@ -705,16 +728,18 @@ WindowManager:
                     ProgressBar:
                         id: healthinsbar
                         min: 0
+                        max: eval(healthins.text)
 
                     TextInput:
                         id: healthins
                         multiline: False
+                        text: func.remember_budget('HealthInsurance')
                         color: 0.3, 0.3, 0.3, 1
                         text_size: self.size
                         halign: 'right'
                         valign: 'top'
                         on_text_validate:
-                            healthinsbar.max = healthins.text if healthins.text != '' and func.new_budget_check(healthins.text) else healthinsbar.max
+                            healthinsbar.max = healthins.text if healthins.text != '' and func.new_budget_check('HealthInsurance', healthins.text) else healthinsbar.max
 
                     Label:
                         text: 'Other (unexpected)'
@@ -733,16 +758,18 @@ WindowManager:
                     ProgressBar:
                         id: otherbar
                         min: 0
+                        max: eval(other.text)
 
                     TextInput:
                         id: other
                         multiline: False
+                        text: func.remember_budget('Other')
                         color: 0.3, 0.3, 0.3, 1
                         text_size: self.size
                         halign: 'right'
                         valign: 'top'
                         on_text_validate:
-                            otherbar.max = other.text if other.text != '' and func.new_budget_check(other.text) else otherbar.max
+                            otherbar.max = other.text if other.text != '' and func.new_budget_check('Other', other.text) else otherbar.max
 
 
         FloatLayout:
