@@ -457,8 +457,7 @@ WindowManager:
                     ProgressBar:
                         id: freetousebar
                         min: 0
-                        value: 50
-                        max: eval(freetouse.text)
+                        max: eval(func.remember_budget('FreeToUse'))
 
                     TextInput:
                         id: freetouse
@@ -488,7 +487,7 @@ WindowManager:
                     ProgressBar:
                         id: utilitiesbar
                         min: 0
-                        max: eval(utilities.text)
+                        max: eval(func.remember_budget('Utilities'))
 
                     TextInput:
                         id: utilities
@@ -518,7 +517,7 @@ WindowManager:
                     ProgressBar:
                         id: groceriesbar
                         min: 0
-                        max: eval(groceries.text)
+                        max: eval(func.remember_budget('Groceries'))
 
                     TextInput:
                         id: groceries
@@ -548,7 +547,7 @@ WindowManager:
                     ProgressBar:
                         id: internetbar
                         min: 0
-                        max: eval(internet.text)
+                        max: eval(func.remember_budget('Internet'))
 
                     TextInput:
                         id: internet
@@ -578,7 +577,7 @@ WindowManager:
                     ProgressBar:
                         id: cellphonebar
                         min: 0
-                        max: eval(cellphone.text)
+                        max: eval(func.remember_budget('CellPhone'))
 
                     TextInput:
                         id: cellphone
@@ -608,7 +607,7 @@ WindowManager:
                     ProgressBar:
                         id: gasbar
                         min: 0
-                        max: eval(gas.text)
+                        max: eval(func.remember_budget('Gas'))
 
                     TextInput:
                         id: gas
@@ -638,7 +637,7 @@ WindowManager:
                     ProgressBar:
                         id: rentbar
                         min: 0
-                        max: eval(rent.text)
+                        max: eval(func.remember_budget('Rent'))
 
                     TextInput:
                         id: rent
@@ -668,7 +667,7 @@ WindowManager:
                     ProgressBar:
                         id: bankaccountbar
                         min: 0
-                        max: eval(bankaccount.text)
+                        max: eval(func.remember_budget('BankAccount'))
 
                     TextInput:
                         id: bankaccount
@@ -698,7 +697,7 @@ WindowManager:
                     ProgressBar:
                         id: carinsbar
                         min: 0
-                        max: eval(carins.text)
+                        max: eval(func.remember_budget('CarInsurance'))
 
                     TextInput:
                         id: carins
@@ -728,7 +727,7 @@ WindowManager:
                     ProgressBar:
                         id: healthinsbar
                         min: 0
-                        max: eval(healthins.text)
+                        max: eval(func.remember_budget('HealthInsurance'))
 
                     TextInput:
                         id: healthins
@@ -758,7 +757,7 @@ WindowManager:
                     ProgressBar:
                         id: otherbar
                         min: 0
-                        max: eval(other.text)
+                        max: eval(func.remember_budget('Other'))
 
                     TextInput:
                         id: other
@@ -770,6 +769,13 @@ WindowManager:
                         valign: 'top'
                         on_text_validate:
                             otherbar.max = other.text if other.text != '' and func.new_budget_check('Other', other.text) else otherbar.max
+
+                    Label:
+                        text: ''
+                        font_size: 25
+                        color: 0, 0, 0, 1
+                        text_size: self.size
+                        halign: 'right'
 
 
         FloatLayout:
