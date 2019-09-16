@@ -1,3 +1,5 @@
+import datetime
+import matplotlib.pyplot as plt
 import pickle
 import re
 
@@ -8,6 +10,7 @@ def new_account(name, password, email):
             re.match(r'^[a-zA-Z1-9]+@[a-zA-Z1-9]+\.[a-z]+$', email)):
         Budget_Data = pickle.load(open('storage.dat', 'rb'))
         Budget_Data = {
+            'income': 1000,
             name: {
                 password: {
                     'Budget_Data': {
@@ -62,3 +65,55 @@ def remember_budget(category):
     current_name = remember['current'][0]
     current_pass = remember['current'][1]
     return remember[current_name][current_pass]['Budget_Data'][category][0]
+
+
+def date_range():
+    today = datetime.date.today()
+    the_first = today.strftime('%B 1, %Y')
+    today = today.strftime('%B %d, %Y')
+    print(the_first, '-', today)
+
+
+def calc_savings():
+    data = pickle.load(open('storage.dat', 'rb'))
+    name = data['current'][0]
+    passw = data['current'][1]
+    income = data['income']
+    spending = eval(
+        data[name][passw]['Budget_Data']['FreeToUse'][0]
+        + '+' + data[name][passw]['Budget_Data']['Utilities'][0]
+        + '+' + data[name][passw]['Budget_Data']['Groceries'][0]
+        + '+' + data[name][passw]['Budget_Data']['Internet'][0]
+        + '+' + data[name][passw]['Budget_Data']['CellPhone'][0]
+        + '+' + data[name][passw]['Budget_Data']['Gas'][0]
+        + '+' + data[name][passw]['Budget_Data']['Rent'][0]
+        + '+' + data[name][passw]['Budget_Data']['BankAccount'][0]
+        + '+' + data[name][passw]['Budget_Data']['CarInsurance'][0]
+        + '+' + data[name][passw]['Budget_Data']['HealthInsurance'][0]
+        + '+' + data[name][passw]['Budget_Data']['Other'][0]
+    )
+    return income - spending
+
+
+def pie_chart():
+    data = pickle.load(open('storage.dat', 'rb'))
+    name = data['current'][0]
+    passw = data['current'][1]
+    spending = [
+        str(calc_savings()),
+        data[name][passw]['Budget_Data']['FreeToUse'][0],
+        data[name][passw]['Budget_Data']['Utilities'][0],
+        data[name][passw]['Budget_Data']['Groceries'][0],
+        data[name][passw]['Budget_Data']['Internet'][0],
+        data[name][passw]['Budget_Data']['CellPhone'][0],
+        data[name][passw]['Budget_Data']['Gas'][0],
+        data[name][passw]['Budget_Data']['Rent'][0],
+        data[name][passw]['Budget_Data']['BankAccount'][0],
+        data[name][passw]['Budget_Data']['CarInsurance'][0],
+        data[name][passw]['Budget_Data']['HealthInsurance'][0],
+        data[name][passw]['Budget_Data']['Other'][0],
+    ]
+    explode = (0.1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    plt.pie(spending, explode=explode, shadow=True, startangle=125)
+    plt.axis('equal')
+    plt.show()
