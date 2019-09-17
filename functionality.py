@@ -1,5 +1,4 @@
 import datetime
-import matplotlib.pyplot as plt
 import pickle
 import re
 
@@ -113,4 +112,3 @@ def find_spending(category, type_):
         return str(((had - (had - eval(spent))) / had) * 100)
     if type_ == 'whole':
         return str(had - (had - eval(spent)))
-
