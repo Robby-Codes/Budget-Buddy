@@ -2,6 +2,7 @@
 #:import NoTransition kivy.uix.screenmanager.NoTransition
 
 
+
 WindowManager:
     transition: NoTransition()
     LoginScreen:
@@ -787,6 +788,564 @@ WindowManager:
                     size: self.size
             size_hint: 0.32, 0.87
             pos_hint: {'top': 0.92, 'x': 0.34}
+
+            GridLayout:
+                size_hint_x: 0.97
+                size_hint_y: None
+                cols: 1
+                row_default_height: root.height*0.05
+                height: self.minimum_height
+                pos_hint: {'top': 0.98, 'x': 0.01}
+
+                Label:
+                    text: func.date_range()
+                    font_size: 15
+                    color: 1, 0, 0, 1
+                    size_hint: 0.1, 0.05
+                    pos_hint: {'top': 0.99, 'x': 0.45}
+                                
+                Label:
+                    text: 'Total Income vs Spending vs Savings'
+                    font_size: 20
+                    color: 1, 0, 0, 1
+
+                ProgressBar:
+                    min: 0
+                    max: 100
+                    value: 50
+
+                Label:
+                    text: 'Income: ' + func.find_income()
+                    color: 1, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'bottom'
+                
+                Label:
+                    text: 'Spent: ' + func.calc_savings_spending('spending')
+                    color: 1, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: 'left'
+
+                Label:
+                    text: 'Saving: ' + func.calc_savings_spending('savings')
+                    color: 1, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'top'
+
+                ScrollView:
+                    do_scroll_x: False
+                    do_scroll_y: True
+                    bar_width: 4
+                    bar_color: 0, 0, 0, 1
+                    size_hint_y: None
+                    height: 478
+
+                    GridLayout:
+                        size_hint_x: 0.97
+                        size_hint_y: None
+                        cols: 3
+                        row_default_height: root.height*0.02
+                        height: self.minimum_height
+
+                        Label:
+                            text: 'Free To Use'
+                            color: 1, 0, 0, 1  
+
+                        Label:
+                            text: func.find_spending('FreeToUse', 'percent') + '%'
+                            color: 1, 0, 0, 1
+
+                        Label:
+                            text: func.find_spending('FreeToUse', 'whole')
+                            color: 1, 0, 0, 1
+
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+                            
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+
+                        Label:
+                            text: 'Utilities'
+                            color: 1, 0, 0, 1  
+
+                        Label:
+                            text: func.find_spending('Utilities', 'percent') + '%'
+                            color: 1, 0, 0, 1
+
+                        Label:
+                            text: func.find_spending('Utilities', 'whole')
+                            color: 1, 0, 0, 1
+
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+                            
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+
+                        Label:
+                            text: 'Groceries'
+                            color: 1, 0, 0, 1  
+
+                        Label:
+                            text: func.find_spending('Groceries', 'percent') + '%'
+                            color: 1, 0, 0, 1
+
+                        Label:
+                            text: func.find_spending('Groceries', 'whole')
+                            color: 1, 0, 0, 1
+
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+                            
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+
+                        Label:
+                            text: 'Internet'
+                            color: 1, 0, 0, 1  
+
+                        Label:
+                            text: func.find_spending('Internet', 'percent') + '%'
+                            color: 1, 0, 0, 1
+
+                        Label:
+                            text: func.find_spending('Internet', 'whole')
+                            color: 1, 0, 0, 1
+
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+                            
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+
+                        Label:
+                            text: 'CellPhone'
+                            color: 1, 0, 0, 1  
+
+                        Label:
+                            text: func.find_spending('CellPhone', 'percent') + '%'
+                            color: 1, 0, 0, 1
+
+                        Label:
+                            text: func.find_spending('CellPhone', 'whole')
+                            color: 1, 0, 0, 1
+
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+                            
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+
+                        Label:
+                            text: 'Gas'
+                            color: 1, 0, 0, 1  
+
+                        Label:
+                            text: func.find_spending('Gas', 'percent') + '%'
+                            color: 1, 0, 0, 1
+
+                        Label:
+                            text: func.find_spending('Gas', 'whole')
+                            color: 1, 0, 0, 1
+
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+                            
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+
+                        Label:
+                            text: 'Rent'
+                            color: 1, 0, 0, 1  
+
+                        Label:
+                            text: func.find_spending('Rent', 'percent') + '%'
+                            color: 1, 0, 0, 1
+
+                        Label:
+                            text: func.find_spending('Rent', 'whole')
+                            color: 1, 0, 0, 1
+
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+                            
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+
+                        Label:
+                            text: 'Bank Account'
+                            color: 1, 0, 0, 1  
+
+                        Label:
+                            text: func.find_spending('BankAccount', 'percent') + '%'
+                            color: 1, 0, 0, 1
+
+                        Label:
+                            text: func.find_spending('BankAccount', 'whole')
+                            color: 1, 0, 0, 1
+
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+                            
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+
+                        Label:
+                            text: 'Car Insurance'
+                            color: 1, 0, 0, 1  
+
+                        Label:
+                            text: func.find_spending('CarInsurance', 'percent') + '%'
+                            color: 1, 0, 0, 1
+
+                        Label:
+                            text: func.find_spending('CarInsurance', 'whole')
+                            color: 1, 0, 0, 1
+
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+                            
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+
+                        Label:
+                            text: 'Health Insurance'
+                            color: 1, 0, 0, 1  
+
+                        Label:
+                            text: func.find_spending('HealthInsurance', 'percent') + '%'
+                            color: 1, 0, 0, 1
+
+                        Label:
+                            text: func.find_spending('HealthInsurance', 'whole')
+                            color: 1, 0, 0, 1
+
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+                            
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+
+                        Label:
+                            text: 'Other'
+                            color: 1, 0, 0, 1  
+
+                        Label:
+                            text: func.find_spending('Other', 'percent') + '%'
+                            color: 1, 0, 0, 1
+
+                        Label:
+                            text: func.find_spending('Other', 'whole')
+                            color: 1, 0, 0, 1
+
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
+                            
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            color: 1, 0, 0, 1
+                            size_hint_y: None
+                            height: 2
 
         FloatLayout:
             canvas:

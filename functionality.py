@@ -71,10 +71,15 @@ def date_range():
     today = datetime.date.today()
     the_first = today.strftime('%B 1, %Y')
     today = today.strftime('%B %d, %Y')
-    print(the_first, '-', today)
+    return the_first + '  -  ' + today
 
 
-def calc_savings():
+def find_income():
+    data = pickle.load(open('storage.dat', 'rb'))
+    return str(data['income'])
+
+
+def calc_savings_spending(bar):
     data = pickle.load(open('storage.dat', 'rb'))
     name = data['current'][0]
     passw = data['current'][1]
@@ -92,28 +97,20 @@ def calc_savings():
         + '+' + data[name][passw]['Budget_Data']['HealthInsurance'][0]
         + '+' + data[name][passw]['Budget_Data']['Other'][0]
     )
-    return income - spending
+    if bar == 'spending':
+        return str(spending)
+    elif bar == 'savings':
+        return str(income - spending)
 
 
-def pie_chart():
+def find_spending(category, type_):
     data = pickle.load(open('storage.dat', 'rb'))
     name = data['current'][0]
     passw = data['current'][1]
-    spending = [
-        str(calc_savings()),
-        data[name][passw]['Budget_Data']['FreeToUse'][0],
-        data[name][passw]['Budget_Data']['Utilities'][0],
-        data[name][passw]['Budget_Data']['Groceries'][0],
-        data[name][passw]['Budget_Data']['Internet'][0],
-        data[name][passw]['Budget_Data']['CellPhone'][0],
-        data[name][passw]['Budget_Data']['Gas'][0],
-        data[name][passw]['Budget_Data']['Rent'][0],
-        data[name][passw]['Budget_Data']['BankAccount'][0],
-        data[name][passw]['Budget_Data']['CarInsurance'][0],
-        data[name][passw]['Budget_Data']['HealthInsurance'][0],
-        data[name][passw]['Budget_Data']['Other'][0],
-    ]
-    explode = (0.1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-    plt.pie(spending, explode=explode, shadow=True, startangle=125)
-    plt.axis('equal')
-    plt.show()
+    had = data['income']
+    spent = data[name][passw]['Budget_Data'][category][0]
+    if type_ == 'percent':
+        return str(((had - (had - eval(spent))) / had) * 100)
+    if type_ == 'whole':
+        return str(had - (had - eval(spent)))
+
