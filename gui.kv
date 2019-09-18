@@ -449,7 +449,8 @@ WindowManager:
                         halign: 'left'
 
                     Label:
-                        text: ''
+                        id: freetousespending
+                        text: func.remember_spending('FreeToUse')
                         font_size: 25
                         color: 0, 0, 0, 1
                         text_size: self.size
@@ -837,6 +838,62 @@ WindowManager:
                     halign: 'left'
                     valign: 'top'
 
+                GridLayout:
+                    size_hint_x: 0.97
+                    size_hint_y: None
+                    cols: 3
+                    row_default_height: root.height*0.02
+                    height: self.minimum_height
+                    pos_hint: {'top': 0.98, 'x': 0.01}
+
+                    Label:
+                        text: 'Category'
+                        color: 1, 0, 0, 1
+                        font_size: 20
+                    
+                    Label: 
+                        text: 'Percentage'
+                        color: 1, 0, 0, 1
+                        font_size: 20
+
+                    Label:
+                        text: 'Total Spent'
+                        color: 1, 0, 0, 1
+                        font_size: 20
+
+                    Label:
+                        canvas:
+                            Color:
+                                rgb: 0.2, 0.2, 0.2, 1
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                        color: 1, 0, 0, 1
+                        size_hint_y: None
+                        height: 3
+
+                    Label:
+                        canvas:
+                            Color:
+                                rgb: 0.2, 0.2, 0.2, 1
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                        color: 1, 0, 0, 1
+                        size_hint_y: None
+                        height: 3
+                        
+                    Label:
+                        canvas:
+                            Color:
+                                rgb: 0.2, 0.2, 0.2, 1
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                        color: 1, 0, 0, 1
+                        size_hint_y: None
+                        height: 3
+
                 ScrollView:
                     do_scroll_x: False
                     do_scroll_y: True
@@ -857,10 +914,12 @@ WindowManager:
                             color: 1, 0, 0, 1  
 
                         Label:
+                            id: freetousepercent
                             text: func.find_spending('FreeToUse', 'percent') + '%'
                             color: 1, 0, 0, 1
 
                         Label:
+                            id: freetousetotal
                             text: func.find_spending('FreeToUse', 'whole')
                             color: 1, 0, 0, 1
 
@@ -1357,3 +1416,98 @@ WindowManager:
             size_hint: 0.32, 0.87
             pos_hint: {'top': 0.92, 'x': 0.67}
 
+            Label:
+                text: 'Earned or Spent?'
+                color: 1, 0, 0, 1
+                font_size: 25
+                size_hint: 0.05, 0.05
+                pos_hint: {'top': 0.95, 'x': 0.48}
+
+            Button:
+                text: 'Earned'
+                size_hint: 0.15, 0.08
+                pos_hint: {'top': 0.88, 'x': 0.22}
+                on_release:
+                    func.earn_or_spend('earned')
+
+            Button:
+                text: 'Spent'
+                size_hint: 0.15, 0.08
+                pos_hint: {'top': 0.88, 'x': 0.65}
+                on_release:
+                    func.earn_or_spend('spent')
+
+            Label:
+                text: 'Amount:'
+                color: 1, 0, 0, 1
+                font_size: 25
+                size_hint: 0.05, 0.05
+                pos_hint: {'top': 0.75, 'x': 0.15}
+
+            TextInput:
+                id: amount
+                multiline: False
+                size_hint: 0.2, 0.05
+                pos_hint: {'top': 0.75, 'x': 0.3}
+                on_text_validate:
+                    func.new_amount(amount.text)
+
+            Label:
+                text: 'Category:'
+                color: 1, 0, 0, 1
+                font_size: 25
+                size_hint: 0.05, 0.05
+                pos_hint: {'top': 0.58, 'x': 0.15}
+
+            Button:
+                text: 'Log it'
+                font_size: 20
+                size_hint: 0.15, 0.1
+                pos_hint: {'top': 0.38, 'x': 0.6}
+                on_release:
+                    freetousespending.text = func.log_it()
+
+            ScrollView:
+                do_scroll_x: False
+                do_scroll_y: True
+                bar_width: 4
+                bar_color: 0, 0, 0, 1
+                size_hint: 0.3, 0.035
+                pos_hint: {'top': 0.57, 'x': 0.3}
+
+                GridLayout:
+                    size_hint_x: 0.97
+                    size_hint_y: None
+                    cols: 1
+                    row_default_height: root.height*0.02
+                    height: self.minimum_height
+
+                    Button:
+                        text: 'Free To Use'
+                        font_size: 20
+                        color: 1, 0, 0, 1
+                        backgroun_color: 0, 0, 0, 1
+                        size_hint_y: None
+                        height: 25
+                        on_release:
+                            func.transaction_type('FreeToUse')
+
+                    Button:
+                        text: 'hello'
+                        font_size: 15
+                        color: 1, 0, 0, 1
+
+                    Button:
+                        text: 'hello'
+                        font_size: 15
+                        color: 1, 0, 0, 1
+
+                    Button:
+                        text: 'hello'
+                        font_size: 15
+                        color: 1, 0, 0, 1
+
+                    Button:
+                        text: 'hello'
+                        font_size: 15
+                        color: 1, 0, 0, 1

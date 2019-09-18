@@ -9,7 +9,7 @@ def new_account(name, password, email):
             re.match(r'^[a-zA-Z1-9]+@[a-zA-Z1-9]+\.[a-z]+$', email)):
         Budget_Data = pickle.load(open('storage.dat', 'rb'))
         Budget_Data = {
-            'income': 1000,
+            'income': 0,
             name: {
                 password: {
                     'Budget_Data': {
@@ -66,6 +66,13 @@ def remember_budget(category):
     return remember[current_name][current_pass]['Budget_Data'][category][0]
 
 
+def remember_spending(category):
+    remember = pickle.load(open('storage.dat', 'rb'))
+    current_name = remember['current'][0]
+    current_pass = remember['current'][1]
+    return remember[current_name][current_pass]['Budget_Data'][category][1]
+
+
 def date_range():
     today = datetime.date.today()
     the_first = today.strftime('%B 1, %Y')
@@ -84,17 +91,17 @@ def calc_savings_spending(bar):
     passw = data['current'][1]
     income = data['income']
     spending = eval(
-        data[name][passw]['Budget_Data']['FreeToUse'][0]
-        + '+' + data[name][passw]['Budget_Data']['Utilities'][0]
-        + '+' + data[name][passw]['Budget_Data']['Groceries'][0]
-        + '+' + data[name][passw]['Budget_Data']['Internet'][0]
-        + '+' + data[name][passw]['Budget_Data']['CellPhone'][0]
-        + '+' + data[name][passw]['Budget_Data']['Gas'][0]
-        + '+' + data[name][passw]['Budget_Data']['Rent'][0]
-        + '+' + data[name][passw]['Budget_Data']['BankAccount'][0]
-        + '+' + data[name][passw]['Budget_Data']['CarInsurance'][0]
-        + '+' + data[name][passw]['Budget_Data']['HealthInsurance'][0]
-        + '+' + data[name][passw]['Budget_Data']['Other'][0]
+        data[name][passw]['Budget_Data']['FreeToUse'][1]
+        + '+' + data[name][passw]['Budget_Data']['Utilities'][1]
+        + '+' + data[name][passw]['Budget_Data']['Groceries'][1]
+        + '+' + data[name][passw]['Budget_Data']['Internet'][1]
+        + '+' + data[name][passw]['Budget_Data']['CellPhone'][1]
+        + '+' + data[name][passw]['Budget_Data']['Gas'][1]
+        + '+' + data[name][passw]['Budget_Data']['Rent'][1]
+        + '+' + data[name][passw]['Budget_Data']['BankAccount'][1]
+        + '+' + data[name][passw]['Budget_Data']['CarInsurance'][1]
+        + '+' + data[name][passw]['Budget_Data']['HealthInsurance'][1]
+        + '+' + data[name][passw]['Budget_Data']['Other'][1]
     )
     if bar == 'spending':
         return str(spending)
@@ -107,8 +114,46 @@ def find_spending(category, type_):
     name = data['current'][0]
     passw = data['current'][1]
     had = data['income']
-    spent = data[name][passw]['Budget_Data'][category][0]
+    spent = data[name][passw]['Budget_Data'][category][1]
     if type_ == 'percent':
         return str(((had - (had - eval(spent))) / had) * 100)
     if type_ == 'whole':
         return str(had - (had - eval(spent)))
+
+
+def earn_or_spend(choose):
+    data = pickle.load(open('storage.dat', 'rb'))
+    data['transaction']['earnedvsspent'] = choose
+    pickle.dump(data, open('storage.dat', 'wb'))
+
+
+def new_amount(amount):
+    data = pickle.load(open('storage.dat', 'rb'))
+    data['transaction']['amount'] = amount
+    pickle.dump(data, open('storage.dat', 'wb'))
+
+
+def transaction_type(category):
+    data = pickle.load(open('storage.dat', 'rb'))
+    data['transaction']['category'] = category
+    pickle.dump(data, open('storage.dat', 'wb'))
+
+
+def log_it():
+    data = pickle.load(open('storage.dat', 'rb'))
+    if data['transaction']['earnedvsspent'] == 'spent':
+        name = data['current'][0]
+        passw = data['current'][1]
+        category = data['transaction']['category']
+        amount = data['transaction']['amount']
+        spending = data[name][passw]['Budget_Data'][category][1]
+        new = eval(amount) + eval(spending)
+        data[name][passw]['Budget_Data'][category][1] = str(new)
+        pickle.dump(data, open('storage.dat', 'wb'))
+        return str(new)
+    if data['transaction']['earnedvsspent'] == 'earned':
+        amount = data['transaction']['amount']
+        income = data['income']
+        data['income'] = eval(amount) + eval(income)
+        pickle.dump(data, open('storage.dat', 'wb'))
+        return None
