@@ -460,6 +460,7 @@ WindowManager:
                         id: freetousebar
                         min: 0
                         max: eval(func.remember_budget('FreeToUse'))
+                        value: eval(func.find_spending('FreeToUse', 'whole'))
 
                     TextInput:
                         id: freetouse
@@ -480,7 +481,8 @@ WindowManager:
                         halign: 'left'
 
                     Label:
-                        text: ''
+                        id: utilitiesspending
+                        text: func.remember_spending('Utilities')
                         font_size: 25
                         color: 0, 0, 0, 1
                         text_size: self.size
@@ -490,6 +492,7 @@ WindowManager:
                         id: utilitiesbar
                         min: 0
                         max: eval(func.remember_budget('Utilities'))
+                        value: eval(func.find_spending('Utilities', 'whole'))
 
                     TextInput:
                         id: utilities
@@ -510,7 +513,8 @@ WindowManager:
                         halign: 'left'
 
                     Label:
-                        text: ''
+                        id: groceriesspending
+                        text: func.remember_spending('Groceries')
                         font_size: 25
                         color: 0, 0, 0, 1
                         text_size: self.size
@@ -520,6 +524,7 @@ WindowManager:
                         id: groceriesbar
                         min: 0
                         max: eval(func.remember_budget('Groceries'))
+                        value: eval(func.find_spending('Groceries', 'whole'))
 
                     TextInput:
                         id: groceries
@@ -540,7 +545,8 @@ WindowManager:
                         halign: 'left'
 
                     Label:
-                        text: ''
+                        id: internetspending
+                        text: func.remember_spending('Internet')
                         font_size: 25
                         color: 0, 0, 0, 1
                         text_size: self.size
@@ -550,6 +556,7 @@ WindowManager:
                         id: internetbar
                         min: 0
                         max: eval(func.remember_budget('Internet'))
+                        value: eval(func.find_spending('Internet', 'whole'))
 
                     TextInput:
                         id: internet
@@ -811,9 +818,10 @@ WindowManager:
                     color: 1, 0, 0, 1
 
                 ProgressBar:
+                    id: mainbar
                     min: 0
-                    max: 100
-                    value: 50
+                    max: eval(func.find_income())
+                    value: eval(func.calc_savings_spending('spending'))
 
                 Label:
                     text: 'Income: ' + func.find_income()
@@ -824,6 +832,7 @@ WindowManager:
                     valign: 'bottom'
                 
                 Label:
+                    id: totalspending
                     text: 'Spent: ' + func.calc_savings_spending('spending')
                     color: 1, 0, 0, 1
                     font_size: 20
@@ -920,7 +929,7 @@ WindowManager:
 
                         Label:
                             id: freetousetotal
-                            text: func.find_spending('FreeToUse', 'whole')
+                            text: '$' + func.find_spending('FreeToUse', 'whole')
                             color: 1, 0, 0, 1
 
                         Label:
@@ -961,11 +970,13 @@ WindowManager:
                             color: 1, 0, 0, 1  
 
                         Label:
+                            id: utilitiespercent
                             text: func.find_spending('Utilities', 'percent') + '%'
                             color: 1, 0, 0, 1
 
                         Label:
-                            text: func.find_spending('Utilities', 'whole')
+                            id: utilitiestotal
+                            text: '$' + func.find_spending('Utilities', 'whole')
                             color: 1, 0, 0, 1
 
                         Label:
@@ -1006,11 +1017,13 @@ WindowManager:
                             color: 1, 0, 0, 1  
 
                         Label:
+                            id: groceriespercent
                             text: func.find_spending('Groceries', 'percent') + '%'
                             color: 1, 0, 0, 1
 
                         Label:
-                            text: func.find_spending('Groceries', 'whole')
+                            id: groceriestotal
+                            text: '$' + func.find_spending('Groceries', 'whole')
                             color: 1, 0, 0, 1
 
                         Label:
@@ -1051,10 +1064,12 @@ WindowManager:
                             color: 1, 0, 0, 1  
 
                         Label:
+                            id: internetpercent
                             text: func.find_spending('Internet', 'percent') + '%'
                             color: 1, 0, 0, 1
 
                         Label:
+                            id: internettotal
                             text: func.find_spending('Internet', 'whole')
                             color: 1, 0, 0, 1
 
@@ -1465,14 +1480,40 @@ WindowManager:
                 size_hint: 0.15, 0.1
                 pos_hint: {'top': 0.38, 'x': 0.6}
                 on_release:
-                    freetousespending.text = func.log_it()
+
+                    func.log_it()
+
+                    freetousespending.text = func.log_it() if func.choose_category() == 'FreeToUse' else freetousespending.text
+                    freetousebar.value = eval(func.find_spending('FreeToUse', 'whole')) if func.choose_category() == 'FreeToUse' else freetousebar.value
+                    freetousetotal.text = '$' + func.find_spending('FreeToUse', 'whole') if func.choose_category() == 'FreeToUse' else '$' + freetousespending.text
+                    freetousepercent.text = func.find_spending('FreeToUse', 'percent') + '%'
+                    
+                    utilitiesspending.text = func.log_it() if func.choose_category() == 'Utilities' else utilitiesspending.text
+                    utilitiesbar.value = eval(func.find_spending('Utilities', 'whole')) if func.choose_category() == 'Utilities' else utilitiesbar.value
+                    utilitiestotal.text = '$' + func.find_spending('Utilities', 'whole') if func.choose_category() == 'Utilities' else '$' + utilitiesspending.text
+                    utilitiespercent.text = func.find_spending('Utilities', 'percent') + '%'
+
+                    groceriesspending.text = func.log_it() if func.choose_category() == 'Groceries' else groceriesspending.text
+                    groceriesbar.value = eval(func.find_spending('Groceries', 'whole')) if func.choose_category() == 'Groceries' else groceriesbar.value
+                    groceriestotal.text = '$' + func.find_spending('Groceries', 'whole') if func.choose_category() == 'Groceries' else '$' + groceriesspending.text
+                    groceriespercent.text = func.find_spending('Groceries', 'percent') + '%'
+
+                    internetspending.text = func.log_it() if func.choose_category() == 'Internet' else internetspending.text
+                    internetbar.value = eval(func.find_spending('Internet', 'whole')) if func.choose_category() == 'Internet' else internetbar.value
+                    internettotal.text = '$' + func.find_spending('Internet', 'whole') if func.choose_category() == 'Internet' else '$' + internetspending.text
+                    internetpercent.text = func.find_spending('Internet', 'percent') + '%'
+
+                    mainbar.max = eval(func.find_income())
+                    mainbar.value = eval(func.calc_savings_spending('spending'))
+                    totalspending.text = 'Spent: ' + func.calc_savings_spending('spending')
+                    func.clean_transaction()
 
             ScrollView:
                 do_scroll_x: False
                 do_scroll_y: True
                 bar_width: 4
                 bar_color: 0, 0, 0, 1
-                size_hint: 0.3, 0.035
+                size_hint: 0.5, 0.1
                 pos_hint: {'top': 0.57, 'x': 0.3}
 
                 GridLayout:
@@ -1488,24 +1529,39 @@ WindowManager:
                         color: 1, 0, 0, 1
                         backgroun_color: 0, 0, 0, 1
                         size_hint_y: None
-                        height: 25
+                        height: 35
                         on_release:
                             func.transaction_type('FreeToUse')
 
                     Button:
-                        text: 'hello'
-                        font_size: 15
+                        text: 'Utilities'
+                        font_size: 20
                         color: 1, 0, 0, 1
+                        backgroun_color: 0, 0, 0, 1
+                        size_hint_y: None
+                        height: 35
+                        on_release:
+                            func.transaction_type('Utilities')
 
                     Button:
-                        text: 'hello'
-                        font_size: 15
+                        text: 'Groceries'
+                        font_size: 20
                         color: 1, 0, 0, 1
+                        backgroun_color: 0, 0, 0, 1
+                        size_hint_y: None
+                        height: 35
+                        on_release:
+                            func.transaction_type('Groceries')
 
                     Button:
-                        text: 'hello'
-                        font_size: 15
+                        text: 'Internet'
+                        font_size: 20
                         color: 1, 0, 0, 1
+                        backgroun_color: 0, 0, 0, 1
+                        size_hint_y: None
+                        height: 35
+                        on_release:
+                            func.transaction_type('Internet')
 
                     Button:
                         text: 'hello'

@@ -104,9 +104,9 @@ def calc_savings_spending(bar):
         + '+' + data[name][passw]['Budget_Data']['Other'][1]
     )
     if bar == 'spending':
-        return str(spending)
+        return str(round(spending, 2))
     elif bar == 'savings':
-        return str(income - spending)
+        return str(round(income - spending, 2))
 
 
 def find_spending(category, type_):
@@ -116,9 +116,17 @@ def find_spending(category, type_):
     had = data['income']
     spent = data[name][passw]['Budget_Data'][category][1]
     if type_ == 'percent':
-        return str(((had - (had - eval(spent))) / had) * 100)
+        try:
+            t_spent = eval(calc_savings_spending('spending'))
+            percentage = (((t_spent - (t_spent - eval(spent))) / t_spent) * 100)
+            percentage = round(percentage, 2)
+            return str(percentage)
+        except ZeroDivisionError:
+            return '0'
     if type_ == 'whole':
-        return str(had - (had - eval(spent)))
+        spending = had - (had - eval(spent))
+        spending = round(spending, 2)
+        return str(spending)
 
 
 def earn_or_spend(choose):
@@ -157,3 +165,16 @@ def log_it():
         data['income'] = eval(amount) + eval(income)
         pickle.dump(data, open('storage.dat', 'wb'))
         return None
+
+
+def choose_category():
+    data = pickle.load(open('storage.dat', 'rb'))
+    return data['transaction']['category']
+
+
+def clean_transaction():
+    data = pickle.load(open('storage.dat', 'rb'))
+    data['transaction']['earnedvsspend'] = '0'
+    data['transaction']['amount'] = '0'
+    data['transaction']['category'] = '0'
+    pickle.dump(data, open('storage.dat', 'wb'))
