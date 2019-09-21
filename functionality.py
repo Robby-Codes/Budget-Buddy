@@ -159,12 +159,18 @@ def log_it():
         data[name][passw]['Budget_Data'][category][1] = str(new)
         pickle.dump(data, open('storage.dat', 'wb'))
         return str(new)
+
+
+def new_income():
+    data = pickle.load(open('storage.dat', 'rb'))
     if data['transaction']['earnedvsspent'] == 'earned':
         amount = data['transaction']['amount']
         income = data['income']
-        data['income'] = eval(amount) + eval(income)
+        amount = eval(amount)
+        income = income
+        new_income = amount + income
+        data['income'] = new_income
         pickle.dump(data, open('storage.dat', 'wb'))
-        return None
 
 
 def choose_category():

@@ -577,7 +577,8 @@ WindowManager:
                         halign: 'left'
 
                     Label:
-                        text: ''
+                        id: cellphonespending
+                        text: func.remember_spending('CellPhone')
                         font_size: 25
                         color: 0, 0, 0, 1
                         text_size: self.size
@@ -587,6 +588,7 @@ WindowManager:
                         id: cellphonebar
                         min: 0
                         max: eval(func.remember_budget('CellPhone'))
+                        value: eval(func.find_spending('CellPhone', 'whole'))
 
                     TextInput:
                         id: cellphone
@@ -607,7 +609,8 @@ WindowManager:
                         halign: 'left'
 
                     Label:
-                        text: ''
+                        id: gasspending
+                        text: func.remember_spending('Gas')
                         font_size: 25
                         color: 0, 0, 0, 1
                         text_size: self.size
@@ -617,6 +620,7 @@ WindowManager:
                         id: gasbar
                         min: 0
                         max: eval(func.remember_budget('Gas'))
+                        value: eval(func.find_spending('Gas', 'whole'))
 
                     TextInput:
                         id: gas
@@ -637,7 +641,8 @@ WindowManager:
                         halign: 'left'
 
                     Label:
-                        text: ''
+                        id: rentspending
+                        text: func.remember_spending('Rent')
                         font_size: 25
                         color: 0, 0, 0, 1
                         text_size: self.size
@@ -647,6 +652,7 @@ WindowManager:
                         id: rentbar
                         min: 0
                         max: eval(func.remember_budget('Rent'))
+                        value: eval(func.find_spending('Rent', 'whole'))
 
                     TextInput:
                         id: rent
@@ -667,7 +673,8 @@ WindowManager:
                         halign: 'left'
 
                     Label:
-                        text: ''
+                        id: bankaccountspending
+                        text: func.remember_spending('BankAccount')
                         font_size: 25
                         color: 0, 0, 0, 1
                         text_size: self.size
@@ -677,6 +684,7 @@ WindowManager:
                         id: bankaccountbar
                         min: 0
                         max: eval(func.remember_budget('BankAccount'))
+                        value: eval(func.find_spending('BankAccount', 'whole'))
 
                     TextInput:
                         id: bankaccount
@@ -697,16 +705,18 @@ WindowManager:
                         halign: 'left'
 
                     Label:
-                        text: ''
+                        id: carinsurancespending
+                        text: func.remember_spending('CarInsurance')
                         font_size: 25
                         color: 0, 0, 0, 1
                         text_size: self.size
                         halign: 'right'
 
                     ProgressBar:
-                        id: carinsbar
+                        id: carinsurancebar
                         min: 0
                         max: eval(func.remember_budget('CarInsurance'))
+                        value: eval(func.find_spending('CarInsurance', 'whole'))
 
                     TextInput:
                         id: carins
@@ -727,16 +737,18 @@ WindowManager:
                         halign: 'left'
 
                     Label:
-                        text: ''
+                        id: healthinsurancespending
+                        text: func.remember_spending('HealthInsurance')
                         font_size: 25
                         color: 0, 0, 0, 1
                         text_size: self.size
                         halign: 'right'
 
                     ProgressBar:
-                        id: healthinsbar
+                        id: healthinsurancebar
                         min: 0
                         max: eval(func.remember_budget('HealthInsurance'))
+                        value: eval(func.find_spending('HealthInsurance', 'whole'))
 
                     TextInput:
                         id: healthins
@@ -757,7 +769,8 @@ WindowManager:
                         halign: 'left'
 
                     Label:
-                        text: ''
+                        id: otherspending
+                        text: func.remember_spending('Other')
                         font_size: 25
                         color: 0, 0, 0, 1
                         text_size: self.size
@@ -767,6 +780,7 @@ WindowManager:
                         id: otherbar
                         min: 0
                         max: eval(func.remember_budget('Other'))
+                        value: eval(func.find_spending('Other', 'whole'))
 
                     TextInput:
                         id: other
@@ -808,44 +822,20 @@ WindowManager:
                 Label:
                     text: func.date_range()
                     font_size: 15
-                    color: 1, 0, 0, 1
+                    color: 0, 0, 0, 1
                     size_hint: 0.1, 0.05
                     pos_hint: {'top': 0.99, 'x': 0.45}
                                 
                 Label:
-                    text: 'Total Income vs Spending vs Savings'
-                    font_size: 20
-                    color: 1, 0, 0, 1
+                    text: 'Total Income and Spending Analysis'
+                    font_size: 30
+                    color: 0, 0, 0, 1
 
                 ProgressBar:
                     id: mainbar
                     min: 0
                     max: eval(func.find_income())
                     value: eval(func.calc_savings_spending('spending'))
-
-                Label:
-                    text: 'Income: ' + func.find_income()
-                    color: 1, 0, 0, 1
-                    font_size: 20
-                    text_size: self.size
-                    halign: 'left'
-                    valign: 'bottom'
-                
-                Label:
-                    id: totalspending
-                    text: 'Spent: ' + func.calc_savings_spending('spending')
-                    color: 1, 0, 0, 1
-                    font_size: 20
-                    text_size: self.size
-                    halign: 'left'
-
-                Label:
-                    text: 'Saving: ' + func.calc_savings_spending('savings')
-                    color: 1, 0, 0, 1
-                    font_size: 20
-                    text_size: self.size
-                    halign: 'left'
-                    valign: 'top'
 
                 GridLayout:
                     size_hint_x: 0.97
@@ -856,50 +846,119 @@ WindowManager:
                     pos_hint: {'top': 0.98, 'x': 0.01}
 
                     Label:
-                        text: 'Category'
+                        text: ''
+                        size_hint_y: None
+                        height: 15
+                    
+                    Label:
+                        text: ''
+                        size_hint_y: None
+                        height: 15
+
+                    Label:
+                        text: ''
+                        size_hint_y: None
+                        height: 15
+
+                    Label:
+                        text: 'INCOME'
+                        color: 0, 0, 0, 1
+                        font_size: 25
+                    
+                    Label:
+                        text: 'SAVING'
+                        color: 0, 0, 0, 1
+                        font_size: 25
+
+                    Label:
+                        text: 'SPENT'
+                        color: 0, 0, 0, 1
+                        font_size: 25
+
+                    Label:
+                        text: ''
+                    
+                    Label:
+                        text: ''
+
+                    Label:
+                        text: ''
+
+                    Label:
+                        id: totalincome
+                        text: '$' + func.find_income()
+                        color: 0, 0.5, 0, 1
+                        font_size: 25
+
+                    Label:
+                        id: totalsavings
+                        text: '$' + func.calc_savings_spending('savings')
+                        color: 0, 0.5, 0, 1
+                        font_size: 25
+                    
+                    Label:
+                        id: totalspending
+                        text: '$' + func.calc_savings_spending('spending')
                         color: 1, 0, 0, 1
-                        font_size: 20
+                        font_size: 25
+
+                    Label:
+                        text: ''
+                        size_hint_y: None
+                        height: 50
+                    
+                    Label:
+                        text: ''
+                        size_hint_y: None
+                        height: 50
+
+                    Label:
+                        text: ''
+                        size_hint_y: None
+                        height: 50
+
+                    Label:
+                        text: 'Category'
+                        color: 0, 0, 0, 1
+                        font_size: 25
                     
                     Label: 
                         text: 'Percentage'
-                        color: 1, 0, 0, 1
-                        font_size: 20
+                        color: 0, 0, 0, 1
+                        font_size: 25
 
                     Label:
                         text: 'Total Spent'
-                        color: 1, 0, 0, 1
-                        font_size: 20
+                        color: 0, 0, 0, 1
+                        font_size: 25
 
                     Label:
                         canvas:
                             Color:
-                                rgb: 0.2, 0.2, 0.2, 1
+                                rgb: 1, 0, 0, 1
                             Rectangle:
                                 pos: self.pos
                                 size: self.size
-                        color: 1, 0, 0, 1
                         size_hint_y: None
                         height: 3
 
                     Label:
                         canvas:
                             Color:
-                                rgb: 0.2, 0.2, 0.2, 1
+                                rgb: 1, 0, 0, 1
                             Rectangle:
                                 pos: self.pos
                                 size: self.size
-                        color: 1, 0, 0, 1
                         size_hint_y: None
                         height: 3
                         
                     Label:
                         canvas:
                             Color:
-                                rgb: 0.2, 0.2, 0.2, 1
+                                rgb: 1, 0, 0, 1
                             Rectangle:
                                 pos: self.pos
                                 size: self.size
-                        color: 1, 0, 0, 1
                         size_hint_y: None
                         height: 3
 
@@ -909,28 +968,38 @@ WindowManager:
                     bar_width: 4
                     bar_color: 0, 0, 0, 1
                     size_hint_y: None
-                    height: 478
+                    height: 454
 
                     GridLayout:
                         size_hint_x: 0.97
                         size_hint_y: None
                         cols: 3
-                        row_default_height: root.height*0.02
+                        row_default_height: root.height*0.03
                         height: self.minimum_height
 
                         Label:
+                            text: ''
+                            
+                        Label:
+                            text: ''
+
+                        Label:
+                            text: ''
+
+                        Label:
                             text: 'Free To Use'
-                            color: 1, 0, 0, 1  
+                            color: 0, 0, 0, 1 
+                            font_size: 20
 
                         Label:
                             id: freetousepercent
                             text: func.find_spending('FreeToUse', 'percent') + '%'
-                            color: 1, 0, 0, 1
+                            color: 0, 0, 0, 1 
 
                         Label:
                             id: freetousetotal
                             text: '$' + func.find_spending('FreeToUse', 'whole')
-                            color: 1, 0, 0, 1
+                            color: 0, 0, 0, 1 
 
                         Label:
                             canvas:
@@ -939,7 +1008,6 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
 
@@ -950,7 +1018,6 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
                             
@@ -961,23 +1028,23 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
 
                         Label:
                             text: 'Utilities'
-                            color: 1, 0, 0, 1  
+                            color: 0, 0, 0, 1 
+                            font_size: 20
 
                         Label:
                             id: utilitiespercent
                             text: func.find_spending('Utilities', 'percent') + '%'
-                            color: 1, 0, 0, 1
+                            color: 0, 0, 0, 1 
 
                         Label:
                             id: utilitiestotal
                             text: '$' + func.find_spending('Utilities', 'whole')
-                            color: 1, 0, 0, 1
+                            color: 0, 0, 0, 1 
 
                         Label:
                             canvas:
@@ -986,7 +1053,6 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
 
@@ -997,7 +1063,6 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
                             
@@ -1008,23 +1073,23 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
 
                         Label:
                             text: 'Groceries'
-                            color: 1, 0, 0, 1  
+                            color: 0, 0, 0, 1 
+                            font_size: 20
 
                         Label:
                             id: groceriespercent
                             text: func.find_spending('Groceries', 'percent') + '%'
-                            color: 1, 0, 0, 1
+                            color: 0, 0, 0, 1 
 
                         Label:
                             id: groceriestotal
                             text: '$' + func.find_spending('Groceries', 'whole')
-                            color: 1, 0, 0, 1
+                            color: 0, 0, 0, 1 
 
                         Label:
                             canvas:
@@ -1033,7 +1098,6 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
 
@@ -1044,7 +1108,6 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
                             
@@ -1055,23 +1118,23 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
 
                         Label:
                             text: 'Internet'
-                            color: 1, 0, 0, 1  
+                            color: 0, 0, 0, 1 
+                            font_size: 20
 
                         Label:
                             id: internetpercent
                             text: func.find_spending('Internet', 'percent') + '%'
-                            color: 1, 0, 0, 1
+                            color: 0, 0, 0, 1 
 
                         Label:
                             id: internettotal
                             text: func.find_spending('Internet', 'whole')
-                            color: 1, 0, 0, 1
+                            color: 0, 0, 0, 1 
 
                         Label:
                             canvas:
@@ -1080,7 +1143,6 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
 
@@ -1091,7 +1153,6 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
                             
@@ -1102,21 +1163,23 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
 
                         Label:
                             text: 'CellPhone'
-                            color: 1, 0, 0, 1  
+                            color: 0, 0, 0, 1 
+                            font_size: 20
 
                         Label:
+                            id: cellphonepercent
                             text: func.find_spending('CellPhone', 'percent') + '%'
-                            color: 1, 0, 0, 1
+                            color: 0, 0, 0, 1 
 
                         Label:
+                            id: cellphonetotal
                             text: func.find_spending('CellPhone', 'whole')
-                            color: 1, 0, 0, 1
+                            color: 0, 0, 0, 1 
 
                         Label:
                             canvas:
@@ -1125,7 +1188,6 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
 
@@ -1136,7 +1198,6 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
                             
@@ -1147,21 +1208,23 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
 
                         Label:
                             text: 'Gas'
-                            color: 1, 0, 0, 1  
+                            color: 0, 0, 0, 1 
+                            font_size: 20
 
                         Label:
+                            id: gaspercent
                             text: func.find_spending('Gas', 'percent') + '%'
-                            color: 1, 0, 0, 1
+                            color: 0, 0, 0, 1 
 
                         Label:
+                            id: gastotal
                             text: func.find_spending('Gas', 'whole')
-                            color: 1, 0, 0, 1
+                            color: 0, 0, 0, 1 
 
                         Label:
                             canvas:
@@ -1170,7 +1233,6 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
 
@@ -1181,7 +1243,6 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
                             
@@ -1192,21 +1253,23 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
 
                         Label:
                             text: 'Rent'
-                            color: 1, 0, 0, 1  
+                            color: 0, 0, 0, 1 
+                            font_size: 20
 
                         Label:
+                            id: rentpercent
                             text: func.find_spending('Rent', 'percent') + '%'
-                            color: 1, 0, 0, 1
+                            color: 0, 0, 0, 1 
 
                         Label:
+                            id: renttotal
                             text: func.find_spending('Rent', 'whole')
-                            color: 1, 0, 0, 1
+                            color: 0, 0, 0, 1 
 
                         Label:
                             canvas:
@@ -1215,7 +1278,6 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
 
@@ -1226,7 +1288,6 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
                             
@@ -1237,21 +1298,23 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
 
                         Label:
                             text: 'Bank Account'
-                            color: 1, 0, 0, 1  
+                            color: 0, 0, 0, 1 
+                            font_size: 20
 
                         Label:
+                            id: bankaccountpercent
                             text: func.find_spending('BankAccount', 'percent') + '%'
-                            color: 1, 0, 0, 1
+                            color: 0, 0, 0, 1 
 
                         Label:
+                            id: bankaccounttotal
                             text: func.find_spending('BankAccount', 'whole')
-                            color: 1, 0, 0, 1
+                            color: 0, 0, 0, 1 
 
                         Label:
                             canvas:
@@ -1260,7 +1323,6 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
 
@@ -1271,7 +1333,6 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
                             
@@ -1282,21 +1343,23 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
 
                         Label:
                             text: 'Car Insurance'
-                            color: 1, 0, 0, 1  
+                            color: 0, 0, 0, 1 
+                            font_size: 20
 
                         Label:
+                            id: carinsurancepercent
                             text: func.find_spending('CarInsurance', 'percent') + '%'
-                            color: 1, 0, 0, 1
+                            color: 0, 0, 0, 1 
 
                         Label:
+                            id: carinsurancetotal
                             text: func.find_spending('CarInsurance', 'whole')
-                            color: 1, 0, 0, 1
+                            color: 0, 0, 0, 1 
 
                         Label:
                             canvas:
@@ -1305,7 +1368,6 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
 
@@ -1316,7 +1378,6 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
                             
@@ -1327,21 +1388,23 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
 
                         Label:
                             text: 'Health Insurance'
-                            color: 1, 0, 0, 1  
+                            color: 0, 0, 0, 1 
+                            font_size: 20
 
                         Label:
+                            id: healthinsurancepercent
                             text: func.find_spending('HealthInsurance', 'percent') + '%'
-                            color: 1, 0, 0, 1
+                            color: 0, 0, 0, 1 
 
                         Label:
+                            id: healthinsurancetotal
                             text: func.find_spending('HealthInsurance', 'whole')
-                            color: 1, 0, 0, 1
+                            color: 0, 0, 0, 1 
 
                         Label:
                             canvas:
@@ -1350,7 +1413,6 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
 
@@ -1361,7 +1423,6 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
                             
@@ -1372,21 +1433,23 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
 
                         Label:
                             text: 'Other'
-                            color: 1, 0, 0, 1  
+                            color: 0, 0, 0, 1 
+                            font_size: 20 
 
                         Label:
+                            id: otherpercent
                             text: func.find_spending('Other', 'percent') + '%'
-                            color: 1, 0, 0, 1
+                            color: 0, 0, 0, 1 
 
                         Label:
+                            id: othertotal
                             text: func.find_spending('Other', 'whole')
-                            color: 1, 0, 0, 1
+                            color: 0, 0, 0, 1 
 
                         Label:
                             canvas:
@@ -1395,7 +1458,6 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
 
@@ -1406,7 +1468,6 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
                             
@@ -1417,9 +1478,17 @@ WindowManager:
                                 Rectangle:
                                     pos: self.pos
                                     size: self.size
-                            color: 1, 0, 0, 1
                             size_hint_y: None
                             height: 2
+
+                        Label:
+                            text: ''
+                            
+                        Label:
+                            text: ''
+
+                        Label:
+                            text: ''
 
         FloatLayout:
             canvas:
@@ -1432,80 +1501,173 @@ WindowManager:
             pos_hint: {'top': 0.92, 'x': 0.67}
 
             Label:
-                text: 'Earned or Spent?'
-                color: 1, 0, 0, 1
-                font_size: 25
+                text: 'Earned or Spent:'
+                color: 0, 0, 0, 1
+                font_size: 30
                 size_hint: 0.05, 0.05
-                pos_hint: {'top': 0.95, 'x': 0.48}
+                pos_hint: {'top': 0.945, 'x': 0.25}
 
             Button:
+                id: earned
                 text: 'Earned'
+                background_color: 0.4, 0.4, 0.4, 1
                 size_hint: 0.15, 0.08
-                pos_hint: {'top': 0.88, 'x': 0.22}
+                pos_hint: {'top': 0.955, 'x': 0.55}
                 on_release:
                     func.earn_or_spend('earned')
+                    earned.background_color = 0, 1, 0, 1
+                    spent.background_color = 0.4, 0.4, 0.4, 1
 
             Button:
+                id: spent
                 text: 'Spent'
+                background_color: 0.4, 0.4, 0.4, 1
                 size_hint: 0.15, 0.08
-                pos_hint: {'top': 0.88, 'x': 0.65}
+                pos_hint: {'top': 0.955, 'x': 0.75}
                 on_release:
                     func.earn_or_spend('spent')
+                    spent.background_color = 0, 1, 0, 1
+                    earned.background_color = 0.4, 0.4, 0.4, 1
+
+
+            Label:
+                canvas:
+                    Color:
+                        rgb: 0.2, 0.2, 0.2, 1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                size_hint: 0.98, 0.005
+                pos_hint: {'top': 0.84, 'x': 0.01}
 
             Label:
                 text: 'Amount:'
-                color: 1, 0, 0, 1
-                font_size: 25
+                color: 0, 0, 0, 1
+                font_size: 30
                 size_hint: 0.05, 0.05
-                pos_hint: {'top': 0.75, 'x': 0.15}
+                pos_hint: {'top': 0.75, 'x': 0.145}
 
             TextInput:
                 id: amount
                 multiline: False
-                size_hint: 0.2, 0.05
-                pos_hint: {'top': 0.75, 'x': 0.3}
+                size_hint: 0.57, 0.05
+                pos_hint: {'top': 0.75, 'x': 0.33}
                 on_text_validate:
                     func.new_amount(amount.text)
 
             Label:
+                canvas:
+                    Color:
+                        rgb: 0.2, 0.2, 0.2, 1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                size_hint: 0.98, 0.005
+                pos_hint: {'top': 0.608, 'x': 0.01}
+
+            Label:
                 text: 'Category:'
-                color: 1, 0, 0, 1
-                font_size: 25
+                color: 0, 0, 0, 1
+                font_size: 30
                 size_hint: 0.05, 0.05
-                pos_hint: {'top': 0.58, 'x': 0.15}
+                pos_hint: {'top': 0.55, 'x': 0.155}
+
+            Label:
+                canvas:
+                    Color:
+                        rgb: 0.2, 0.2, 0.2, 1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                size_hint: 0.98, 0.005
+                pos_hint: {'top': 0.18, 'x': 0.01}
 
             Button:
                 text: 'Log it'
-                font_size: 20
-                size_hint: 0.15, 0.1
-                pos_hint: {'top': 0.38, 'x': 0.6}
+                font_size: 30
+                background_color: 0, 1, 0, 1
+                size_hint: 0.2, 0.1
+                pos_hint: {'top': 0.135, 'x': 0.05}
                 on_release:
-
-                    func.log_it()
-
+            
+                    func.new_income()
+                    
                     freetousespending.text = func.log_it() if func.choose_category() == 'FreeToUse' else freetousespending.text
                     freetousebar.value = eval(func.find_spending('FreeToUse', 'whole')) if func.choose_category() == 'FreeToUse' else freetousebar.value
                     freetousetotal.text = '$' + func.find_spending('FreeToUse', 'whole') if func.choose_category() == 'FreeToUse' else '$' + freetousespending.text
-                    freetousepercent.text = func.find_spending('FreeToUse', 'percent') + '%'
                     
                     utilitiesspending.text = func.log_it() if func.choose_category() == 'Utilities' else utilitiesspending.text
                     utilitiesbar.value = eval(func.find_spending('Utilities', 'whole')) if func.choose_category() == 'Utilities' else utilitiesbar.value
                     utilitiestotal.text = '$' + func.find_spending('Utilities', 'whole') if func.choose_category() == 'Utilities' else '$' + utilitiesspending.text
-                    utilitiespercent.text = func.find_spending('Utilities', 'percent') + '%'
 
                     groceriesspending.text = func.log_it() if func.choose_category() == 'Groceries' else groceriesspending.text
                     groceriesbar.value = eval(func.find_spending('Groceries', 'whole')) if func.choose_category() == 'Groceries' else groceriesbar.value
                     groceriestotal.text = '$' + func.find_spending('Groceries', 'whole') if func.choose_category() == 'Groceries' else '$' + groceriesspending.text
-                    groceriespercent.text = func.find_spending('Groceries', 'percent') + '%'
 
                     internetspending.text = func.log_it() if func.choose_category() == 'Internet' else internetspending.text
                     internetbar.value = eval(func.find_spending('Internet', 'whole')) if func.choose_category() == 'Internet' else internetbar.value
                     internettotal.text = '$' + func.find_spending('Internet', 'whole') if func.choose_category() == 'Internet' else '$' + internetspending.text
+
+                    cellphonespending.text = func.log_it() if func.choose_category() == 'CellPhone' else cellphonespending.text
+                    cellphonebar.value = eval(func.find_spending('CellPhone', 'whole')) if func.choose_category() == 'CellPhone' else cellphonebar.value
+                    cellphonetotal.text = '$' + func.find_spending('CellPhone', 'whole') if func.choose_category() == 'CellPhone' else '$' + cellphonespending.text
+
+                    gasspending.text = func.log_it() if func.choose_category() == 'Gas' else gasspending.text
+                    gasbar.value = eval(func.find_spending('Gas', 'whole')) if func.choose_category() == 'Gas' else gasbar.value
+                    gastotal.text = '$' + func.find_spending('Gas', 'whole') if func.choose_category() == 'Gas' else '$' + gasspending.text
+
+                    rentspending.text = func.log_it() if func.choose_category() == 'Rent' else rentspending.text
+                    rentbar.value = eval(func.find_spending('Rent', 'whole')) if func.choose_category() == 'Rent' else rentbar.value
+                    renttotal.text = '$' + func.find_spending('Rent', 'whole') if func.choose_category() == 'Rent' else '$' + rentspending.text
+
+                    bankaccountspending.text = func.log_it() if func.choose_category() == 'BankAccount' else bankaccountspending.text
+                    bankaccountbar.value = eval(func.find_spending('BankAccount', 'whole')) if func.choose_category() == 'BankAccount' else bankaccountbar.value
+                    bankaccounttotal.text = '$' + func.find_spending('BankAccount', 'whole') if func.choose_category() == 'BankAccount' else '$' + bankaccountspending.text
+
+                    carinsurancespending.text = func.log_it() if func.choose_category() == 'CarInsurance' else carinsurancespending.text
+                    carinsurancebar.value = eval(func.find_spending('CarInsurance', 'whole')) if func.choose_category() == 'CarInsurance' else carinsurancebar.value
+                    carinsurancetotal.text = '$' + func.find_spending('CarInsurance', 'whole') if func.choose_category() == 'CarInsurance' else '$' + carinsurancespending.text
+
+                    healthinsurancespending.text = func.log_it() if func.choose_category() == 'HealthInsurance' else healthinsurancespending.text
+                    healthinsurancebar.value = eval(func.find_spending('HealthInsurance', 'whole')) if func.choose_category() == 'HealthInsurance' else healthinsurancebar.value
+                    healthinsurancetotal.text = '$' + func.find_spending('HealthInsurance', 'whole') if func.choose_category() == 'HealthInsurance' else '$' + healthinsurancespending.text
+
+                    otherspending.text = func.log_it() if func.choose_category() == 'Other' else otherspending.text
+                    otherbar.value = eval(func.find_spending('Other', 'whole')) if func.choose_category() == 'Other' else otherbar.value
+                    othertotal.text = '$' + func.find_spending('Other', 'whole') if func.choose_category() == 'Other' else '$' + otherspending.text
+
+                    freetousepercent.text = func.find_spending('FreeToUse', 'percent') + '%'
+                    utilitiespercent.text = func.find_spending('Utilities', 'percent') + '%'
+                    groceriespercent.text = func.find_spending('Groceries', 'percent') + '%'
                     internetpercent.text = func.find_spending('Internet', 'percent') + '%'
+                    cellphonepercent.text = func.find_spending('CellPhone', 'percent') + '%'
+                    gaspercent.text = func.find_spending('Gas', 'percent') + '%'
+                    rentpercent.text = func.find_spending('Rent', 'percent') + '%'
+                    bankaccountpercent.text = func.find_spending('BankAccount', 'percent') + '%'
+                    carinsurancepercent.text = func.find_spending('CarInsurance', 'percent') + '%'
+                    healthinsurancepercent.text = func.find_spending('HealthInsurance', 'percent') + '%'
+                    otherpercent.text = func.find_spending('Other', 'percent') + '%'
 
                     mainbar.max = eval(func.find_income())
                     mainbar.value = eval(func.calc_savings_spending('spending'))
-                    totalspending.text = 'Spent: ' + func.calc_savings_spending('spending')
+                    totalincome.text = '$' + func.find_income()
+                    totalspending.text = '$' + func.calc_savings_spending('spending')
+                    totalsavings.text = '$' + func.calc_savings_spending('savings')
+
+                    earned.background_color = 0.4, 0.4, 0.4, 1
+                    spent.background_color = 0.4, 0.4, 0.4, 1
+                    freetouselog.background_color = 0.4, 0.4, 0.4, 1
+                    utilitieslog.background_color = 0.4, 0.4, 0.4, 1
+                    grocerieslog.background_color = 0.4, 0.4, 0.4, 1
+                    internetlog.background_color = 0.4, 0.4, 0.4, 1
+                    cellphonelog.background_color = 0.4, 0.4, 0.4, 1
+                    gaslog.background_color = 0.4, 0.4, 0.4, 1
+                    rentlog.background_color = 0.4, 0.4, 0.4, 1
+                    bankaccountlog.background_color = 0.4, 0.4, 0.4, 1
+                    carinsurancelog.background_color = 0.4, 0.4, 0.4, 1
+                    healthinsurancelog.background_color = 0.4, 0.4, 0.4, 1
+                    otherlog.background_color = 0.4, 0.4, 0.4, 1
+
                     func.clean_transaction()
 
             ScrollView:
@@ -1513,57 +1675,243 @@ WindowManager:
                 do_scroll_y: True
                 bar_width: 4
                 bar_color: 0, 0, 0, 1
-                size_hint: 0.5, 0.1
-                pos_hint: {'top': 0.57, 'x': 0.3}
+                size_hint: 0.55, 0.3
+                pos_hint: {'top': 0.535, 'x': 0.35}
 
                 GridLayout:
                     size_hint_x: 0.97
                     size_hint_y: None
                     cols: 1
-                    row_default_height: root.height*0.02
+                    row_default_height: root.height*0.072
                     height: self.minimum_height
 
                     Button:
+                        id: freetouselog
                         text: 'Free To Use'
                         font_size: 20
-                        color: 1, 0, 0, 1
-                        backgroun_color: 0, 0, 0, 1
+                        background_color: 0.4, 0.4, 0.4, 1
                         size_hint_y: None
-                        height: 35
+                        height: 75
                         on_release:
                             func.transaction_type('FreeToUse')
+                            freetouselog.background_color = 0, 1, 0, 1
+                            utilitieslog.background_color = 0.4, 0.4, 0.4, 1
+                            grocerieslog.background_color = 0.4, 0.4, 0.4, 1
+                            internetlog.background_color = 0.4, 0.4, 0.4, 1
+                            cellphonelog.background_color = 0.4, 0.4, 0.4, 1
+                            gaslog.background_color = 0.4, 0.4, 0.4, 1
+                            rentlog.background_color = 0.4, 0.4, 0.4, 1
+                            bankaccountlog.background_color = 0.4, 0.4, 0.4, 1
+                            carinsurancelog.background_color = 0.4, 0.4, 0.4, 1
+                            healthinsurancelog.background_color = 0.4, 0.4, 0.4, 1
+                            otherlog.background_color = 0.4, 0.4, 0.4, 1
 
                     Button:
+                        id: utilitieslog
                         text: 'Utilities'
                         font_size: 20
-                        color: 1, 0, 0, 1
-                        backgroun_color: 0, 0, 0, 1
+                        background_color: 0.4, 0.4, 0.4, 1
                         size_hint_y: None
-                        height: 35
+                        height: 75
                         on_release:
                             func.transaction_type('Utilities')
+                            freetouselog.background_color = 0.4, 0.4, 0.4, 1
+                            utilitieslog.background_color = 0, 1, 0, 1
+                            grocerieslog.background_color = 0.4, 0.4, 0.4, 1
+                            internetlog.background_color = 0.4, 0.4, 0.4, 1
+                            cellphonelog.background_color = 0.4, 0.4, 0.4, 1
+                            gaslog.background_color = 0.4, 0.4, 0.4, 1
+                            rentlog.background_color = 0.4, 0.4, 0.4, 1
+                            bankaccountlog.background_color = 0.4, 0.4, 0.4, 1
+                            carinsurancelog.background_color = 0.4, 0.4, 0.4, 1
+                            healthinsurancelog.background_color = 0.4, 0.4, 0.4, 1
+                            otherlog.background_color = 0.4, 0.4, 0.4, 1
 
                     Button:
+                        id: grocerieslog
                         text: 'Groceries'
                         font_size: 20
-                        color: 1, 0, 0, 1
-                        backgroun_color: 0, 0, 0, 1
+                        background_color: 0.4, 0.4, 0.4, 1
                         size_hint_y: None
-                        height: 35
+                        height: 75
                         on_release:
                             func.transaction_type('Groceries')
+                            freetouselog.background_color = 0.4, 0.4, 0.4, 1
+                            utilitieslog.background_color = 0.4, 0.4, 0.4, 1
+                            grocerieslog.background_color = 0, 1, 0, 1
+                            internetlog.background_color = 0.4, 0.4, 0.4, 1
+                            cellphonelog.background_color = 0.4, 0.4, 0.4, 1
+                            gaslog.background_color = 0.4, 0.4, 0.4, 1
+                            rentlog.background_color = 0.4, 0.4, 0.4, 1
+                            bankaccountlog.background_color = 0.4, 0.4, 0.4, 1
+                            carinsurancelog.background_color = 0.4, 0.4, 0.4, 1
+                            healthinsurancelog.background_color = 0.4, 0.4, 0.4, 1
+                            otherlog.background_color = 0.4, 0.4, 0.4, 1
 
                     Button:
+                        id: internetlog
                         text: 'Internet'
                         font_size: 20
-                        color: 1, 0, 0, 1
-                        backgroun_color: 0, 0, 0, 1
+                        background_color: 0.4, 0.4, 0.4, 1
                         size_hint_y: None
-                        height: 35
+                        height: 75
                         on_release:
                             func.transaction_type('Internet')
+                            freetouselog.background_color = 0.4, 0.4, 0.4, 1
+                            utilitieslog.background_color = 0.4, 0.4, 0.4, 1
+                            grocerieslog.background_color = 0.4, 0.4, 0.4, 1
+                            internetlog.background_color = 0, 1, 0, 1
+                            cellphonelog.background_color = 0.4, 0.4, 0.4, 1
+                            gaslog.background_color = 0.4, 0.4, 0.4, 1
+                            rentlog.background_color = 0.4, 0.4, 0.4, 1
+                            bankaccountlog.background_color = 0.4, 0.4, 0.4, 1
+                            carinsurancelog.background_color = 0.4, 0.4, 0.4, 1
+                            healthinsurancelog.background_color = 0.4, 0.4, 0.4, 1
+                            otherlog.background_color = 0.4, 0.4, 0.4, 1
 
                     Button:
-                        text: 'hello'
-                        font_size: 15
-                        color: 1, 0, 0, 1
+                        id: cellphonelog
+                        text: 'Cell Phone'
+                        font_size: 20
+                        background_color: 0.4, 0.4, 0.4, 1
+                        size_hint_y: None
+                        height: 75
+                        on_release:
+                            func.transaction_type('CellPhone')
+                            freetouselog.background_color = 0.4, 0.4, 0.4, 1
+                            utilitieslog.background_color = 0.4, 0.4, 0.4, 1
+                            grocerieslog.background_color = 0.4, 0.4, 0.4, 1
+                            internetlog.background_color = 0.4, 0.4, 0.4, 1
+                            cellphonelog.background_color = 0, 1, 0, 1
+                            gaslog.background_color = 0.4, 0.4, 0.4, 1
+                            rentlog.background_color = 0.4, 0.4, 0.4, 1
+                            bankaccountlog.background_color = 0.4, 0.4, 0.4, 1
+                            carinsurancelog.background_color = 0.4, 0.4, 0.4, 1
+                            healthinsurancelog.background_color = 0.4, 0.4, 0.4, 1
+                            otherlog.background_color = 0.4, 0.4, 0.4, 1
+
+                    Button:
+                        id: gaslog
+                        text: 'Gas'
+                        font_size: 20
+                        background_color: 0.4, 0.4, 0.4, 1
+                        size_hint_y: None
+                        height: 75
+                        on_release:
+                            func.transaction_type('Gas')
+                            freetouselog.background_color = 0.4, 0.4, 0.4, 1
+                            utilitieslog.background_color = 0.4, 0.4, 0.4, 1
+                            grocerieslog.background_color = 0.4, 0.4, 0.4, 1
+                            internetlog.background_color = 0.4, 0.4, 0.4, 1
+                            cellphonelog.background_color = 0.4, 0.4, 0.4, 1
+                            gaslog.background_color = 0, 1, 0, 1
+                            rentlog.background_color = 0.4, 0.4, 0.4, 1
+                            bankaccountlog.background_color = 0.4, 0.4, 0.4, 1
+                            carinsurancelog.background_color = 0.4, 0.4, 0.4, 1
+                            healthinsurancelog.background_color = 0.4, 0.4, 0.4, 1
+                            otherlog.background_color = 0.4, 0.4, 0.4, 1
+
+                    Button:
+                        id: rentlog
+                        text: 'Rent'
+                        font_size: 20
+                        background_color: 0.4, 0.4, 0.4, 1
+                        size_hint_y: None
+                        height: 75
+                        on_release:
+                            func.transaction_type('Rent')
+                            freetouselog.background_color = 0.4, 0.4, 0.4, 1
+                            utilitieslog.background_color = 0.4, 0.4, 0.4, 1
+                            grocerieslog.background_color = 0.4, 0.4, 0.4, 1
+                            internetlog.background_color = 0.4, 0.4, 0.4, 1
+                            cellphonelog.background_color = 0.4, 0.4, 0.4, 1
+                            gaslog.background_color = 0.4, 0.4, 0.4, 1
+                            rentlog.background_color = 0, 1, 0, 1
+                            bankaccountlog.background_color = 0.4, 0.4, 0.4, 1
+                            carinsurancelog.background_color = 0.4, 0.4, 0.4, 1
+                            healthinsurancelog.background_color = 0.4, 0.4, 0.4, 1
+                            otherlog.background_color = 0.4, 0.4, 0.4, 1
+
+                    Button:
+                        id: bankaccountlog
+                        text: 'Bank Account'
+                        font_size: 20
+                        background_color: 0.4, 0.4, 0.4, 1
+                        size_hint_y: None
+                        height: 75
+                        on_release:
+                            func.transaction_type('BankAccount')
+                            freetouselog.background_color = 0.4, 0.4, 0.4, 1
+                            utilitieslog.background_color = 0.4, 0.4, 0.4, 1
+                            grocerieslog.background_color = 0.4, 0.4, 0.4, 1
+                            internetlog.background_color = 0.4, 0.4, 0.4, 1
+                            cellphonelog.background_color = 0.4, 0.4, 0.4, 1
+                            gaslog.background_color = 0.4, 0.4, 0.4, 1
+                            rentlog.background_color = 0.4, 0.4, 0.4, 1
+                            bankaccountlog.background_color = 0, 1, 0, 1
+                            carinsurancelog.background_color = 0.4, 0.4, 0.4, 1
+                            healthinsurancelog.background_color = 0.4, 0.4, 0.4, 1
+                            otherlog.background_color = 0.4, 0.4, 0.4, 1
+
+                    Button:
+                        id: carinsurancelog
+                        text: 'Car Insurance'
+                        font_size: 20
+                        background_color: 0.4, 0.4, 0.4, 1
+                        size_hint_y: None
+                        height: 75
+                        on_release:
+                            func.transaction_type('CarInsurance')
+                            freetouselog.background_color = 0.4, 0.4, 0.4, 1
+                            utilitieslog.background_color = 0.4, 0.4, 0.4, 1
+                            grocerieslog.background_color = 0.4, 0.4, 0.4, 1
+                            internetlog.background_color = 0.4, 0.4, 0.4, 1
+                            cellphonelog.background_color = 0.4, 0.4, 0.4, 1
+                            gaslog.background_color = 0.4, 0.4, 0.4, 1
+                            rentlog.background_color = 0.4, 0.4, 0.4, 1
+                            bankaccountlog.background_color = 0.4, 0.4, 0.4, 1
+                            carinsurancelog.background_color = 0, 1, 0, 1
+                            healthinsurancelog.background_color = 0.4, 0.4, 0.4, 1
+                            otherlog.background_color = 0.4, 0.4, 0.4, 1
+
+                    Button:
+                        id: healthinsurancelog
+                        text: 'Health Insurance'
+                        font_size: 20
+                        background_color: 0.4, 0.4, 0.4, 1
+                        size_hint_y: None
+                        height: 75
+                        on_release:
+                            func.transaction_type('HealthInsurance')
+                            freetouselog.background_color = 0.4, 0.4, 0.4, 1
+                            utilitieslog.background_color = 0.4, 0.4, 0.4, 1
+                            grocerieslog.background_color = 0.4, 0.4, 0.4, 1
+                            internetlog.background_color = 0.4, 0.4, 0.4, 1
+                            cellphonelog.background_color = 0.4, 0.4, 0.4, 1
+                            gaslog.background_color = 0.4, 0.4, 0.4, 1
+                            rentlog.background_color = 0.4, 0.4, 0.4, 1
+                            bankaccountlog.background_color = 0.4, 0.4, 0.4, 1
+                            carinsurancelog.background_color = 0.4, 0.4, 0.4, 1
+                            healthinsurancelog.background_color = 0, 1, 0, 1
+                            otherlog.background_color = 0.4, 0.4, 0.4, 1
+
+                    Button:
+                        id: otherlog
+                        text: 'Other'
+                        font_size: 20
+                        background_color: 0.4, 0.4, 0.4, 1
+                        size_hint_y: None
+                        height: 75
+                        on_release:
+                            func.transaction_type('Other')
+                            freetouselog.background_color = 0.4, 0.4, 0.4, 1
+                            utilitieslog.background_color = 0.4, 0.4, 0.4, 1
+                            grocerieslog.background_color = 0.4, 0.4, 0.4, 1
+                            internetlog.background_color = 0.4, 0.4, 0.4, 1
+                            cellphonelog.background_color = 0.4, 0.4, 0.4, 1
+                            gaslog.background_color = 0.4, 0.4, 0.4, 1
+                            rentlog.background_color = 0.4, 0.4, 0.4, 1
+                            bankaccountlog.background_color = 0.4, 0.4, 0.4, 1
+                            carinsurancelog.background_color = 0.4, 0.4, 0.4, 1
+                            healthinsurancelog.background_color = 0.4, 0.4, 0.4, 1
+                            otherlog.background_color = 0, 1, 0, 1
