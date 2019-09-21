@@ -184,3 +184,10 @@ def clean_transaction():
     data['transaction']['amount'] = '0'
     data['transaction']['category'] = '0'
     pickle.dump(data, open('storage.dat', 'wb'))
+
+
+def remember_color(category):
+    if eval(remember_spending(category)) > eval(remember_budget(category)):
+        return (1, 0, 0, 1)
+    else:
+        return (0, 0, 0, 1)

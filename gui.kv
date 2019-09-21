@@ -452,7 +452,7 @@ WindowManager:
                         id: freetousespending
                         text: func.remember_spending('FreeToUse')
                         font_size: 25
-                        color: 0, 0, 0, 1
+                        color: func.remember_color('FreeToUse')
                         text_size: self.size
                         halign: 'right'
 
@@ -472,6 +472,8 @@ WindowManager:
                         valign: 'top'
                         on_text_validate:
                             freetousebar.max = freetouse.text if freetouse.text != '' and func.new_budget_check('FreeToUse', freetouse.text) else freetousebar.max
+                            freetousespending.color = func.remember_color('FreeToUse')
+                            freetousebar.value = eval(freetouse.text) if freetousebar.max < freetousebar.value else eval(func.find_spending('FreeToUse', 'whole'))
 
                     Label:
                         text: 'Utilities'
@@ -484,7 +486,7 @@ WindowManager:
                         id: utilitiesspending
                         text: func.remember_spending('Utilities')
                         font_size: 25
-                        color: 0, 0, 0, 1
+                        color: func.remember_color('Utilities')
                         text_size: self.size
                         halign: 'right'
 
@@ -504,6 +506,8 @@ WindowManager:
                         valign: 'top'
                         on_text_validate:
                             utilitiesbar.max = utilities.text if utilities.text != '' and func.new_budget_check('Utilities', utilities.text) else utilitiesbar.max
+                            utilitiesspending.color = func.remember_color('Utilities')
+                            utilitiesbar.value = eval(freetouse.text) if utilitiesbar.max < utilitiesbar.value else eval(func.find_spending('Utilities', 'whole'))
 
                     Label:
                         text: 'Groceries'
@@ -516,7 +520,7 @@ WindowManager:
                         id: groceriesspending
                         text: func.remember_spending('Groceries')
                         font_size: 25
-                        color: 0, 0, 0, 1
+                        color: func.remember_color('Groceries')
                         text_size: self.size
                         halign: 'right'
 
@@ -536,6 +540,8 @@ WindowManager:
                         valign: 'top'
                         on_text_validate:
                             groceriesbar.max = groceries.text if groceries.text != '' and func.new_budget_check('Groceries', groceries.text) else groceriesbar.max
+                            groceriesspending.color = func.remember_color('Groceries')
+                            groceriesbar.value = eval(groceries.text) if groceriesbar.max < groceriesbar.value else eval(func.find_spending('Groceries', 'whole'))
 
                     Label:
                         text: 'Internet'
@@ -548,7 +554,7 @@ WindowManager:
                         id: internetspending
                         text: func.remember_spending('Internet')
                         font_size: 25
-                        color: 0, 0, 0, 1
+                        color: func.remember_color('Internet')
                         text_size: self.size
                         halign: 'right'
 
@@ -568,6 +574,8 @@ WindowManager:
                         valign: 'top'
                         on_text_validate:
                             internetbar.max = internet.text if internet.text != '' and func.new_budget_check('Internet', internet.text) else internetbar.max
+                            internetspending.color = func.remember_color('Internet')
+                            internetbar.value = eval(internet.text) if internetbar.max < internetbar.value else eval(func.find_spending('Internet', 'whole'))
 
                     Label:
                         text: 'Cell Phone'
@@ -580,7 +588,7 @@ WindowManager:
                         id: cellphonespending
                         text: func.remember_spending('CellPhone')
                         font_size: 25
-                        color: 0, 0, 0, 1
+                        color: func.remember_color('CellPhone')
                         text_size: self.size
                         halign: 'right'
 
@@ -600,6 +608,8 @@ WindowManager:
                         valign: 'top'
                         on_text_validate:
                             cellphonebar.max = cellphone.text if cellphone.text != '' and func.new_budget_check('CellPhone', cellphone.text) else cellphonebar.max
+                            cellphonespending.color = func.remember_color('CellPhone')
+                            cellphonebar.value = eval(cellphone.text) if cellphonebar.max < cellphonebar.value else eval(func.find_spending('CellPhone', 'whole'))
 
                     Label:
                         text: 'Gas'
@@ -612,7 +622,7 @@ WindowManager:
                         id: gasspending
                         text: func.remember_spending('Gas')
                         font_size: 25
-                        color: 0, 0, 0, 1
+                        color: func.remember_color('Gas')
                         text_size: self.size
                         halign: 'right'
 
@@ -632,6 +642,8 @@ WindowManager:
                         valign: 'top'
                         on_text_validate:
                             gasbar.max = gas.text if gas.text != '' and func.new_budget_check('Gas', gas.text) else gasbar.max
+                            gasspending.color = func.remember_color('Gas')
+                            gasbar.value = eval(gas.text) if gasbar.max < gasbar.value else eval(func.find_spending('Gas', 'whole'))
 
                     Label:
                         text: 'Rent'
@@ -644,7 +656,7 @@ WindowManager:
                         id: rentspending
                         text: func.remember_spending('Rent')
                         font_size: 25
-                        color: 0, 0, 0, 1
+                        color: func.remember_color('Rent')
                         text_size: self.size
                         halign: 'right'
 
@@ -664,6 +676,8 @@ WindowManager:
                         valign: 'top'
                         on_text_validate:
                             rentbar.max = rent.text if rent.text != '' and func.new_budget_check('Rent', rent.text) else rentbar.max
+                            rentspending.color = func.remember_color('Rent')
+                            rentbar.value = eval(rent.text) if rentbar.max < rentbar.value else eval(func.find_spending('Rent', 'whole'))
 
                     Label:
                         text: 'Bank Account'
@@ -676,7 +690,7 @@ WindowManager:
                         id: bankaccountspending
                         text: func.remember_spending('BankAccount')
                         font_size: 25
-                        color: 0, 0, 0, 1
+                        color: func.remember_color('BankAccount')
                         text_size: self.size
                         halign: 'right'
 
@@ -696,6 +710,8 @@ WindowManager:
                         valign: 'top'
                         on_text_validate:
                             bankaccountbar.max = bankaccount.text if bankaccount.text != '' and func.new_budget_check('BankAccount', bankaccount.text) else bankaccountbar.max
+                            bankaccountspending.color = func.remember_color('BankAccount')
+                            bankaccountbar.value = eval(bankaccount.text) if bankaccountbar.max < bankaccountbar.value else eval(func.find_spending('BankAccount', 'whole'))
 
                     Label:
                         text: 'Car Insurance'
@@ -708,7 +724,7 @@ WindowManager:
                         id: carinsurancespending
                         text: func.remember_spending('CarInsurance')
                         font_size: 25
-                        color: 0, 0, 0, 1
+                        color: func.remember_color('CarInsurance')
                         text_size: self.size
                         halign: 'right'
 
@@ -727,7 +743,9 @@ WindowManager:
                         halign: 'right'
                         valign: 'top'
                         on_text_validate:
-                            carinsbar.max = carins.text if carins.text != '' and func.new_budget_check('CarInsurance', carins.text) else carinsbar.max
+                            carinsurancebar.max = carins.text if carins.text != '' and func.new_budget_check('CarInsurance', carins.text) else carinsurancebar.max
+                            carinsurancespending.color = func.remember_color('CarInsurance')
+                            carinsurancebar.value = eval(carins.text) if carinsurancebar.max < carinsurancebar.value else eval(func.find_spending('CarInsurance', 'whole'))
 
                     Label:
                         text: 'Health Insurance'
@@ -740,7 +758,7 @@ WindowManager:
                         id: healthinsurancespending
                         text: func.remember_spending('HealthInsurance')
                         font_size: 25
-                        color: 0, 0, 0, 1
+                        color: func.remember_color('HealthInsurance')
                         text_size: self.size
                         halign: 'right'
 
@@ -759,7 +777,9 @@ WindowManager:
                         halign: 'right'
                         valign: 'top'
                         on_text_validate:
-                            healthinsbar.max = healthins.text if healthins.text != '' and func.new_budget_check('HealthInsurance', healthins.text) else healthinsbar.max
+                            healthinsurancebar.max = healthins.text if healthins.text != '' and func.new_budget_check('HealthInsurance', healthins.text) else healthinsurancebar.max
+                            healthinsurancespending.color = func.remember_color('HealthInsurance')
+                            healthinsurancebar.value = eval(healthins.text) if healthinsurancebar.max < healthinsurancebar.value else eval(func.find_spending('HealthInsurance', 'whole'))
 
                     Label:
                         text: 'Other (unexpected)'
@@ -772,7 +792,7 @@ WindowManager:
                         id: otherspending
                         text: func.remember_spending('Other')
                         font_size: 25
-                        color: 0, 0, 0, 1
+                        color: func.remember_color('Other')
                         text_size: self.size
                         halign: 'right'
 
@@ -792,6 +812,8 @@ WindowManager:
                         valign: 'top'
                         on_text_validate:
                             otherbar.max = other.text if other.text != '' and func.new_budget_check('Other', other.text) else otherbar.max
+                            otherspending.color = func.remember_color('Other')
+                            otherbar.value = eval(other.text) if otherbar.max < otherbar.value else eval(func.find_spending('Other', 'whole'))
 
                     Label:
                         text: ''
@@ -1133,7 +1155,7 @@ WindowManager:
 
                         Label:
                             id: internettotal
-                            text: func.find_spending('Internet', 'whole')
+                            text: '$' + func.find_spending('Internet', 'whole')
                             color: 0, 0, 0, 1 
 
                         Label:
@@ -1178,7 +1200,7 @@ WindowManager:
 
                         Label:
                             id: cellphonetotal
-                            text: func.find_spending('CellPhone', 'whole')
+                            text: '$' + func.find_spending('CellPhone', 'whole')
                             color: 0, 0, 0, 1 
 
                         Label:
@@ -1223,7 +1245,7 @@ WindowManager:
 
                         Label:
                             id: gastotal
-                            text: func.find_spending('Gas', 'whole')
+                            text: '$' + func.find_spending('Gas', 'whole')
                             color: 0, 0, 0, 1 
 
                         Label:
@@ -1268,7 +1290,7 @@ WindowManager:
 
                         Label:
                             id: renttotal
-                            text: func.find_spending('Rent', 'whole')
+                            text: '$' + func.find_spending('Rent', 'whole')
                             color: 0, 0, 0, 1 
 
                         Label:
@@ -1313,7 +1335,7 @@ WindowManager:
 
                         Label:
                             id: bankaccounttotal
-                            text: func.find_spending('BankAccount', 'whole')
+                            text: '$' + func.find_spending('BankAccount', 'whole')
                             color: 0, 0, 0, 1 
 
                         Label:
@@ -1358,7 +1380,7 @@ WindowManager:
 
                         Label:
                             id: carinsurancetotal
-                            text: func.find_spending('CarInsurance', 'whole')
+                            text: '$' + func.find_spending('CarInsurance', 'whole')
                             color: 0, 0, 0, 1 
 
                         Label:
@@ -1403,7 +1425,7 @@ WindowManager:
 
                         Label:
                             id: healthinsurancetotal
-                            text: func.find_spending('HealthInsurance', 'whole')
+                            text: '$' + func.find_spending('HealthInsurance', 'whole')
                             color: 0, 0, 0, 1 
 
                         Label:
@@ -1448,7 +1470,7 @@ WindowManager:
 
                         Label:
                             id: othertotal
-                            text: func.find_spending('Other', 'whole')
+                            text: '$' + func.find_spending('Other', 'whole')
                             color: 0, 0, 0, 1 
 
                         Label:
@@ -1591,6 +1613,7 @@ WindowManager:
                 on_release:
             
                     func.new_income()
+                    amount.text = ''
                     
                     freetousespending.text = func.log_it() if func.choose_category() == 'FreeToUse' else freetousespending.text
                     freetousebar.value = eval(func.find_spending('FreeToUse', 'whole')) if func.choose_category() == 'FreeToUse' else freetousebar.value
@@ -1635,6 +1658,18 @@ WindowManager:
                     otherspending.text = func.log_it() if func.choose_category() == 'Other' else otherspending.text
                     otherbar.value = eval(func.find_spending('Other', 'whole')) if func.choose_category() == 'Other' else otherbar.value
                     othertotal.text = '$' + func.find_spending('Other', 'whole') if func.choose_category() == 'Other' else '$' + otherspending.text
+
+                    freetousespending.color = func.remember_color('FreeToUse')
+                    utilitiesspending.color = func.remember_color('Utilities')
+                    groceriesspending.color = func.remember_color('Groceries')
+                    internetspending.color = func.remember_color('Internet')
+                    cellphonespending.color = func.remember_color('CellPhone')
+                    gasspending.color = func.remember_color('Gas')
+                    rentspending.color = func.remember_color('Rent')
+                    bankaccountspending.color = func.remember_color('BankAccount')
+                    carinsurancespending.color = func.remember_color('CarInsurance')
+                    healthinsurancespending.color = func.remember_color('HealthInsurance')
+                    otherspending.color = func.remember_color('Other')
 
                     freetousepercent.text = func.find_spending('FreeToUse', 'percent') + '%'
                     utilitiespercent.text = func.find_spending('Utilities', 'percent') + '%'
