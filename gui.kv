@@ -1,6 +1,6 @@
 #:import func functionality
 #:import NoTransition kivy.uix.screenmanager.NoTransition
-
+#:import Factory kivy.factory.Factory
 
 
 WindowManager:
@@ -425,10 +425,34 @@ WindowManager:
                     size: self.size
             size_hint: 0.32, 0.87
             pos_hint: {'top': 0.92, 'x': 0.01}
+
+            Label:
+                canvas:
+                    Color:
+                        rgb: 0.15, 0.15, 0.15, 1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                size_hint: 1, 0.165
+                pos_hint: {'top': 1, 'x': 0}
+
+            Label:
+                text: 'Estimated Savings: '
+                font_size: 25
+                size_hint: 0.3, 0.1
+                pos_hint: {'top': 0.97, 'x': 0.12}
             
+            Label:
+                id: estimatedsavings
+                text: '$' + func.estimated_savings()
+                font_size: 30
+                color: func.estimated_savings_color()
+                size_hint: 0.3, 0.1
+                pos_hint: {'top': 0.97, 'x': 0.6}
+
             ScrollView:
-                size_hint: 0.98, 1
-                pos_hint: {'top': 1, 'x': 0.02}
+                size_hint: 0.98, 0.835
+                pos_hint: {'top': 0.835, 'x': 0.02}
                 do_scroll_x: False
                 do_scroll_y: True
                 bar_width: 4
@@ -474,6 +498,8 @@ WindowManager:
                             freetousebar.max = freetouse.text if freetouse.text != '' and func.new_budget_check('FreeToUse', freetouse.text) else freetousebar.max
                             freetousespending.color = func.remember_color('FreeToUse')
                             freetousebar.value = eval(freetouse.text) if freetousebar.max < freetousebar.value else eval(func.find_spending('FreeToUse', 'whole'))
+                            estimatedsavings.text = '$' + func.estimated_savings()
+                            estimatedsavings.color = func.estimated_savings_color()
 
                     Label:
                         text: 'Utilities'
@@ -508,6 +534,8 @@ WindowManager:
                             utilitiesbar.max = utilities.text if utilities.text != '' and func.new_budget_check('Utilities', utilities.text) else utilitiesbar.max
                             utilitiesspending.color = func.remember_color('Utilities')
                             utilitiesbar.value = eval(freetouse.text) if utilitiesbar.max < utilitiesbar.value else eval(func.find_spending('Utilities', 'whole'))
+                            estimatedsavings.text = '$' + func.estimated_savings()
+                            estimatedsavings.color = func.estimated_savings_color()
 
                     Label:
                         text: 'Groceries'
@@ -542,6 +570,8 @@ WindowManager:
                             groceriesbar.max = groceries.text if groceries.text != '' and func.new_budget_check('Groceries', groceries.text) else groceriesbar.max
                             groceriesspending.color = func.remember_color('Groceries')
                             groceriesbar.value = eval(groceries.text) if groceriesbar.max < groceriesbar.value else eval(func.find_spending('Groceries', 'whole'))
+                            estimatedsavings.text = '$' + func.estimated_savings()
+                            estimatedsavings.color = func.estimated_savings_color()
 
                     Label:
                         text: 'Internet'
@@ -576,6 +606,8 @@ WindowManager:
                             internetbar.max = internet.text if internet.text != '' and func.new_budget_check('Internet', internet.text) else internetbar.max
                             internetspending.color = func.remember_color('Internet')
                             internetbar.value = eval(internet.text) if internetbar.max < internetbar.value else eval(func.find_spending('Internet', 'whole'))
+                            estimatedsavings.text = '$' + func.estimated_savings()
+                            estimatedsavings.color = func.estimated_savings_color()
 
                     Label:
                         text: 'Cell Phone'
@@ -610,6 +642,8 @@ WindowManager:
                             cellphonebar.max = cellphone.text if cellphone.text != '' and func.new_budget_check('CellPhone', cellphone.text) else cellphonebar.max
                             cellphonespending.color = func.remember_color('CellPhone')
                             cellphonebar.value = eval(cellphone.text) if cellphonebar.max < cellphonebar.value else eval(func.find_spending('CellPhone', 'whole'))
+                            estimatedsavings.text = '$' + func.estimated_savings()
+                            estimatedsavings.color = func.estimated_savings_color()
 
                     Label:
                         text: 'Gas'
@@ -644,6 +678,8 @@ WindowManager:
                             gasbar.max = gas.text if gas.text != '' and func.new_budget_check('Gas', gas.text) else gasbar.max
                             gasspending.color = func.remember_color('Gas')
                             gasbar.value = eval(gas.text) if gasbar.max < gasbar.value else eval(func.find_spending('Gas', 'whole'))
+                            estimatedsavings.text = '$' + func.estimated_savings()
+                            estimatedsavings.color = func.estimated_savings_color()
 
                     Label:
                         text: 'Rent'
@@ -678,6 +714,8 @@ WindowManager:
                             rentbar.max = rent.text if rent.text != '' and func.new_budget_check('Rent', rent.text) else rentbar.max
                             rentspending.color = func.remember_color('Rent')
                             rentbar.value = eval(rent.text) if rentbar.max < rentbar.value else eval(func.find_spending('Rent', 'whole'))
+                            estimatedsavings.text = '$' + func.estimated_savings()
+                            estimatedsavings.color = func.estimated_savings_color()
 
                     Label:
                         text: 'Bank Account'
@@ -712,6 +750,8 @@ WindowManager:
                             bankaccountbar.max = bankaccount.text if bankaccount.text != '' and func.new_budget_check('BankAccount', bankaccount.text) else bankaccountbar.max
                             bankaccountspending.color = func.remember_color('BankAccount')
                             bankaccountbar.value = eval(bankaccount.text) if bankaccountbar.max < bankaccountbar.value else eval(func.find_spending('BankAccount', 'whole'))
+                            estimatedsavings.text = '$' + func.estimated_savings()
+                            estimatedsavings.color = func.estimated_savings_color()
 
                     Label:
                         text: 'Car Insurance'
@@ -746,6 +786,8 @@ WindowManager:
                             carinsurancebar.max = carins.text if carins.text != '' and func.new_budget_check('CarInsurance', carins.text) else carinsurancebar.max
                             carinsurancespending.color = func.remember_color('CarInsurance')
                             carinsurancebar.value = eval(carins.text) if carinsurancebar.max < carinsurancebar.value else eval(func.find_spending('CarInsurance', 'whole'))
+                            estimatedsavings.text = '$' + func.estimated_savings()
+                            estimatedsavings.color = func.estimated_savings_color()
 
                     Label:
                         text: 'Health Insurance'
@@ -780,6 +822,8 @@ WindowManager:
                             healthinsurancebar.max = healthins.text if healthins.text != '' and func.new_budget_check('HealthInsurance', healthins.text) else healthinsurancebar.max
                             healthinsurancespending.color = func.remember_color('HealthInsurance')
                             healthinsurancebar.value = eval(healthins.text) if healthinsurancebar.max < healthinsurancebar.value else eval(func.find_spending('HealthInsurance', 'whole'))
+                            estimatedsavings.text = '$' + func.estimated_savings()
+                            estimatedsavings.color = func.estimated_savings_color()
 
                     Label:
                         text: 'Other (unexpected)'
@@ -814,6 +858,8 @@ WindowManager:
                             otherbar.max = other.text if other.text != '' and func.new_budget_check('Other', other.text) else otherbar.max
                             otherspending.color = func.remember_color('Other')
                             otherbar.value = eval(other.text) if otherbar.max < otherbar.value else eval(func.find_spending('Other', 'whole'))
+                            estimatedsavings.text = '$' + func.estimated_savings()
+                            estimatedsavings.color = func.estimated_savings_color()
 
                     Label:
                         text: ''
@@ -821,7 +867,6 @@ WindowManager:
                         color: 0, 0, 0, 1
                         text_size: self.size
                         halign: 'right'
-
 
         FloatLayout:
             canvas:
@@ -1950,3 +1995,64 @@ WindowManager:
                             carinsurancelog.background_color = 0.4, 0.4, 0.4, 1
                             healthinsurancelog.background_color = 0.4, 0.4, 0.4, 1
                             otherlog.background_color = 0, 1, 0, 1
+
+        Button:
+            text: 'View Spending History'
+            font_size: 20
+            background_color: 0, 1, 0, 1
+            size_hint: 0.322, 0.05
+            pos_hint: {'top': 0.05, 'x': 0.339}
+            on_release:
+                Factory.SpendingHistory().open()
+
+
+<SpendingHistory@Popup>:
+    title: 'Spending History'
+    title_align: 'center'
+    separator_color: 0, 1, 0, 1
+    size_hint: 0.328, 0.984
+    pos_hint: {'top': 0.9755, 'x': 0.667}
+    auto_dismiss: False
+
+    FloatLayout:
+        size_hint: 0.3, 1
+        pos_hint: {'top': 1, 'x': 0.667}
+
+        GridLayout:
+            cols: 1
+            size_hint: 1, 1
+            pos_hint: {'top': 1, 'x': 0}
+
+            Label:
+                text: 'Current Total Savings'
+
+            Label:
+                text: '1,000,000.00'
+
+            ScrollView:
+                do_scroll_x: False
+                do_scroll_y: True
+                bar_width: 4
+                bar_color: 0, 0, 0, 1
+                size_hint_y: None
+                height: 454
+
+                GridLayout:
+                    size_hint_x: 0.97
+                    size_hint_y: None
+                    cols: 3
+                    row_default_height: root.height*0.03
+                    height: self.minimum_height
+
+                    Label:
+                        text: 'test'
+
+                    Label:
+                        text: 'test'
+                    
+                    Label:
+                        text: 'test'
+
+            Button:
+                text: 'Close Spending History'
+                on_release: root.dismiss()

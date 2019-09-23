@@ -109,6 +109,27 @@ def calc_savings_spending(bar):
         return str(round(income - spending, 2))
 
 
+def estimated_savings():
+    data = pickle.load(open('storage.dat', 'rb'))
+    name = data['current'][0]
+    passw = data['current'][1]
+    income = data['income']
+    spending = eval(
+        data[name][passw]['Budget_Data']['FreeToUse'][0]
+        + '+' + data[name][passw]['Budget_Data']['Utilities'][0]
+        + '+' + data[name][passw]['Budget_Data']['Groceries'][0]
+        + '+' + data[name][passw]['Budget_Data']['Internet'][0]
+        + '+' + data[name][passw]['Budget_Data']['CellPhone'][0]
+        + '+' + data[name][passw]['Budget_Data']['Gas'][0]
+        + '+' + data[name][passw]['Budget_Data']['Rent'][0]
+        + '+' + data[name][passw]['Budget_Data']['BankAccount'][0]
+        + '+' + data[name][passw]['Budget_Data']['CarInsurance'][0]
+        + '+' + data[name][passw]['Budget_Data']['HealthInsurance'][0]
+        + '+' + data[name][passw]['Budget_Data']['Other'][0]
+    )
+    return str(round(income - spending, 2))
+
+
 def find_spending(category, type_):
     data = pickle.load(open('storage.dat', 'rb'))
     name = data['current'][0]
@@ -191,3 +212,10 @@ def remember_color(category):
         return (1, 0, 0, 1)
     else:
         return (0, 0, 0, 1)
+
+
+def estimated_savings_color():
+    if '-' in str(estimated_savings()):
+        return (1, 0, 0, 1)
+    else: 
+        return (1, 1, 1, 1)
