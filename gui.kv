@@ -6,7 +6,6 @@
 WindowManager:
     transition: NoTransition()
     LoginScreen:
-    NewAccountScreen:
     ForgotScreen:
     DashboardScreen:
 
@@ -72,6 +71,8 @@ WindowManager:
             multiline: False
             size_hint: 0.22, 0.04
             pos_hint: {'top': 0.66, 'x': 0.378}
+            on_text_validate:
+                app.root.current = 'dashboards' if func.log_in(username.text, password.text) and func.check_account() is False else app.root.current
 
         Label:
             text: 'Password'
@@ -86,51 +87,27 @@ WindowManager:
             size_hint: 0.22, 0.04
             pos_hint: {'top': 0.54, 'x': 0.378}
             password: True
-
-        Button:
-            text: ' Create\nAccount'
-            font_size: 15
-            size_hint: 0.05, 0.05
-            pos_hint: {'top': 0.30, 'x': 0.378}
-            on_release:
-                app.root.current = 'newas'
+            on_text_validate:
+                app.root.current = 'dashboards' if func.log_in(username.text, password.text) and func.check_account() is False else app.root.current
         
         Button:
+            id: signin
             text: 'Sign In'
             font_size: 15
             size_hint: 0.05, 0.05
-            pos_hint: {'top': 0.45, 'x': 0.55}
+            pos_hint: {'top': 0.30, 'x': 0.55}
             on_release:
-                app.root.current = 'dashboards' if func.log_in(username.text, password.text) else app.root.current
+                Factory.SecurityQuestion().open() if func.check_account() is True else Factory.SecurityQuestion().dismiss()
+                app.root.current = 'dashboards' if func.log_in(username.text, password.text) and func.check_account() is False else app.root.current
 
         Button:
             text: 'Forgot?'
             font_size: 15
             size_hint: 0.05, 0.05
-            pos_hint: {'top': 0.45, 'x': 0.378}
+            pos_hint: {'top': 0.30, 'x': 0.378}
             on_release:
                 app.root.current = 'forgots'
 
-        Label:
-            text: 'Remember Me:'
-            color: 1, 0, 0, 1
-            size_hint: 0.02, 0.04
-            pos_hint: {'top': 0.30, 'x': 0.54}
-
-        Label:
-            canvas:
-                Color:
-                    rgb: 1, 1, 0, 1
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
-            size_hint: 0.01, 0.02
-            pos_hint: {'top': 0.29, 'x': 0.588}
-
-        CheckBox:
-            size_hint: 0.01, 0.02
-            pos_hint: {'top': 0.29, 'x': 0.588}
-
         Button:
             text: 'X'
             size_hint: 0.03, 0.03
@@ -140,124 +117,79 @@ WindowManager:
                 exit()
 
 
-<NewAccountScreen>:
-    name: 'newas'
+<SecurityQuestion@Popup>:
+    title: 'Custom Security Question'
+    title_size: 18
+    separator_color: 0, 1, 0, 1
+    size_hint: 0.3, 0.44
+    pos_hint: {'top': 0.803, 'x': 0.667}
+    auto_dismiss: False
 
-    FloatLayout:
-
-        Label:
-            canvas:
-                Color:
-                    rgb: 0.6, 0.6, 0.6, 1
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
+    GridLayout:
+        cols: 1
 
         Label:
-            canvas:
-                Color:
-                    rgb: 0, 0, 0, 1
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
-            size_hint: 1, 0.03
-            pos_hint: {'top': 1}
+            text: ''
+            size_hint_y: None
+            height: 25
 
         Label:
-            canvas:
-                Color:
-                    rgb: 0, 0.25, 0.1, 1
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
-            size_hint: 0.3, 0.055
-            pos_hint: {'top': 0.8, 'x': 0.35}
+            text: "Create your own security question with your corresponding answer below.\n\n*CAUTION*\nMake sure you do not forget the answer to your custom security question!!!\nIt is the only way to recover your account if you ever forget your Username\nor Password."
+            font_size: 12
+            size_hint_y: None
+            height: 50
 
         Label:
-            canvas:
-                Color:
-                    rgb: 1, 1, 1, 1
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
-            size_hint: 0.3, 0.6
-            pos_hint: {'top': 0.745, 'x': 0.35}
+            text: ''
+            size_hint_y: None
+            height: 15
 
         Label:
-            text: 'Create New Account'
-            font_size: 30
-            size_hint: 0.1, 0.1
-            pos_hint: {'top': 0.82, 'x': 0.4}
-
-        Label:
-            text: 'Username'
-            font_size: 20
-            color: 0, 0, 0, 1
-            size_hint: 0.3, 0.2
-            pos_hint: {'top': 0.78, 'x': 0.26}
+            text: 'Custom Question'
+            size_hint_y: None
+            height: 40
+            text_size: self.size
+            halign: 'left'
 
         TextInput:
-            id: username
+            id: question
             multiline: False
-            size_hint: 0.22, 0.04
-            pos_hint: {'top': 0.66, 'x': 0.378}
+            size_hint_y: None
+            height: 40
 
         Label:
-            text: 'Password'
-            font_size: 20
-            color: 0, 0, 0, 1
-            size_hint: 0.3, 0.2
-            pos_hint: {'top': 0.66, 'x': 0.256}
+            text: 'Your Answer'
+            size_hint_y: None
+            height: 40
+            text_size: self.size
+            halign: 'left'
 
         TextInput:
-            id: password
+            id: answer
             multiline: False
-            size_hint: 0.22, 0.04
-            pos_hint: {'top': 0.42, 'x': 0.378}
-
-        TextInput:
-            id: password
-            multiline: False
-            size_hint: 0.22, 0.04
-            pos_hint: {'top': 0.54, 'x': 0.378}
-            password: True
+            size_hint_y: None
+            height: 40
 
         Label:
-            text: 'Email'
-            font_size: 20
-            color: 0, 0, 0, 1
-            size_hint: 0.3, 0.2
-            pos_hint: {'top': 0.54, 'x': 0.244}
-
-        TextInput:
-            id: email
-            multiline: False
-            size_hint: 0.22, 0.04
-            pos_hint: {'top': 0.42, 'x': 0.378}
+            text: ''
+            size_hint_y: None
+            height: 20
 
         Button:
             text: 'Done'
-            font_size: 15
-            size_hint: 0.05, 0.05
-            pos_hint: {'top': 0.3, 'x': 0.55}
+            size_hint_y: None
+            height: 40
             on_release:
-                app.root.current = 'logins' if func.new_account(username.text, password.text, email.text) else 'newas'
+                func.new_account(username.text, password.text)
+                func.new_security(question.text, answer.text)
+                app.root.current = 'dashboards'
+                root.dismiss()
 
-        Button:
-            text: 'Back'
-            font_size: 15
-            size_hint: 0.05, 0.05
-            pos_hint: {'top': 0.3, 'x': 0.378}
-            on_release:
-                app.root.current = 'logins'
+        Label:
+            text: ''
+            size_hint_y: None
+            height: 15
 
-        Button:
-            text: 'X'
-            size_hint: 0.03, 0.03
-            pos_hint: {'top': 1, 'x': 0.97}
-            background_color: 0.95, 0, 0, 1
-            on_release:
-                exit()
 
 <ForgotScreen>:
     name: 'forgots'
@@ -303,22 +235,25 @@ WindowManager:
             pos_hint: {'top': 0.745, 'x': 0.35}
 
         Label:
-            text: 'Account Recovery'
+            text: func.remember_security()
             font_size: 30
             size_hint: 0.1, 0.1
             pos_hint: {'top': 0.82, 'x': 0.395}
 
         Label:
-            text: 'Email'
+            text: 
             font_size: 20
             color: 0, 0, 0, 1
             size_hint: 0.3, 0.2
             pos_hint: {'top': 0.78, 'x': 0.244}
 
         TextInput:
+            id: youranswer
             multiline: False
             size_hint: 0.22, 0.04
             pos_hint: {'top': 0.66, 'x': 0.378}
+            on_text_validate:
+                func.check_security_answer(youranswer.text)
         
         Button:
             text: 'Done'
@@ -1234,7 +1169,7 @@ WindowManager:
                             height: 2
 
                         Label:
-                            text: 'CellPhone'
+                            text: 'Cell Phone'
                             color: 0, 0, 0, 1 
                             font_size: 20
 
@@ -1728,6 +1663,9 @@ WindowManager:
                     healthinsurancepercent.text = func.find_spending('HealthInsurance', 'percent') + '%'
                     otherpercent.text = func.find_spending('Other', 'percent') + '%'
 
+                    estimatedsavings.text = '$' + func.estimated_savings()
+                    estimatedsavings.color = func.estimated_savings_color()
+
                     mainbar.max = eval(func.find_income())
                     mainbar.value = eval(func.calc_savings_spending('spending'))
                     totalincome.text = '$' + func.find_income()
@@ -2007,7 +1945,7 @@ WindowManager:
 
 
 <SpendingHistory@Popup>:
-    title: 'Spending History'
+    title: 'Current Total Savings'
     title_align: 'center'
     separator_color: 0, 1, 0, 1
     size_hint: 0.328, 0.984
@@ -2024,10 +1962,21 @@ WindowManager:
             pos_hint: {'top': 1, 'x': 0}
 
             Label:
-                text: 'Current Total Savings'
+                text: func.total_savings()
+                font_size: 40
 
             Label:
-                text: '1,000,000.00'
+                text: 'Month' + (' ' * 19) + 'Saved' + (' ' * 19) + 'Spent' + (' ' * 19) + 'Income'
+
+            Label:
+                canvas:
+                    Color:
+                        rgb: 0, 1, 0, 1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                size_hint_y: None
+                height: 2
 
             ScrollView:
                 do_scroll_x: False
@@ -2035,24 +1984,281 @@ WindowManager:
                 bar_width: 4
                 bar_color: 0, 0, 0, 1
                 size_hint_y: None
-                height: 454
+                height: 635
 
                 GridLayout:
-                    size_hint_x: 0.97
+                    size_hint_x: 1
                     size_hint_y: None
-                    cols: 3
-                    row_default_height: root.height*0.03
+                    cols: 4
+                    row_default_height: root.height*0.04
                     height: self.minimum_height
 
                     Label:
-                        text: 'test'
+                        text: func.remember_month(-1)
 
                     Label:
-                        text: 'test'
+                        text: func.remember_month(saved=-1)
                     
                     Label:
-                        text: 'test'
+                        text: func.remember_month(spent=-1)
 
+                    Label:
+                        text: func.remember_month(income=-1)
+
+                    Label:
+                        text: func.remember_month(-2)
+
+                    Label:
+                        text: func.remember_month(saved=-2)
+                    
+                    Label:
+                        text: func.remember_month(spent=-2)
+
+                    Label:
+                        text: func.remember_month(income=-2)
+
+                    Label:
+                        text: func.remember_month(-3)
+
+                    Label:
+                        text: func.remember_month(saved=-3)
+                    
+                    Label:
+                        text: func.remember_month(spent=-3)
+
+                    Label:
+                        text: func.remember_month(income=-3)
+
+                    Label:
+                        text: func.remember_month(-4)
+
+                    Label:
+                        text: func.remember_month(saved=-4)
+                    
+                    Label:
+                        text: func.remember_month(spent=-4)
+
+                    Label:
+                        text: func.remember_month(income=-4)
+
+                    Label:
+                        text: func.remember_month(-5)
+
+                    Label:
+                        text: func.remember_month(saved=-5)
+                    
+                    Label:
+                        text: func.remember_month(spent=-5)
+
+                    Label:
+                        text: func.remember_month(income=-5)
+
+                    Label:
+                        text: func.remember_month(-6)
+
+                    Label:
+                        text: func.remember_month(saved=-6)
+                    
+                    Label:
+                        text: func.remember_month(spent=-6)
+
+                    Label:
+                        text: func.remember_month(income=-6)
+
+                    Label:
+                        text: func.remember_month(-7)
+
+                    Label:
+                        text: func.remember_month(saved=-7)
+                    
+                    Label:
+                        text: func.remember_month(spent=-7)
+
+                    Label:
+                        text: func.remember_month(income=-7)
+
+                    Label:
+                        text: func.remember_month(-8)
+
+                    Label:
+                        text: func.remember_month(saved=-8)
+                    
+                    Label:
+                        text: func.remember_month(spent=-8)
+
+                    Label:
+                        text: func.remember_month(income=-8)
+
+                    Label:
+                        text: func.remember_month(-9)
+
+                    Label:
+                        text: func.remember_month(saved=-9)
+                    
+                    Label:
+                        text: func.remember_month(spent=-9)
+
+                    Label:
+                        text: func.remember_month(income=-9)
+
+                    Label:
+                        text: func.remember_month(-10)
+
+                    Label:
+                        text: func.remember_month(saved=-10)
+                    
+                    Label:
+                        text: func.remember_month(spent=-10)
+
+                    Label:
+                        text: func.remember_month(income=-10)
+
+                    Label:
+                        text: func.remember_month(-11)
+
+                    Label:
+                        text: func.remember_month(saved=-11)
+                    
+                    Label:
+                        text: func.remember_month(spent=-11)
+
+                    Label:
+                        text: func.remember_month(income=-11)
+
+                    Label:
+                        text: func.remember_month(-12)
+
+                    Label:
+                        text: func.remember_month(saved=-12)
+                    
+                    Label:
+                        text: func.remember_month(spent=-12)
+
+                    Label:
+                        text: func.remember_month(income=-12)
+
+                    Label:
+                        text: func.remember_month(-13)
+
+                    Label:
+                        text: func.remember_month(saved=-13)
+                    
+                    Label:
+                        text: func.remember_month(spent=-13)
+
+                    Label:
+                        text: func.remember_month(income=-13)
+
+                    Label:
+                        text: func.remember_month(-14)
+
+                    Label:
+                        text: func.remember_month(saved=-14)
+                    
+                    Label:
+                        text: func.remember_month(spent=-14)
+
+                    Label:
+                        text: func.remember_month(income=-14)
+
+                    Label:
+                        text: func.remember_month(-15)
+
+                    Label:
+                        text: func.remember_month(saved=-15)
+                    
+                    Label:
+                        text: func.remember_month(spent=-15)
+
+                    Label:
+                        text: func.remember_month(income=-15)
+
+                    Label:
+                        text: func.remember_month(-16)
+
+                    Label:
+                        text: func.remember_month(saved=-16)
+                    
+                    Label:
+                        text: func.remember_month(spent=-16)
+
+                    Label:
+                        text: func.remember_month(income=-16)
+
+                    Label:
+                        text: func.remember_month(-17)
+
+                    Label:
+                        text: func.remember_month(saved=-17)
+                    
+                    Label:
+                        text: func.remember_month(spent=-17)
+
+                    Label:
+                        text: func.remember_month(income=-17)
+
+                    Label:
+                        text: func.remember_month(-18)
+
+                    Label:
+                        text: func.remember_month(saved=-18)
+                    
+                    Label:
+                        text: func.remember_month(spent=-18)
+
+                    Label:
+                        text: func.remember_month(income=-18)
+
+                    Label:
+                        text: func.remember_month(-19)
+
+                    Label:
+                        text: func.remember_month(saved=-19)
+                    
+                    Label:
+                        text: func.remember_month(spent=-19)
+
+                    Label:
+                        text: func.remember_month(income=-19)
+
+                    Label:
+                        text: func.remember_month(-20)
+
+                    Label:
+                        text: func.remember_month(saved=-20)
+                    
+                    Label:
+                        text: func.remember_month(spent=-20)
+
+                    Label:
+                        text: func.remember_month(income=-20)
+
+                    Label:
+                        text: func.remember_month(-21)
+
+                    Label:
+                        text: func.remember_month(saved=-21)
+                    
+                    Label:
+                        text: func.remember_month(spent=-21)
+
+                    Label:
+                        text: func.remember_month(income=-21)
+
+                    Label:
+                        text: func.remember_month(-22)
+
+                    Label:
+                        text: func.remember_month(saved=-22)
+                    
+                    Label:
+                        text: func.remember_month(spent=-22)
+
+                    Label:
+                        text: func.remember_month(income=-22)
             Button:
-                text: 'Close Spending History'
+                text: 'Close'
                 on_release: root.dismiss()
+                size_hint_y: None
+                height: 38
+

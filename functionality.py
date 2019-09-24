@@ -3,31 +3,73 @@ import pickle
 import re
 
 
-def new_account(name, password, email):
+def check_account():
+    data = pickle.load(open('storage.dat', 'rb'))
+    if data['current'][2] == 'New':
+        return True
+    else:
+        return False
+
+
+def new_security(question, answer):
+    data = pickle.load(open('storage.dat', 'rb'))
+    data['security'] = [question, answer]
+    pickle.dump(data, open('storage.dat', 'wb'))
+
+
+def remember_security():
+    data = pickle.load(open('storage.dat', 'rb'))
+    return data['security'][0]
+
+
+def check_security_answer(input_):
+    data = pickle.load(open('storage.dat', 'rb'))
+    answer = data['security'][1]
+    if input_ == answer:
+        return True
+    else: 
+        return False
+
+
+def new_account(name, password):
     if (re.match(r'^([a-zA-Z]| )+$', name) and
-            re.match(r'^([a-zA-Z1-9]|\!|@|#|\$|%|\^|\&|\*)+$', password) and
-            re.match(r'^[a-zA-Z1-9]+@[a-zA-Z1-9]+\.[a-z]+$', email)):
+            re.match(r'^([a-zA-Z1-9]|\!|@|#|\$|%|\^|\&|\*)+$', password)):
         Budget_Data = pickle.load(open('storage.dat', 'rb'))
+
         Budget_Data = {
+            'transaction': {
+                'earnedvsspend': '0',
+                'amount': '0',
+                'category': '0'
+            },
+            'history': {
+                'months': [' ',],
+                'm_saved': ['0.00',],
+                'm_spent': [' ',],
+                'm_income': [' ',],
+            },
+            'current': [name, password],
             'income': 0,
             name: {
                 password: {
                     'Budget_Data': {
-                        'FreeToUse': ['0', '0'],
-                        'Utilities': ['0', '0'],
-                        'Groceries': ['0', '0'],
-                        'Internet': ['0', '0'],
-                        'CellPhone': ['0', '0'],
-                        'Gas': ['0', '0'],
-                        'Rent': ['0', '0'],
-                        'BankAccount': ['0', '0'],
-                        'CarInsurance': ['0', '0'],
-                        'HealthInsurance': ['0', '0'],
-                        'Other': ['0', '0'],
+                        'FreeToUse': ['100', '0'],
+                        'Utilities': ['100', '0'],
+                        'Groceries': ['100', '0'],
+                        'Internet': ['100', '0'],
+                        'CellPhone': ['100', '0'],
+                        'Gas': ['100', '0'],
+                        'Rent': ['100', '0'],
+                        'BankAccount': ['100', '0'],
+                        'CarInsurance': ['100', '0'],
+                        'HealthInsurance': ['100', '0'],
+                        'Other': ['100', '0'],
                     }
                 }
             }
-        }
+            }
+        pickle.dump(Budget_Data, open('storage.dat', 'wb'))
+
         pickle.dump(Budget_Data, open('storage.dat', 'wb'))
         return True
     else:
@@ -217,5 +259,55 @@ def remember_color(category):
 def estimated_savings_color():
     if '-' in str(estimated_savings()):
         return (1, 0, 0, 1)
-    else: 
+    else:
         return (1, 1, 1, 1)
+
+
+def remember_month(month=None, saved=None, spent=None, income=None):
+    data = pickle.load(open('storage.dat', 'rb'))
+    c_month = datetime.date.today()
+    c_month = c_month.strftime('%b')
+    if c_month != data['history']['months'][-1]:
+        data['history']['months'].append(c_month)
+        data['history']['m_saved'].append('0')
+        data['history']['m_spent'].append('0')
+        data['history']['m_income'].append(find_income())
+    else:
+        data['history']['m_saved'][-1] = calc_savings_spending('savings')
+        data['history']['m_spent'][-1] = calc_savings_spending('spending')
+        data['history']['m_income'][-1] = find_income()
+    pickle.dump(data, open('storage.dat', 'wb'))
+
+    try:
+        if month is not None:
+            if data['history']['months'][month] != data['history']['months'][0]:
+                return data['history']['months'][month]
+            else:
+                return ' '
+        if saved is not None:
+            if data['history']['m_saved'][saved] != data['history']['m_saved'][0]:
+                return '$' + data['history']['m_saved'][saved]
+            else:
+                return ' '
+        if spent is not None:
+            if data['history']['m_spent'][spent] != data['history']['m_spent'][0]:
+                return '$' + data['history']['m_spent'][spent]
+            else:
+                return ' '
+        if income is not None:
+            if data['history']['m_income'][income] != data['history']['m_income'][0]:
+                return '$' + data['history']['m_income'][income]
+            else:
+                return ' '
+    except IndexError:
+        return(' ')
+
+
+def total_savings():
+    data = pickle.load(open('storage.dat', 'rb'))
+    past_savings = data['history']['m_saved']
+    total_past_savings = 0
+    for i in past_savings:
+        i = eval(i)
+        total_past_savings += i
+    return '$' + str(total_past_savings)

@@ -8,10 +8,6 @@ class LoginScreen(Screen):
     pass
 
 
-class NewAccountScreen(Screen):
-    pass
-
-
 class ForgotScreen(Screen):
     pass
 
