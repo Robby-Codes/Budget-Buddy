@@ -3,9 +3,23 @@ import pickle
 import re
 
 
+def check_input(word=None, num=None):
+    if num is not None:
+        if (re.match(r'^[0-9]*\.?[0-9]{0,2}$', num) and not
+            re.match(r'^0[0-9]+', num)):
+            return True
+        else:
+            return False
+    if word is not None:
+        if re.match(r'^[a-zA-Z0-9!@#\$%\^\&\*]+$', word):
+            return True
+        else:
+            return False
+
+
 def check_account():
     data = pickle.load(open('storage.dat', 'rb'))
-    if data['current'][2] == 'New':
+    if 'New' in data['current']:
         return True
     else:
         return False
@@ -31,11 +45,19 @@ def check_security_answer(input_):
         return False
 
 
-def new_account(name, password):
+def recover_account():
+    data = pickle.load(open('storage.dat', 'rb'))
+    username = data['current'][0]
+    password = data['current'][1]
+    return 'Username: ' + str(username) + '\n\nPassword: ' + str(password)
+
+
+def new_account():
+    Budget_Data = pickle.load(open('storage.dat', 'rb'))
+    name = Budget_Data['current'][0]
+    password = Budget_Data['current'][1]
     if (re.match(r'^([a-zA-Z]| )+$', name) and
             re.match(r'^([a-zA-Z1-9]|\!|@|#|\$|%|\^|\&|\*)+$', password)):
-        Budget_Data = pickle.load(open('storage.dat', 'rb'))
-
         Budget_Data = {
             'transaction': {
                 'earnedvsspend': '0',
@@ -53,23 +75,21 @@ def new_account(name, password):
             name: {
                 password: {
                     'Budget_Data': {
-                        'FreeToUse': ['100', '0'],
-                        'Utilities': ['100', '0'],
-                        'Groceries': ['100', '0'],
-                        'Internet': ['100', '0'],
-                        'CellPhone': ['100', '0'],
-                        'Gas': ['100', '0'],
-                        'Rent': ['100', '0'],
-                        'BankAccount': ['100', '0'],
-                        'CarInsurance': ['100', '0'],
-                        'HealthInsurance': ['100', '0'],
-                        'Other': ['100', '0'],
+                        'FreeToUse': ['0', '0'],
+                        'Utilities': ['0', '0'],
+                        'Groceries': ['0', '0'],
+                        'Internet': ['0', '0'],
+                        'CellPhone': ['0', '0'],
+                        'Gas': ['0', '0'],
+                        'Rent': ['0', '0'],
+                        'BankAccount': ['0', '0'],
+                        'CarInsurance': ['0', '0'],
+                        'HealthInsurance': ['0', '0'],
+                        'Other': ['0', '0'],
                     }
                 }
             }
             }
-        pickle.dump(Budget_Data, open('storage.dat', 'wb'))
-
         pickle.dump(Budget_Data, open('storage.dat', 'wb'))
         return True
     else:
@@ -78,15 +98,17 @@ def new_account(name, password):
 
 def log_in(name, password):
     Budget_Data = pickle.load(open('storage.dat', 'rb'))
-    if name in Budget_Data:
-        if password in Budget_Data[name]:
-            Budget_Data['current'] = [name, password]
-            pickle.dump(Budget_Data, open('storage.dat', 'wb'))
-            return True
+    if 'New' in Budget_Data['current']:
+        Budget_Data['current'] = [name, password, 'New']
+        pickle.dump(Budget_Data, open('storage.dat', 'wb'))
+    else:
+        if name in Budget_Data:
+            if password in Budget_Data[name]:
+                return True
+            else:
+                return False
         else:
             return False
-    else:
-        return False
 
 
 def new_budget_check(category, budget):
