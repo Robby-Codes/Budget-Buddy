@@ -165,12 +165,6 @@ def add_commas(num):
         return result
 
 
-def convert_to_num(num):
-    for i in num:
-        new_num = num.replace(',', '')
-    return new_num
-
-
 def new_budget_check(category, budget):
     if re.match(r'^-?[0-9]+\.?[0-9]*$', budget):
         update = pickle.load(open('storage.dat', 'rb'))
