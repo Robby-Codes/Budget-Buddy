@@ -19,7 +19,7 @@ WindowManager:
         Label:
             canvas:
                 Color:
-                    rgb: 0.6, 0.6, 0.6, 1
+                    rgb: 0.4, 0.4, 0.4, 1
                 Rectangle:
                     pos: self.pos
                     size: self.size
@@ -37,7 +37,7 @@ WindowManager:
         Label:
             canvas:
                 Color:
-                    rgb: 0, 0.25, 0.1, 1
+                    rgb: 0.1, 0.1, 0.1, 1
                 Rectangle:
                     pos: self.pos
                     size: self.size
@@ -97,6 +97,7 @@ WindowManager:
             id: signin
             text: 'Sign In'
             font_size: 15
+            background_color: 0.1, 0.1, 0.1, 1
             size_hint: 0.05, 0.05
             pos_hint: {'top': 0.30, 'x': 0.55}
             on_release:
@@ -106,6 +107,7 @@ WindowManager:
         Button:
             text: 'Forgot?'
             font_size: 15
+            background_color: 0.1, 0.1, 0.1, 1
             size_hint: 0.05, 0.05
             pos_hint: {'top': 0.30, 'x': 0.378}
             on_release:
@@ -220,7 +222,7 @@ WindowManager:
         Label:
             canvas:
                 Color:
-                    rgb: 0, 0.25, 0.1, 1
+                    rgb: 0.1, 0.1, 0.1, 1
                 Rectangle:
                     pos: self.pos
                     size: self.size
@@ -271,6 +273,7 @@ WindowManager:
         Button:
             text: 'Done'
             font_size: 15
+            background_color: 0.1, 0.1, 0.1, 1
             size_hint: 0.05, 0.05
             pos_hint: {'top': 0.45, 'x': 0.55}
             on_release:
@@ -280,6 +283,7 @@ WindowManager:
         Button:
             text: 'Back'
             font_size: 15
+            background_color: 0.1, 0.1, 0.1, 1
             size_hint: 0.05, 0.05
             pos_hint: {'top': 0.45, 'x': 0.378}
             on_release:
@@ -427,7 +431,7 @@ WindowManager:
             
             Label:
                 id: estimatedsavings
-                text: '$' + func.estimated_savings()
+                text: '$' + func.add_commas(func.estimated_savings())
                 font_size: 30
                 color: func.estimated_savings_color()
                 size_hint: 0.3, 0.1
@@ -457,7 +461,7 @@ WindowManager:
 
                     Label:
                         id: freetousespending
-                        text: func.remember_spending('FreeToUse')
+                        text: func.add_commas(func.remember_spending('FreeToUse'))
                         font_size: 25
                         color: func.remember_color('FreeToUse')
                         text_size: self.size
@@ -478,10 +482,10 @@ WindowManager:
                         halign: 'right'
                         valign: 'top'
                         on_text_validate:
-                            freetousebar.max = freetouse.text if freetouse.text != '' and func.new_budget_check('FreeToUse', freetouse.text) and func.check_input(num=freetouse.text) else freetousebar.max
+                            freetousebar.max = freetouse.text if freetouse.text != '' and func.check_input(num=freetouse.text) and func.new_budget_check('FreeToUse', freetouse.text) else freetousebar.max
                             freetousespending.color = func.remember_color('FreeToUse')
                             freetousebar.value = eval(freetouse.text) if freetousebar.max < freetousebar.value and func.check_input(num=freetouse.text) else eval(func.find_spending('FreeToUse', 'whole'))
-                            estimatedsavings.text = '$' + func.estimated_savings() if func.check_input(num=freetouse.text) else estimatedsavings.text
+                            estimatedsavings.text = '$' + func.add_commas(func.estimated_savings()) if func.check_input(num=freetouse.text) else estimatedsavings.text
                             estimatedsavings.color = func.estimated_savings_color() if func.check_input(num=freetouse.text) else estimatedsavings.color
 
                     Label:
@@ -493,7 +497,7 @@ WindowManager:
 
                     Label:
                         id: utilitiesspending
-                        text: func.remember_spending('Utilities')
+                        text: func.add_commas(func.remember_spending('Utilities'))
                         font_size: 25
                         color: func.remember_color('Utilities')
                         text_size: self.size
@@ -514,10 +518,10 @@ WindowManager:
                         halign: 'right'
                         valign: 'top'
                         on_text_validate:
-                            utilitiesbar.max = utilities.text if utilities.text != '' and func.new_budget_check('Utilities', utilities.text) and func.check_input(num=utilities.text) else utilitiesbar.max
+                            utilitiesbar.max = utilities.text if utilities.text != '' and func.check_input(num=utilities.text) and func.new_budget_check('Utilities', utilities.text) else utilitiesbar.max
                             utilitiesspending.color = func.remember_color('Utilities')
                             utilitiesbar.value = eval(freetouse.text) if utilitiesbar.max < utilitiesbar.value and func.check_input(num=utilities.text) else eval(func.find_spending('Utilities', 'whole'))
-                            estimatedsavings.text = '$' + func.estimated_savings() if func.check_input(num=utilities.text) else estimatedsavings.text
+                            estimatedsavings.text = '$' + func.add_commas(func.estimated_savings()) if func.check_input(num=utilities.text) else estimatedsavings.text
                             estimatedsavings.color = func.estimated_savings_color() if func.check_input(num=utilities.text) else estimatedsavings.color
 
                     Label:
@@ -529,7 +533,7 @@ WindowManager:
 
                     Label:
                         id: groceriesspending
-                        text: func.remember_spending('Groceries')
+                        text: func.add_commas(func.remember_spending('Groceries'))
                         font_size: 25
                         color: func.remember_color('Groceries')
                         text_size: self.size
@@ -550,10 +554,10 @@ WindowManager:
                         halign: 'right'
                         valign: 'top'
                         on_text_validate:
-                            groceriesbar.max = groceries.text if groceries.text != '' and func.new_budget_check('Groceries', groceries.text) and func.check_input(num=groceries.text) else groceriesbar.max
+                            groceriesbar.max = groceries.text if groceries.text != '' and func.check_input(num=groceries.text) and func.new_budget_check('Groceries', groceries.text) else groceriesbar.max
                             groceriesspending.color = func.remember_color('Groceries')
                             groceriesbar.value = eval(groceries.text) if groceriesbar.max < groceriesbar.value and func.check_input(num=groceries.text) else eval(func.find_spending('Groceries', 'whole'))
-                            estimatedsavings.text = '$' + func.estimated_savings() if func.check_input(num=groceries.text) else estimatedsavings.text
+                            estimatedsavings.text = '$' + func.add_commas(func.estimated_savings()) if func.check_input(num=groceries.text) else estimatedsavings.text
                             estimatedsavings.color = func.estimated_savings_color() if func.check_input(num=groceries.text) else estimatedsavings.color
 
                     Label:
@@ -565,7 +569,7 @@ WindowManager:
 
                     Label:
                         id: internetspending
-                        text: func.remember_spending('Internet')
+                        text: func.add_commas(func.remember_spending('Internet'))
                         font_size: 25
                         color: func.remember_color('Internet')
                         text_size: self.size
@@ -586,10 +590,10 @@ WindowManager:
                         halign: 'right'
                         valign: 'top'
                         on_text_validate:
-                            internetbar.max = internet.text if internet.text != '' and func.new_budget_check('Internet', internet.text) and func.check_input(num=internet.text) else internetbar.max
+                            internetbar.max = internet.text if internet.text != '' and func.check_input(num=internet.text) and func.new_budget_check('Internet', internet.text) else internetbar.max
                             internetspending.color = func.remember_color('Internet')
                             internetbar.value = eval(internet.text) if internetbar.max < internetbar.value and func.check_input(num=internet.text) else eval(func.find_spending('Internet', 'whole'))
-                            estimatedsavings.text = '$' + func.estimated_savings() if func.check_input(num=internet.text) else estimatedsavings.text
+                            estimatedsavings.text = '$' + func.add_commas(func.estimated_savings()) if func.check_input(num=internet.text) else estimatedsavings.text
                             estimatedsavings.color = func.estimated_savings_color() if func.check_input(num=internet.text) else estimatedsavings.color
 
                     Label:
@@ -601,7 +605,7 @@ WindowManager:
 
                     Label:
                         id: cellphonespending
-                        text: func.remember_spending('CellPhone')
+                        text: func.add_commas(func.remember_spending('CellPhone'))
                         font_size: 25
                         color: func.remember_color('CellPhone')
                         text_size: self.size
@@ -622,10 +626,10 @@ WindowManager:
                         halign: 'right'
                         valign: 'top'
                         on_text_validate:
-                            cellphonebar.max = cellphone.text if cellphone.text != '' and func.new_budget_check('CellPhone', cellphone.text) and func.check_input(num=cellphone.text) else cellphonebar.max
+                            cellphonebar.max = cellphone.text if cellphone.text != '' and func.check_input(num=cellphone.text) and func.new_budget_check('CellPhone', cellphone.text) else cellphonebar.max
                             cellphonespending.color = func.remember_color('CellPhone')
                             cellphonebar.value = eval(cellphone.text) if cellphonebar.max < cellphonebar.value and func.check_input(num=cellphone.text) else eval(func.find_spending('CellPhone', 'whole'))
-                            estimatedsavings.text = '$' + func.estimated_savings() if func.check_input(num=internet.text) else estimatedsavings.text
+                            estimatedsavings.text = '$' + func.add_commas(func.estimated_savings()) if func.check_input(num=internet.text) else estimatedsavings.text
                             estimatedsavings.color = func.estimated_savings_color() if func.check_input(num=internet.text) else estimatedsavings.color
 
                     Label:
@@ -637,7 +641,7 @@ WindowManager:
 
                     Label:
                         id: gasspending
-                        text: func.remember_spending('Gas')
+                        text: func.add_commas(func.remember_spending('Gas'))
                         font_size: 25
                         color: func.remember_color('Gas')
                         text_size: self.size
@@ -658,10 +662,10 @@ WindowManager:
                         halign: 'right'
                         valign: 'top'
                         on_text_validate:
-                            gasbar.max = gas.text if gas.text != '' and func.new_budget_check('Gas', gas.text) and func.check_input(num=gas.text) else gasbar.max
+                            gasbar.max = gas.text if gas.text != '' and func.check_input(num=gas.text) and func.new_budget_check('Gas', gas.text) else gasbar.max
                             gasspending.color = func.remember_color('Gas')
                             gasbar.value = eval(gas.text) if gasbar.max < gasbar.value and func.check_input(num=gas.text) else eval(func.find_spending('Gas', 'whole'))
-                            estimatedsavings.text = '$' + func.estimated_savings() if func.check_input(num=gas.text) else estimatedsavings.text
+                            estimatedsavings.text = '$' + func.add_commas(func.estimated_savings()) if func.check_input(num=gas.text) else estimatedsavings.text
                             estimatedsavings.color = func.estimated_savings_color() if func.check_input(num=gas.text) else estimatedsavings.color
 
                     Label:
@@ -673,7 +677,7 @@ WindowManager:
 
                     Label:
                         id: rentspending
-                        text: func.remember_spending('Rent')
+                        text: func.add_commas(func.remember_spending('Rent'))
                         font_size: 25
                         color: func.remember_color('Rent')
                         text_size: self.size
@@ -694,10 +698,10 @@ WindowManager:
                         halign: 'right'
                         valign: 'top'
                         on_text_validate:
-                            rentbar.max = rent.text if rent.text != '' and func.new_budget_check('Rent', rent.text) and func.check_input(num=rent.text) else rentbar.max
+                            rentbar.max = rent.text if rent.text != '' and func.check_input(num=rent.text) and func.new_budget_check('Rent', rent.text) else rentbar.max
                             rentspending.color = func.remember_color('Rent')
                             rentbar.value = eval(rent.text) if rentbar.max < rentbar.value and func.check_input(num=rent.text) else eval(func.find_spending('Rent', 'whole'))
-                            estimatedsavings.text = '$' + func.estimated_savings() if func.check_input(num=rent.text) else estimatedsavings.text
+                            estimatedsavings.text = '$' + func.add_commas(func.estimated_savings()) if func.check_input(num=rent.text) else estimatedsavings.text
                             estimatedsavings.color = func.estimated_savings_color() if func.check_input(num=rent.text) else estimatedsavings.color
 
                     Label:
@@ -709,7 +713,7 @@ WindowManager:
 
                     Label:
                         id: bankaccountspending
-                        text: func.remember_spending('BankAccount')
+                        text: func.add_commas(func.remember_spending('BankAccount'))
                         font_size: 25
                         color: func.remember_color('BankAccount')
                         text_size: self.size
@@ -730,10 +734,10 @@ WindowManager:
                         halign: 'right'
                         valign: 'top'
                         on_text_validate:
-                            bankaccountbar.max = bankaccount.text if bankaccount.text != '' and func.new_budget_check('BankAccount', bankaccount.text) and func.check_input(num=bankaccount.text) else bankaccountbar.max
+                            bankaccountbar.max = bankaccount.text if bankaccount.text != '' and func.check_input(num=bankaccount.text) and func.new_budget_check('BankAccount', bankaccount.text) else bankaccountbar.max
                             bankaccountspending.color = func.remember_color('BankAccount')
                             bankaccountbar.value = eval(bankaccount.text) if bankaccountbar.max < bankaccountbar.value and func.check_input(num=bankaccount.text) else eval(func.find_spending('BankAccount', 'whole'))
-                            estimatedsavings.text = '$' + func.estimated_savings() if func.check_input(num=bankaccount.text) else estimatedsavings.text
+                            estimatedsavings.text = '$' + func.add_commas(func.estimated_savings()) if func.check_input(num=bankaccount.text) else estimatedsavings.text
                             estimatedsavings.color = func.estimated_savings_color() if func.check_input(num=bankaccount.text) else estimatedsavings.color
 
                     Label:
@@ -745,7 +749,7 @@ WindowManager:
 
                     Label:
                         id: carinsurancespending
-                        text: func.remember_spending('CarInsurance')
+                        text: func.add_commas(func.remember_spending('CarInsurance'))
                         font_size: 25
                         color: func.remember_color('CarInsurance')
                         text_size: self.size
@@ -766,10 +770,10 @@ WindowManager:
                         halign: 'right'
                         valign: 'top'
                         on_text_validate:
-                            carinsurancebar.max = carins.text if carins.text != '' and func.new_budget_check('CarInsurance', carins.text) and func.check_input(num=carins.text) else carinsurancebar.max
+                            carinsurancebar.max = carins.text if carins.text != '' and func.check_input(num=carins.text) and func.new_budget_check('CarInsurance', carins.text) else carinsurancebar.max
                             carinsurancespending.color = func.remember_color('CarInsurance')
                             carinsurancebar.value = eval(carins.text) if carinsurancebar.max < carinsurancebar.value and func.check_input(num=carins.text) else eval(func.find_spending('CarInsurance', 'whole'))
-                            estimatedsavings.text = '$' + func.estimated_savings() if func.check_input(num=carins.text) else estimatedsavings.text
+                            estimatedsavings.text = '$' + func.add_commas(func.estimated_savings()) if func.check_input(num=carins.text) else estimatedsavings.text
                             estimatedsavings.color = func.estimated_savings_color() if func.check_input(num=carins.text) else estimatedsavings.color
 
                     Label:
@@ -781,7 +785,7 @@ WindowManager:
 
                     Label:
                         id: healthinsurancespending
-                        text: func.remember_spending('HealthInsurance')
+                        text: func.add_commas(func.remember_spending('HealthInsurance'))
                         font_size: 25
                         color: func.remember_color('HealthInsurance')
                         text_size: self.size
@@ -802,10 +806,10 @@ WindowManager:
                         halign: 'right'
                         valign: 'top'
                         on_text_validate:
-                            healthinsurancebar.max = healthins.text if healthins.text != '' and func.new_budget_check('HealthInsurance', healthins.text) and func.check_input(num=healthins.text) else healthinsurancebar.max
+                            healthinsurancebar.max = healthins.text if healthins.text != '' and func.check_input(num=healthins.text) and func.new_budget_check('HealthInsurance', healthins.text) else healthinsurancebar.max
                             healthinsurancespending.color = func.remember_color('HealthInsurance')
                             healthinsurancebar.value = eval(healthins.text) if healthinsurancebar.max < healthinsurancebar.value and func.check_input(num=healthins.text) else eval(func.find_spending('HealthInsurance', 'whole'))
-                            estimatedsavings.text = '$' + func.estimated_savings() if func.check_input(num=healthins.text) else estimatedsavings.text
+                            estimatedsavings.text = '$' + func.add_commas(func.estimated_savings()) if func.check_input(num=healthins.text) else estimatedsavings.text
                             estimatedsavings.color = func.estimated_savings_color() if func.check_input(num=healthins.text) else estimatedsavings.color
 
                     Label:
@@ -817,7 +821,7 @@ WindowManager:
 
                     Label:
                         id: otherspending
-                        text: func.remember_spending('Other')
+                        text: func.add_commas(func.remember_spending('Other'))
                         font_size: 25
                         color: func.remember_color('Other')
                         text_size: self.size
@@ -838,10 +842,10 @@ WindowManager:
                         halign: 'right'
                         valign: 'top'
                         on_text_validate:
-                            otherbar.max = other.text if other.text != '' and func.new_budget_check('Other', other.text) and func.check_input(num=other.text) else otherbar.max
+                            otherbar.max = other.text if other.text != '' and func.check_input(num=other.text) and func.new_budget_check('Other', other.text) else otherbar.max
                             otherspending.color = func.remember_color('Other')
                             otherbar.value = eval(other.text) if otherbar.max < otherbar.value and func.check_input(num=other.text) else eval(func.find_spending('Other', 'whole'))
-                            estimatedsavings.text = '$' + func.estimated_savings() if func.check_input(num=other.text) else estimatedsavings.text
+                            estimatedsavings.text = '$' + func.add_commas(func.estimated_savings()) if func.check_input(num=other.text) else estimatedsavings.text
                             estimatedsavings.color = func.estimated_savings_color() if func.check_input(num=other.text) else estimatedsavings.color
 
                     Label:
@@ -936,21 +940,21 @@ WindowManager:
 
                     Label:
                         id: totalincome
-                        text: '$' + func.find_income()
+                        text: '$' + func.add_commas(func.find_income())
                         color: 0, 0.5, 0, 1
-                        font_size: 25
+                        font_size: 20
 
                     Label:
                         id: totalsavings
-                        text: '$' + func.calc_savings_spending('savings')
+                        text: '$' + func.add_commas(func.calc_savings_spending('savings'))
                         color: func.estimated_total_savings(totalsavings.text)
-                        font_size: 25
+                        font_size: 20
                     
                     Label:
                         id: totalspending
-                        text: '$' + func.calc_savings_spending('spending')
+                        text: '$' + func.add_commas(func.calc_savings_spending('spending'))
                         color: 1, 0, 0, 1
-                        font_size: 25
+                        font_size: 20
 
                     Label:
                         text: ''
@@ -1048,7 +1052,7 @@ WindowManager:
 
                         Label:
                             id: freetousetotal
-                            text: '$' + func.find_spending('FreeToUse', 'whole')
+                            text: '$' + func.add_commas(func.find_spending('FreeToUse', 'whole'))
                             color: 0, 0, 0, 1 
 
                         Label:
@@ -1093,7 +1097,7 @@ WindowManager:
 
                         Label:
                             id: utilitiestotal
-                            text: '$' + func.find_spending('Utilities', 'whole')
+                            text: '$' + func.add_commas(func.find_spending('Utilities', 'whole'))
                             color: 0, 0, 0, 1 
 
                         Label:
@@ -1138,7 +1142,7 @@ WindowManager:
 
                         Label:
                             id: groceriestotal
-                            text: '$' + func.find_spending('Groceries', 'whole')
+                            text: '$' + func.add_commas(func.find_spending('Groceries', 'whole'))
                             color: 0, 0, 0, 1 
 
                         Label:
@@ -1183,7 +1187,7 @@ WindowManager:
 
                         Label:
                             id: internettotal
-                            text: '$' + func.find_spending('Internet', 'whole')
+                            text: '$' + func.add_commas(func.find_spending('Internet', 'whole'))
                             color: 0, 0, 0, 1 
 
                         Label:
@@ -1228,7 +1232,7 @@ WindowManager:
 
                         Label:
                             id: cellphonetotal
-                            text: '$' + func.find_spending('CellPhone', 'whole')
+                            text: '$' + func.add_commas(func.find_spending('CellPhone', 'whole'))
                             color: 0, 0, 0, 1 
 
                         Label:
@@ -1273,7 +1277,7 @@ WindowManager:
 
                         Label:
                             id: gastotal
-                            text: '$' + func.find_spending('Gas', 'whole')
+                            text: '$' + func.add_commas(func.find_spending('Gas', 'whole'))
                             color: 0, 0, 0, 1 
 
                         Label:
@@ -1318,7 +1322,7 @@ WindowManager:
 
                         Label:
                             id: renttotal
-                            text: '$' + func.find_spending('Rent', 'whole')
+                            text: '$' + func.add_commas(func.find_spending('Rent', 'whole'))
                             color: 0, 0, 0, 1 
 
                         Label:
@@ -1363,7 +1367,7 @@ WindowManager:
 
                         Label:
                             id: bankaccounttotal
-                            text: '$' + func.find_spending('BankAccount', 'whole')
+                            text: '$' + func.add_commas(func.find_spending('BankAccount', 'whole'))
                             color: 0, 0, 0, 1 
 
                         Label:
@@ -1408,7 +1412,7 @@ WindowManager:
 
                         Label:
                             id: carinsurancetotal
-                            text: '$' + func.find_spending('CarInsurance', 'whole')
+                            text: '$' + func.add_commas(func.find_spending('CarInsurance', 'whole'))
                             color: 0, 0, 0, 1 
 
                         Label:
@@ -1453,7 +1457,7 @@ WindowManager:
 
                         Label:
                             id: healthinsurancetotal
-                            text: '$' + func.find_spending('HealthInsurance', 'whole')
+                            text: '$' + func.add_commas(func.find_spending('HealthInsurance', 'whole'))
                             color: 0, 0, 0, 1 
 
                         Label:
@@ -1498,7 +1502,7 @@ WindowManager:
 
                         Label:
                             id: othertotal
-                            text: '$' + func.find_spending('Other', 'whole')
+                            text: '$' + func.add_commas(func.find_spending('Other', 'whole'))
                             color: 0, 0, 0, 1 
 
                         Label:
@@ -1643,49 +1647,49 @@ WindowManager:
                     func.new_income()
                     amount.text = ''
                     
-                    freetousespending.text = func.log_it() if func.choose_category() == 'FreeToUse' and func.user_earned() == False else freetousespending.text
+                    freetousespending.text = func.add_commas(func.log_it()) if func.choose_category() == 'FreeToUse' and func.user_earned() == False else freetousespending.text
                     freetousebar.value = eval(func.find_spending('FreeToUse', 'whole')) if func.choose_category() == 'FreeToUse' and func.user_earned() == False else freetousebar.value
-                    freetousetotal.text = '$' + func.find_spending('FreeToUse', 'whole') if func.choose_category() == 'FreeToUse' and func.user_earned() == False else '$' + freetousespending.text
+                    freetousetotal.text = '$' + func.add_commas(func.find_spending('FreeToUse', 'whole')) if func.choose_category() == 'FreeToUse' and func.user_earned() == False else '$' + freetousespending.text
                     
-                    utilitiesspending.text = func.log_it() if func.choose_category() == 'Utilities' and func.user_earned() == False else utilitiesspending.text
+                    utilitiesspending.text = func.add_commas(func.log_it()) if func.choose_category() == 'Utilities' and func.user_earned() == False else utilitiesspending.text
                     utilitiesbar.value = eval(func.find_spending('Utilities', 'whole')) if func.choose_category() == 'Utilities' and func.user_earned() == False else utilitiesbar.value
-                    utilitiestotal.text = '$' + func.find_spending('Utilities', 'whole') if func.choose_category() == 'Utilities' and func.user_earned() == False else '$' + utilitiesspending.text
+                    utilitiestotal.text = '$' + func.add_commas(func.find_spending('Utilities', 'whole')) if func.choose_category() == 'Utilities' and func.user_earned() == False else '$' + utilitiesspending.text
 
-                    groceriesspending.text = func.log_it() if func.choose_category() == 'Groceries' and func.user_earned() == False else groceriesspending.text
+                    groceriesspending.text = func.add_commas(func.log_it()) if func.choose_category() == 'Groceries' and func.user_earned() == False else groceriesspending.text
                     groceriesbar.value = eval(func.find_spending('Groceries', 'whole')) if func.choose_category() == 'Groceries' and func.user_earned() == False else groceriesbar.value
-                    groceriestotal.text = '$' + func.find_spending('Groceries', 'whole') if func.choose_category() == 'Groceries' and func.user_earned() == False else '$' + groceriesspending.text
+                    groceriestotal.text = '$' + func.add_commas(func.find_spending('Groceries', 'whole')) if func.choose_category() == 'Groceries' and func.user_earned() == False else '$' + groceriesspending.text
 
-                    internetspending.text = func.log_it() if func.choose_category() == 'Internet' and func.user_earned() == False else internetspending.text
+                    internetspending.text = func.add_commas(func.log_it()) if func.choose_category() == 'Internet' and func.user_earned() == False else internetspending.text
                     internetbar.value = eval(func.find_spending('Internet', 'whole')) if func.choose_category() == 'Internet' and func.user_earned() == False else internetbar.value
-                    internettotal.text = '$' + func.find_spending('Internet', 'whole') if func.choose_category() == 'Internet' and func.user_earned() == False else '$' + internetspending.text
+                    internettotal.text = '$' + func.add_commas(func.find_spending('Internet', 'whole')) if func.choose_category() == 'Internet' and func.user_earned() == False else '$' + internetspending.text
 
-                    cellphonespending.text = func.log_it() if func.choose_category() == 'CellPhone' and func.user_earned() == False else cellphonespending.text
+                    cellphonespending.text = func.add_commas(func.log_it()) if func.choose_category() == 'CellPhone' and func.user_earned() == False else cellphonespending.text
                     cellphonebar.value = eval(func.find_spending('CellPhone', 'whole')) if func.choose_category() == 'CellPhone' and func.user_earned() == False else cellphonebar.value
-                    cellphonetotal.text = '$' + func.find_spending('CellPhone', 'whole') if func.choose_category() == 'CellPhone' and func.user_earned() == False else '$' + cellphonespending.text
+                    cellphonetotal.text = '$' + func.add_commas(func.find_spending('CellPhone', 'whole')) if func.choose_category() == 'CellPhone' and func.user_earned() == False else '$' + cellphonespending.text
 
-                    gasspending.text = func.log_it() if func.choose_category() == 'Gas' and func.user_earned() == False else gasspending.text
+                    gasspending.text = func.add_commas(func.log_it()) if func.choose_category() == 'Gas' and func.user_earned() == False else gasspending.text
                     gasbar.value = eval(func.find_spending('Gas', 'whole')) if func.choose_category() == 'Gas' and func.user_earned() == False else gasbar.value
-                    gastotal.text = '$' + func.find_spending('Gas', 'whole') if func.choose_category() == 'Gas' and func.user_earned() == False else '$' + gasspending.text
+                    gastotal.text = '$' + func.add_commas(func.find_spending('Gas', 'whole')) if func.choose_category() == 'Gas' and func.user_earned() == False else '$' + gasspending.text
 
-                    rentspending.text = func.log_it() if func.choose_category() == 'Rent' and func.user_earned() == False else rentspending.text
+                    rentspending.text = func.add_commas(func.log_it()) if func.choose_category() == 'Rent' and func.user_earned() == False else rentspending.text
                     rentbar.value = eval(func.find_spending('Rent', 'whole')) if func.choose_category() == 'Rent' and func.user_earned() == False else rentbar.value
-                    renttotal.text = '$' + func.find_spending('Rent', 'whole') if func.choose_category() == 'Rent' and func.user_earned() == False else '$' + rentspending.text
+                    renttotal.text = '$' + func.add_commas(func.find_spending('Rent', 'whole')) if func.choose_category() == 'Rent' and func.user_earned() == False else '$' + rentspending.text
 
-                    bankaccountspending.text = func.log_it() if func.choose_category() == 'BankAccount' and func.user_earned() == False else bankaccountspending.text
+                    bankaccountspending.text = func.add_commas(func.log_it()) if func.choose_category() == 'BankAccount' and func.user_earned() == False else bankaccountspending.text
                     bankaccountbar.value = eval(func.find_spending('BankAccount', 'whole')) if func.choose_category() == 'BankAccount' and func.user_earned() == False else bankaccountbar.value
-                    bankaccounttotal.text = '$' + func.find_spending('BankAccount', 'whole') if func.choose_category() == 'BankAccount' and func.user_earned() == False else '$' + bankaccountspending.text
+                    bankaccounttotal.text = '$' + func.add_commas(func.find_spending('BankAccount', 'whole')) if func.choose_category() == 'BankAccount' and func.user_earned() == False else '$' + bankaccountspending.text
 
-                    carinsurancespending.text = func.log_it() if func.choose_category() == 'CarInsurance' and func.user_earned() == False else carinsurancespending.text
+                    carinsurancespending.text = func.add_commas(func.log_it()) if func.choose_category() == 'CarInsurance' and func.user_earned() == False else carinsurancespending.text
                     carinsurancebar.value = eval(func.find_spending('CarInsurance', 'whole')) if func.choose_category() == 'CarInsurance' and func.user_earned() == False else carinsurancebar.value
-                    carinsurancetotal.text = '$' + func.find_spending('CarInsurance', 'whole') if func.choose_category() == 'CarInsurance' and func.user_earned() == False else '$' + carinsurancespending.text
+                    carinsurancetotal.text = '$' + func.add_commas(func.find_spending('CarInsurance', 'whole')) if func.choose_category() == 'CarInsurance' and func.user_earned() == False else '$' + carinsurancespending.text
 
-                    healthinsurancespending.text = func.log_it() if func.choose_category() == 'HealthInsurance' and func.user_earned() == False else healthinsurancespending.text
+                    healthinsurancespending.text = func.add_commas(func.log_it()) if func.choose_category() == 'HealthInsurance' and func.user_earned() == False else healthinsurancespending.text
                     healthinsurancebar.value = eval(func.find_spending('HealthInsurance', 'whole')) if func.choose_category() == 'HealthInsurance' and func.user_earned() == False else healthinsurancebar.value
-                    healthinsurancetotal.text = '$' + func.find_spending('HealthInsurance', 'whole') if func.choose_category() == 'HealthInsurance' and func.user_earned() == False else '$' + healthinsurancespending.text
+                    healthinsurancetotal.text = '$' + func.add_commas(func.find_spending('HealthInsurance', 'whole')) if func.choose_category() == 'HealthInsurance' and func.user_earned() == False else '$' + healthinsurancespending.text
 
-                    otherspending.text = func.log_it() if func.choose_category() == 'Other' and func.user_earned() == False else otherspending.text
+                    otherspending.text = func.add_commas(func.log_it()) if func.choose_category() == 'Other' and func.user_earned() == False else otherspending.text
                     otherbar.value = eval(func.find_spending('Other', 'whole')) if func.choose_category() == 'Other' and func.user_earned() == False else otherbar.value
-                    othertotal.text = '$' + func.find_spending('Other', 'whole') if func.choose_category() == 'Other' and func.user_earned() == False else '$' + otherspending.text
+                    othertotal.text = '$' + func.add_commas(func.find_spending('Other', 'whole')) if func.choose_category() == 'Other' and func.user_earned() == False else '$' + otherspending.text
 
                     freetousespending.color = func.remember_color('FreeToUse') if func.user_earned() == False else freetousespending.color
                     utilitiesspending.color = func.remember_color('Utilities') if func.user_earned() == False else utilitiesspending.color
@@ -1711,14 +1715,14 @@ WindowManager:
                     healthinsurancepercent.text = func.find_spending('HealthInsurance', 'percent') + '%' if func.user_earned() == False else healthinsurancepercent.text
                     otherpercent.text = func.find_spending('Other', 'percent') + '%' if func.user_earned() == False else otherpercent.text
 
-                    estimatedsavings.text = '$' + func.estimated_savings()
+                    estimatedsavings.text = '$' + func.add_commas(func.estimated_savings())
                     estimatedsavings.color = func.estimated_savings_color()
 
                     mainbar.max = eval(func.find_income())
                     mainbar.value = eval(func.calc_savings_spending('spending'))
-                    totalincome.text = '$' + func.find_income()
-                    totalspending.text = '$' + func.calc_savings_spending('spending')
-                    totalsavings.text = '$' + func.calc_savings_spending('savings')
+                    totalincome.text = '$' + func.add_commas(func.find_income())
+                    totalspending.text = '$' + func.add_commas(func.calc_savings_spending('spending'))
+                    totalsavings.text = '$' + func.add_commas(func.calc_savings_spending('savings'))
                     totalsavings.color = func.estimated_total_savings(totalsavings.text)
 
                     earned.background_color = 0.4, 0.4, 0.4, 1
@@ -2012,7 +2016,7 @@ WindowManager:
 
             Label:
                 id: historytotalsavings
-                text: func.total_savings()
+                text: func.add_commas(func.total_savings())
                 color: func.estimated_total_savings(historytotalsavings.text)
                 font_size: 40
 
@@ -2048,313 +2052,313 @@ WindowManager:
                         text: func.remember_month(-1)
 
                     Label:
-                        text: func.remember_month(saved=-1)
+                        text: func.add_commas(func.remember_month(saved=-1))
                         color: func.estimated_total_savings(self.text)
                     
                     Label:
-                        text: func.remember_month(spent=-1)
+                        text: func.add_commas(func.remember_month(spent=-1))
 
                     Label:
-                        text: func.remember_month(income=-1)
+                        text: func.add_commas(func.remember_month(income=-1))
 
                     Label:
                         text: func.remember_month(-2)
 
                     Label:
-                        text: func.remember_month(saved=-2)
+                        text: func.add_commas(func.remember_month(saved=-2))
                         color: func.estimated_total_savings(self.text)
 
                     Label:
-                        text: func.remember_month(spent=-2)
+                        text: func.add_commas(func.remember_month(spent=-2))
 
                     Label:
-                        text: func.remember_month(income=-2)
+                        text: func.add_commas(func.remember_month(income=-2))
 
                     Label:
                         text: func.remember_month(-3)
 
                     Label:
-                        text: func.remember_month(saved=-3)
+                        text: func.add_commas(func.remember_month(saved=-3))
                         color: func.estimated_total_savings(self.text)
 
                     Label:
-                        text: func.remember_month(spent=-3)
+                        text: func.add_commas(func.remember_month(spent=-3))
 
                     Label:
-                        text: func.remember_month(income=-3)
+                        text: func.add_commas(func.remember_month(income=-3))
 
                     Label:
                         text: func.remember_month(-4)
 
                     Label:
-                        text: func.remember_month(saved=-4)
+                        text: func.add_commas(func.remember_month(saved=-4))
                         color: func.estimated_total_savings(self.text)
 
                     Label:
-                        text: func.remember_month(spent=-4)
+                        text: func.add_commas(func.remember_month(spent=-4))
 
                     Label:
-                        text: func.remember_month(income=-4)
+                        text: func.add_commas(func.remember_month(income=-4))
 
                     Label:
                         text: func.remember_month(-5)
 
                     Label:
-                        text: func.remember_month(saved=-5)
+                        text: func.add_commas(func.remember_month(saved=-5))
                         color: func.estimated_total_savings(self.text)
 
                     Label:
-                        text: func.remember_month(spent=-5)
+                        text: func.add_commas(func.remember_month(spent=-5))
 
                     Label:
-                        text: func.remember_month(income=-5)
+                        text: func.add_commas(func.remember_month(income=-5))
 
                     Label:
                         text: func.remember_month(-6)
 
                     Label:
-                        text: func.remember_month(saved=-6)
+                        text: func.add_commas(func.remember_month(saved=-6))
                         color: func.estimated_total_savings(self.text)
 
                     Label:
-                        text: func.remember_month(spent=-6)
+                        text: func.add_commas(func.remember_month(spent=-6))
 
                     Label:
-                        text: func.remember_month(income=-6)
+                        text: func.add_commas(func.remember_month(income=-6))
 
                     Label:
                         text: func.remember_month(-7)
 
                     Label:
-                        text: func.remember_month(saved=-7)
+                        text: func.add_commas(func.remember_month(saved=-7))
                         color: func.estimated_total_savings(self.text)
 
                     Label:
-                        text: func.remember_month(spent=-7)
+                        text: func.add_commas(func.remember_month(spent=-7))
 
                     Label:
-                        text: func.remember_month(income=-7)
+                        text: func.add_commas(func.remember_month(income=-7))
 
                     Label:
                         text: func.remember_month(-8)
 
                     Label:
-                        text: func.remember_month(saved=-8)
+                        text: func.add_commas(func.remember_month(saved=-8))
                         color: func.estimated_total_savings(self.text)
 
                     Label:
-                        text: func.remember_month(spent=-8)
+                        text: func.add_commas(func.remember_month(spent=-8))
 
                     Label:
-                        text: func.remember_month(income=-8)
+                        text: func.add_commas(func.remember_month(income=-8))
 
                     Label:
                         text: func.remember_month(-9)
 
                     Label:
-                        text: func.remember_month(saved=-9)
+                        text: func.add_commas(func.remember_month(saved=-9))
                         color: func.estimated_total_savings(self.text)
 
                     Label:
-                        text: func.remember_month(spent=-9)
+                        text: func.add_commas(func.remember_month(spent=-9))
 
                     Label:
-                        text: func.remember_month(income=-9)
+                        text: func.add_commas(func.remember_month(income=-9))
 
                     Label:
                         text: func.remember_month(-10)
 
                     Label:
-                        text: func.remember_month(saved=-10)
+                        text: func.add_commas(func.remember_month(saved=-10))
                         color: func.estimated_total_savings(self.text)
 
                     Label:
-                        text: func.remember_month(spent=-10)
+                        text: func.add_commas(func.remember_month(spent=-10))
 
                     Label:
-                        text: func.remember_month(income=-10)
+                        text: func.add_commas(func.remember_month(income=-10))
 
                     Label:
                         text: func.remember_month(-11)
 
                     Label:
-                        text: func.remember_month(saved=-11)
+                        text: func.add_commas(func.remember_month(saved=-11))
                         color: func.estimated_total_savings(self.text)
 
                     Label:
-                        text: func.remember_month(spent=-11)
+                        text: func.add_commas(func.remember_month(spent=-11))
 
                     Label:
-                        text: func.remember_month(income=-11)
+                        text: func.add_commas(func.remember_month(income=-11))
 
                     Label:
                         text: func.remember_month(-12)
 
                     Label:
-                        text: func.remember_month(saved=-12)
+                        text: func.add_commas(func.remember_month(saved=-12))
                         color: func.estimated_total_savings(self.text)
 
                     Label:
-                        text: func.remember_month(spent=-12)
+                        text: func.add_commas(func.remember_month(spent=-12))
 
                     Label:
-                        text: func.remember_month(income=-12)
+                        text: func.add_commas(func.remember_month(income=-12))
 
                     Label:
                         text: func.remember_month(-13)
 
                     Label:
-                        text: func.remember_month(saved=-13)
+                        text: func.add_commas(func.remember_month(saved=-13))
                         color: func.estimated_total_savings(self.text)
 
                     Label:
-                        text: func.remember_month(spent=-13)
+                        text: func.add_commas(func.remember_month(spent=-13))
 
                     Label:
-                        text: func.remember_month(income=-13)
+                        text: func.add_commas(func.remember_month(income=-13))
 
                     Label:
                         text: func.remember_month(-14)
 
                     Label:
-                        text: func.remember_month(saved=-14)
+                        text: func.add_commas(func.remember_month(saved=-14))
                         color: func.estimated_total_savings(self.text)
 
                     Label:
-                        text: func.remember_month(spent=-14)
+                        text: func.add_commas(func.remember_month(spent=-14))
 
                     Label:
-                        text: func.remember_month(income=-14)
+                        text: func.add_commas(func.remember_month(income=-14))
 
                     Label:
                         text: func.remember_month(-15)
 
                     Label:
-                        text: func.remember_month(saved=-15)
+                        text: func.add_commas(func.remember_month(saved=-15))
                         color: func.estimated_total_savings(self.text)
 
                     Label:
-                        text: func.remember_month(spent=-15)
+                        text: func.add_commas(func.remember_month(spent=-15))
 
                     Label:
-                        text: func.remember_month(income=-15)
+                        text: func.add_commas(func.remember_month(income=-15))
 
                     Label:
                         text: func.remember_month(-16)
 
                     Label:
-                        text: func.remember_month(saved=-16)
+                        text: func.add_commas(func.remember_month(saved=-16))
                         color: func.estimated_total_savings(self.text)
 
                     Label:
-                        text: func.remember_month(spent=-16)
+                        text: func.add_commas(func.remember_month(spent=-16))
 
                     Label:
-                        text: func.remember_month(income=-16)
+                        text: func.add_commas(func.remember_month(income=-16))
 
                     Label:
                         text: func.remember_month(-17)
 
                     Label:
-                        text: func.remember_month(saved=-17)
+                        text: func.add_commas(func.remember_month(saved=-17))
                         color: func.estimated_total_savings(self.text)
 
                     Label:
-                        text: func.remember_month(spent=-17)
+                        text: func.add_commas(func.remember_month(spent=-17))
 
                     Label:
-                        text: func.remember_month(income=-17)
+                        text: func.add_commas(func.remember_month(income=-17))
 
                     Label:
-                        text: func.remember_month(-18)
+                        text: func.add_commas(func.remember_month(-18))
 
                     Label:
-                        text: func.remember_month(saved=-18)
+                        text: func.add_commas(func.remember_month(saved=-18))
                         color: func.estimated_total_savings(self.text)
 
                     Label:
-                        text: func.remember_month(spent=-18)
+                        text: func.add_commas(func.remember_month(spent=-18))
 
                     Label:
-                        text: func.remember_month(income=-18)
+                        text: func.add_commas(func.remember_month(income=-18))
 
                     Label:
                         text: func.remember_month(-19)
 
                     Label:
-                        text: func.remember_month(saved=-19)
+                        text: func.add_commas(func.remember_month(saved=-19))
                         color: func.estimated_total_savings(self.text)
 
                     Label:
-                        text: func.remember_month(spent=-19)
+                        text: func.add_commas(func.remember_month(spent=-19))
 
                     Label:
-                        text: func.remember_month(income=-19)
+                        text: func.add_commas(func.remember_month(income=-19))
 
                     Label:
                         text: func.remember_month(-20)
 
                     Label:
-                        text: func.remember_month(saved=-20)
+                        text: func.add_commas(func.remember_month(saved=-20))
                         color: func.estimated_total_savings(self.text)
 
                     Label:
-                        text: func.remember_month(spent=-20)
+                        text: func.add_commas(func.remember_month(spent=-20))
 
                     Label:
-                        text: func.remember_month(income=-20)
+                        text: func.add_commas(func.remember_month(income=-20))
 
                     Label:
                         text: func.remember_month(-21)
 
                     Label:
-                        text: func.remember_month(saved=-21)
+                        text: func.add_commas(func.remember_month(saved=-21))
                         color: func.estimated_total_savings(self.text)
 
                     Label:
-                        text: func.remember_month(spent=-21)
+                        text: func.add_commas(func.remember_month(spent=-21))
 
                     Label:
-                        text: func.remember_month(income=-21)
+                        text: func.add_commas(func.remember_month(income=-21))
 
                     Label:
                         text: func.remember_month(-22)
 
                     Label:
-                        text: func.remember_month(saved=-22)
+                        text: func.add_commas(func.remember_month(saved=-22))
                         color: func.estimated_total_savings(self.text)
 
                     Label:
-                        text: func.remember_month(spent=-22)
+                        text: func.add_commas(func.remember_month(spent=-22))
 
                     Label:
-                        text: func.remember_month(income=-22)
+                        text: func.add_commas(func.remember_month(income=-22))
 
                     Label:
                         text: func.remember_month(-23)
 
                     Label:
-                        text: func.remember_month(saved=-23)
+                        text: func.add_commas(func.remember_month(saved=-23))
                         color: func.estimated_total_savings(self.text)
 
                     Label:
-                        text: func.remember_month(spent=-23)
+                        text: func.add_commas(func.remember_month(spent=-23))
 
                     Label:
-                        text: func.remember_month(income=-23)
+                        text: func.add_commas(func.remember_month(income=-23))
                     
                     Label:
                         text: func.remember_month(-24)
 
                     Label:
-                        text: func.remember_month(saved=-24)
+                        text: func.add_commas(func.remember_month(saved=-24))
                         color: func.estimated_total_savings(self.text)
 
                     Label:
-                        text: func.remember_month(spent=-24)
+                        text: func.add_commas(func.remember_month(spent=-24))
 
                     Label:
-                        text: func.remember_month(income=-24)
+                        text: func.add_commas(func.remember_month(income=-24))
 
             Button:
                 text: 'Close'

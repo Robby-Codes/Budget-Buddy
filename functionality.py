@@ -122,6 +122,55 @@ def log_in(name, password):
             return False
 
 
+def add_commas(num):
+    sign = True if '$' in num else False
+    if '$' in num:
+        num = num.replace('$', '')
+    neg = True if '-' in num else False
+    if '-' in num:
+        num = num.replace('-', '')
+    if '.' in num:
+        num = num.split('.')
+        main_num = num[0]
+        if len(main_num) <= 3:
+            result = '.'.join(num)
+        elif len(main_num) > 3 and len(main_num) < 7:
+            main_num = list(main_num)
+            main_num.insert(-3, ',')
+            result = ''.join(main_num) + '.' + num[1]
+        elif len(main_num) > 6:
+            main_num = list(main_num)
+            main_num.insert(-3, ',')
+            main_num.insert(-7, ',')
+            result = ''.join(main_num) + '.' + num[1]
+    else:
+        if len(num) <= 3:
+            result = num
+        elif len(num) > 3 and len(num) < 7:
+            num = list(num)
+            num.insert(-3, ',')
+            result = ''.join(num)
+        elif len(num) > 6:
+            num = list(num)
+            num.insert(-3, ',')
+            num.insert(-7, ',')
+            result = ''.join(num)
+    if neg and not sign:
+        return '-' + result
+    if sign and not neg:
+        return '$' + result
+    if sign and neg:
+        return '$-' + result
+    if not neg and not sign:
+        return result
+
+
+def convert_to_num(num):
+    for i in num:
+        new_num = num.replace(',', '')
+    return new_num
+
+
 def new_budget_check(category, budget):
     if re.match(r'^-?[0-9]+\.?[0-9]*$', budget):
         update = pickle.load(open('storage.dat', 'rb'))
