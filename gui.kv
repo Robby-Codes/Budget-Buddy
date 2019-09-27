@@ -10,6 +10,7 @@ WindowManager:
     DashboardScreen:
 
 
+
 <LoginScreen>:
     name: 'logins'
 
@@ -253,8 +254,8 @@ WindowManager:
             text: func.remember_security()
             font_size: 20
             color: 0, 0, 0, 1
-            size_hint: 0.28, 0.04
-            pos_hint: {'top': 0.7, 'x': 0.36}
+            size_hint: 0.28, 0.1
+            pos_hint: {'top': 0.75, 'x': 0.36}
             text_size: self.size
             halign: 'left'
 
@@ -262,7 +263,7 @@ WindowManager:
             id: youranswer
             multiline: False
             size_hint: 0.22, 0.04
-            pos_hint: {'top': 0.6, 'x': 0.378}
+            pos_hint: {'top': 0.55, 'x': 0.378}
             on_text_validate:
                 Factory.AccountRecovery().open() if func.check_security_answer(youranswer.text) else Factory.AccountRecovery().dismiss()
                 youranswer.text = '' if func.check_security_answer(youranswer.text) else youranswer.text
@@ -942,7 +943,7 @@ WindowManager:
                     Label:
                         id: totalsavings
                         text: '$' + func.calc_savings_spending('savings')
-                        color: 0, 0.5, 0, 1
+                        color: func.estimated_total_savings(totalsavings.text)
                         font_size: 25
                     
                     Label:
@@ -1638,77 +1639,77 @@ WindowManager:
                 size_hint: 0.2, 0.1
                 pos_hint: {'top': 0.135, 'x': 0.05}
                 on_release:
-            
+
                     func.new_income()
                     amount.text = ''
                     
-                    freetousespending.text = func.log_it() if func.choose_category() == 'FreeToUse' else freetousespending.text
-                    freetousebar.value = eval(func.find_spending('FreeToUse', 'whole')) if func.choose_category() == 'FreeToUse' else freetousebar.value
-                    freetousetotal.text = '$' + func.find_spending('FreeToUse', 'whole') if func.choose_category() == 'FreeToUse' else '$' + freetousespending.text
+                    freetousespending.text = func.log_it() if func.choose_category() == 'FreeToUse' and func.user_earned() == False else freetousespending.text
+                    freetousebar.value = eval(func.find_spending('FreeToUse', 'whole')) if func.choose_category() == 'FreeToUse' and func.user_earned() == False else freetousebar.value
+                    freetousetotal.text = '$' + func.find_spending('FreeToUse', 'whole') if func.choose_category() == 'FreeToUse' and func.user_earned() == False else '$' + freetousespending.text
                     
-                    utilitiesspending.text = func.log_it() if func.choose_category() == 'Utilities' else utilitiesspending.text
-                    utilitiesbar.value = eval(func.find_spending('Utilities', 'whole')) if func.choose_category() == 'Utilities' else utilitiesbar.value
-                    utilitiestotal.text = '$' + func.find_spending('Utilities', 'whole') if func.choose_category() == 'Utilities' else '$' + utilitiesspending.text
+                    utilitiesspending.text = func.log_it() if func.choose_category() == 'Utilities' and func.user_earned() == False else utilitiesspending.text
+                    utilitiesbar.value = eval(func.find_spending('Utilities', 'whole')) if func.choose_category() == 'Utilities' and func.user_earned() == False else utilitiesbar.value
+                    utilitiestotal.text = '$' + func.find_spending('Utilities', 'whole') if func.choose_category() == 'Utilities' and func.user_earned() == False else '$' + utilitiesspending.text
 
-                    groceriesspending.text = func.log_it() if func.choose_category() == 'Groceries' else groceriesspending.text
-                    groceriesbar.value = eval(func.find_spending('Groceries', 'whole')) if func.choose_category() == 'Groceries' else groceriesbar.value
-                    groceriestotal.text = '$' + func.find_spending('Groceries', 'whole') if func.choose_category() == 'Groceries' else '$' + groceriesspending.text
+                    groceriesspending.text = func.log_it() if func.choose_category() == 'Groceries' and func.user_earned() == False else groceriesspending.text
+                    groceriesbar.value = eval(func.find_spending('Groceries', 'whole')) if func.choose_category() == 'Groceries' and func.user_earned() == False else groceriesbar.value
+                    groceriestotal.text = '$' + func.find_spending('Groceries', 'whole') if func.choose_category() == 'Groceries' and func.user_earned() == False else '$' + groceriesspending.text
 
-                    internetspending.text = func.log_it() if func.choose_category() == 'Internet' else internetspending.text
-                    internetbar.value = eval(func.find_spending('Internet', 'whole')) if func.choose_category() == 'Internet' else internetbar.value
-                    internettotal.text = '$' + func.find_spending('Internet', 'whole') if func.choose_category() == 'Internet' else '$' + internetspending.text
+                    internetspending.text = func.log_it() if func.choose_category() == 'Internet' and func.user_earned() == False else internetspending.text
+                    internetbar.value = eval(func.find_spending('Internet', 'whole')) if func.choose_category() == 'Internet' and func.user_earned() == False else internetbar.value
+                    internettotal.text = '$' + func.find_spending('Internet', 'whole') if func.choose_category() == 'Internet' and func.user_earned() == False else '$' + internetspending.text
 
-                    cellphonespending.text = func.log_it() if func.choose_category() == 'CellPhone' else cellphonespending.text
-                    cellphonebar.value = eval(func.find_spending('CellPhone', 'whole')) if func.choose_category() == 'CellPhone' else cellphonebar.value
-                    cellphonetotal.text = '$' + func.find_spending('CellPhone', 'whole') if func.choose_category() == 'CellPhone' else '$' + cellphonespending.text
+                    cellphonespending.text = func.log_it() if func.choose_category() == 'CellPhone' and func.user_earned() == False else cellphonespending.text
+                    cellphonebar.value = eval(func.find_spending('CellPhone', 'whole')) if func.choose_category() == 'CellPhone' and func.user_earned() == False else cellphonebar.value
+                    cellphonetotal.text = '$' + func.find_spending('CellPhone', 'whole') if func.choose_category() == 'CellPhone' and func.user_earned() == False else '$' + cellphonespending.text
 
-                    gasspending.text = func.log_it() if func.choose_category() == 'Gas' else gasspending.text
-                    gasbar.value = eval(func.find_spending('Gas', 'whole')) if func.choose_category() == 'Gas' else gasbar.value
-                    gastotal.text = '$' + func.find_spending('Gas', 'whole') if func.choose_category() == 'Gas' else '$' + gasspending.text
+                    gasspending.text = func.log_it() if func.choose_category() == 'Gas' and func.user_earned() == False else gasspending.text
+                    gasbar.value = eval(func.find_spending('Gas', 'whole')) if func.choose_category() == 'Gas' and func.user_earned() == False else gasbar.value
+                    gastotal.text = '$' + func.find_spending('Gas', 'whole') if func.choose_category() == 'Gas' and func.user_earned() == False else '$' + gasspending.text
 
-                    rentspending.text = func.log_it() if func.choose_category() == 'Rent' else rentspending.text
-                    rentbar.value = eval(func.find_spending('Rent', 'whole')) if func.choose_category() == 'Rent' else rentbar.value
-                    renttotal.text = '$' + func.find_spending('Rent', 'whole') if func.choose_category() == 'Rent' else '$' + rentspending.text
+                    rentspending.text = func.log_it() if func.choose_category() == 'Rent' and func.user_earned() == False else rentspending.text
+                    rentbar.value = eval(func.find_spending('Rent', 'whole')) if func.choose_category() == 'Rent' and func.user_earned() == False else rentbar.value
+                    renttotal.text = '$' + func.find_spending('Rent', 'whole') if func.choose_category() == 'Rent' and func.user_earned() == False else '$' + rentspending.text
 
-                    bankaccountspending.text = func.log_it() if func.choose_category() == 'BankAccount' else bankaccountspending.text
-                    bankaccountbar.value = eval(func.find_spending('BankAccount', 'whole')) if func.choose_category() == 'BankAccount' else bankaccountbar.value
-                    bankaccounttotal.text = '$' + func.find_spending('BankAccount', 'whole') if func.choose_category() == 'BankAccount' else '$' + bankaccountspending.text
+                    bankaccountspending.text = func.log_it() if func.choose_category() == 'BankAccount' and func.user_earned() == False else bankaccountspending.text
+                    bankaccountbar.value = eval(func.find_spending('BankAccount', 'whole')) if func.choose_category() == 'BankAccount' and func.user_earned() == False else bankaccountbar.value
+                    bankaccounttotal.text = '$' + func.find_spending('BankAccount', 'whole') if func.choose_category() == 'BankAccount' and func.user_earned() == False else '$' + bankaccountspending.text
 
-                    carinsurancespending.text = func.log_it() if func.choose_category() == 'CarInsurance' else carinsurancespending.text
-                    carinsurancebar.value = eval(func.find_spending('CarInsurance', 'whole')) if func.choose_category() == 'CarInsurance' else carinsurancebar.value
-                    carinsurancetotal.text = '$' + func.find_spending('CarInsurance', 'whole') if func.choose_category() == 'CarInsurance' else '$' + carinsurancespending.text
+                    carinsurancespending.text = func.log_it() if func.choose_category() == 'CarInsurance' and func.user_earned() == False else carinsurancespending.text
+                    carinsurancebar.value = eval(func.find_spending('CarInsurance', 'whole')) if func.choose_category() == 'CarInsurance' and func.user_earned() == False else carinsurancebar.value
+                    carinsurancetotal.text = '$' + func.find_spending('CarInsurance', 'whole') if func.choose_category() == 'CarInsurance' and func.user_earned() == False else '$' + carinsurancespending.text
 
-                    healthinsurancespending.text = func.log_it() if func.choose_category() == 'HealthInsurance' else healthinsurancespending.text
-                    healthinsurancebar.value = eval(func.find_spending('HealthInsurance', 'whole')) if func.choose_category() == 'HealthInsurance' else healthinsurancebar.value
-                    healthinsurancetotal.text = '$' + func.find_spending('HealthInsurance', 'whole') if func.choose_category() == 'HealthInsurance' else '$' + healthinsurancespending.text
+                    healthinsurancespending.text = func.log_it() if func.choose_category() == 'HealthInsurance' and func.user_earned() == False else healthinsurancespending.text
+                    healthinsurancebar.value = eval(func.find_spending('HealthInsurance', 'whole')) if func.choose_category() == 'HealthInsurance' and func.user_earned() == False else healthinsurancebar.value
+                    healthinsurancetotal.text = '$' + func.find_spending('HealthInsurance', 'whole') if func.choose_category() == 'HealthInsurance' and func.user_earned() == False else '$' + healthinsurancespending.text
 
-                    otherspending.text = func.log_it() if func.choose_category() == 'Other' else otherspending.text
-                    otherbar.value = eval(func.find_spending('Other', 'whole')) if func.choose_category() == 'Other' else otherbar.value
-                    othertotal.text = '$' + func.find_spending('Other', 'whole') if func.choose_category() == 'Other' else '$' + otherspending.text
+                    otherspending.text = func.log_it() if func.choose_category() == 'Other' and func.user_earned() == False else otherspending.text
+                    otherbar.value = eval(func.find_spending('Other', 'whole')) if func.choose_category() == 'Other' and func.user_earned() == False else otherbar.value
+                    othertotal.text = '$' + func.find_spending('Other', 'whole') if func.choose_category() == 'Other' and func.user_earned() == False else '$' + otherspending.text
 
-                    freetousespending.color = func.remember_color('FreeToUse')
-                    utilitiesspending.color = func.remember_color('Utilities')
-                    groceriesspending.color = func.remember_color('Groceries')
-                    internetspending.color = func.remember_color('Internet')
-                    cellphonespending.color = func.remember_color('CellPhone')
-                    gasspending.color = func.remember_color('Gas')
-                    rentspending.color = func.remember_color('Rent')
-                    bankaccountspending.color = func.remember_color('BankAccount')
-                    carinsurancespending.color = func.remember_color('CarInsurance')
-                    healthinsurancespending.color = func.remember_color('HealthInsurance')
-                    otherspending.color = func.remember_color('Other')
+                    freetousespending.color = func.remember_color('FreeToUse') if func.user_earned() == False else freetousespending.color
+                    utilitiesspending.color = func.remember_color('Utilities') if func.user_earned() == False else utilitiesspending.color
+                    groceriesspending.color = func.remember_color('Groceries') if func.user_earned() == False else groceriesspending.color
+                    internetspending.color = func.remember_color('Internet') if func.user_earned() == False else internetspending.color
+                    cellphonespending.color = func.remember_color('CellPhone') if func.user_earned() == False else cellphonespending.color
+                    gasspending.color = func.remember_color('Gas') if func.user_earned() == False else gasspending.color
+                    rentspending.color = func.remember_color('Rent') if func.user_earned() == False else rentspending.color
+                    bankaccountspending.color = func.remember_color('BankAccount') if func.user_earned() == False else bankaccountspending.color
+                    carinsurancespending.color = func.remember_color('CarInsurance') if func.user_earned() == False else carinsurancespending.color
+                    healthinsurancespending.color = func.remember_color('HealthInsurance') if func.user_earned() == False else healthinsurancespending.color
+                    otherspending.color = func.remember_color('Other') if func.user_earned() == False else otherspending.color
 
-                    freetousepercent.text = func.find_spending('FreeToUse', 'percent') + '%'
-                    utilitiespercent.text = func.find_spending('Utilities', 'percent') + '%'
-                    groceriespercent.text = func.find_spending('Groceries', 'percent') + '%'
-                    internetpercent.text = func.find_spending('Internet', 'percent') + '%'
-                    cellphonepercent.text = func.find_spending('CellPhone', 'percent') + '%'
-                    gaspercent.text = func.find_spending('Gas', 'percent') + '%'
-                    rentpercent.text = func.find_spending('Rent', 'percent') + '%'
-                    bankaccountpercent.text = func.find_spending('BankAccount', 'percent') + '%'
-                    carinsurancepercent.text = func.find_spending('CarInsurance', 'percent') + '%'
-                    healthinsurancepercent.text = func.find_spending('HealthInsurance', 'percent') + '%'
-                    otherpercent.text = func.find_spending('Other', 'percent') + '%'
+                    freetousepercent.text = func.find_spending('FreeToUse', 'percent') + '%' if func.user_earned() == False else freetousepercent.text
+                    utilitiespercent.text = func.find_spending('Utilities', 'percent') + '%' if func.user_earned() == False else utilitiespercent.text
+                    groceriespercent.text = func.find_spending('Groceries', 'percent') + '%' if func.user_earned() == False else groceriespercent.text
+                    internetpercent.text = func.find_spending('Internet', 'percent') + '%' if func.user_earned() == False else internetpercent.text
+                    cellphonepercent.text = func.find_spending('CellPhone', 'percent') + '%' if func.user_earned() == False else cellphonepercent.text
+                    gaspercent.text = func.find_spending('Gas', 'percent') + '%' if func.user_earned() == False else gaspercent.text
+                    rentpercent.text = func.find_spending('Rent', 'percent') + '%' if func.user_earned() == False else rentpercent.text
+                    bankaccountpercent.text = func.find_spending('BankAccount', 'percent') + '%' if func.user_earned() == False else bankaccountpercent.text
+                    carinsurancepercent.text = func.find_spending('CarInsurance', 'percent') + '%' if func.user_earned() == False else carinsurancepercent.text
+                    healthinsurancepercent.text = func.find_spending('HealthInsurance', 'percent') + '%' if func.user_earned() == False else healthinsurancepercent.text
+                    otherpercent.text = func.find_spending('Other', 'percent') + '%' if func.user_earned() == False else otherpercent.text
 
                     estimatedsavings.text = '$' + func.estimated_savings()
                     estimatedsavings.color = func.estimated_savings_color()
@@ -1718,6 +1719,7 @@ WindowManager:
                     totalincome.text = '$' + func.find_income()
                     totalspending.text = '$' + func.calc_savings_spending('spending')
                     totalsavings.text = '$' + func.calc_savings_spending('savings')
+                    totalsavings.color = func.estimated_total_savings(totalsavings.text)
 
                     earned.background_color = 0.4, 0.4, 0.4, 1
                     spent.background_color = 0.4, 0.4, 0.4, 1
@@ -2009,7 +2011,9 @@ WindowManager:
             pos_hint: {'top': 1, 'x': 0}
 
             Label:
+                id: historytotalsavings
                 text: func.total_savings()
+                color: func.estimated_total_savings(historytotalsavings.text)
                 font_size: 40
 
             Label:
@@ -2045,6 +2049,7 @@ WindowManager:
 
                     Label:
                         text: func.remember_month(saved=-1)
+                        color: func.estimated_total_savings(self.text)
                     
                     Label:
                         text: func.remember_month(spent=-1)
@@ -2057,7 +2062,8 @@ WindowManager:
 
                     Label:
                         text: func.remember_month(saved=-2)
-                    
+                        color: func.estimated_total_savings(self.text)
+
                     Label:
                         text: func.remember_month(spent=-2)
 
@@ -2069,7 +2075,8 @@ WindowManager:
 
                     Label:
                         text: func.remember_month(saved=-3)
-                    
+                        color: func.estimated_total_savings(self.text)
+
                     Label:
                         text: func.remember_month(spent=-3)
 
@@ -2081,7 +2088,8 @@ WindowManager:
 
                     Label:
                         text: func.remember_month(saved=-4)
-                    
+                        color: func.estimated_total_savings(self.text)
+
                     Label:
                         text: func.remember_month(spent=-4)
 
@@ -2093,7 +2101,8 @@ WindowManager:
 
                     Label:
                         text: func.remember_month(saved=-5)
-                    
+                        color: func.estimated_total_savings(self.text)
+
                     Label:
                         text: func.remember_month(spent=-5)
 
@@ -2105,7 +2114,8 @@ WindowManager:
 
                     Label:
                         text: func.remember_month(saved=-6)
-                    
+                        color: func.estimated_total_savings(self.text)
+
                     Label:
                         text: func.remember_month(spent=-6)
 
@@ -2117,7 +2127,8 @@ WindowManager:
 
                     Label:
                         text: func.remember_month(saved=-7)
-                    
+                        color: func.estimated_total_savings(self.text)
+
                     Label:
                         text: func.remember_month(spent=-7)
 
@@ -2129,7 +2140,8 @@ WindowManager:
 
                     Label:
                         text: func.remember_month(saved=-8)
-                    
+                        color: func.estimated_total_savings(self.text)
+
                     Label:
                         text: func.remember_month(spent=-8)
 
@@ -2141,7 +2153,8 @@ WindowManager:
 
                     Label:
                         text: func.remember_month(saved=-9)
-                    
+                        color: func.estimated_total_savings(self.text)
+
                     Label:
                         text: func.remember_month(spent=-9)
 
@@ -2153,7 +2166,8 @@ WindowManager:
 
                     Label:
                         text: func.remember_month(saved=-10)
-                    
+                        color: func.estimated_total_savings(self.text)
+
                     Label:
                         text: func.remember_month(spent=-10)
 
@@ -2165,7 +2179,8 @@ WindowManager:
 
                     Label:
                         text: func.remember_month(saved=-11)
-                    
+                        color: func.estimated_total_savings(self.text)
+
                     Label:
                         text: func.remember_month(spent=-11)
 
@@ -2177,7 +2192,8 @@ WindowManager:
 
                     Label:
                         text: func.remember_month(saved=-12)
-                    
+                        color: func.estimated_total_savings(self.text)
+
                     Label:
                         text: func.remember_month(spent=-12)
 
@@ -2189,7 +2205,8 @@ WindowManager:
 
                     Label:
                         text: func.remember_month(saved=-13)
-                    
+                        color: func.estimated_total_savings(self.text)
+
                     Label:
                         text: func.remember_month(spent=-13)
 
@@ -2201,7 +2218,8 @@ WindowManager:
 
                     Label:
                         text: func.remember_month(saved=-14)
-                    
+                        color: func.estimated_total_savings(self.text)
+
                     Label:
                         text: func.remember_month(spent=-14)
 
@@ -2213,7 +2231,8 @@ WindowManager:
 
                     Label:
                         text: func.remember_month(saved=-15)
-                    
+                        color: func.estimated_total_savings(self.text)
+
                     Label:
                         text: func.remember_month(spent=-15)
 
@@ -2225,7 +2244,8 @@ WindowManager:
 
                     Label:
                         text: func.remember_month(saved=-16)
-                    
+                        color: func.estimated_total_savings(self.text)
+
                     Label:
                         text: func.remember_month(spent=-16)
 
@@ -2237,7 +2257,8 @@ WindowManager:
 
                     Label:
                         text: func.remember_month(saved=-17)
-                    
+                        color: func.estimated_total_savings(self.text)
+
                     Label:
                         text: func.remember_month(spent=-17)
 
@@ -2249,7 +2270,8 @@ WindowManager:
 
                     Label:
                         text: func.remember_month(saved=-18)
-                    
+                        color: func.estimated_total_savings(self.text)
+
                     Label:
                         text: func.remember_month(spent=-18)
 
@@ -2261,7 +2283,8 @@ WindowManager:
 
                     Label:
                         text: func.remember_month(saved=-19)
-                    
+                        color: func.estimated_total_savings(self.text)
+
                     Label:
                         text: func.remember_month(spent=-19)
 
@@ -2273,7 +2296,8 @@ WindowManager:
 
                     Label:
                         text: func.remember_month(saved=-20)
-                    
+                        color: func.estimated_total_savings(self.text)
+
                     Label:
                         text: func.remember_month(spent=-20)
 
@@ -2285,7 +2309,8 @@ WindowManager:
 
                     Label:
                         text: func.remember_month(saved=-21)
-                    
+                        color: func.estimated_total_savings(self.text)
+
                     Label:
                         text: func.remember_month(spent=-21)
 
@@ -2297,12 +2322,40 @@ WindowManager:
 
                     Label:
                         text: func.remember_month(saved=-22)
-                    
+                        color: func.estimated_total_savings(self.text)
+
                     Label:
                         text: func.remember_month(spent=-22)
 
                     Label:
                         text: func.remember_month(income=-22)
+
+                    Label:
+                        text: func.remember_month(-23)
+
+                    Label:
+                        text: func.remember_month(saved=-23)
+                        color: func.estimated_total_savings(self.text)
+
+                    Label:
+                        text: func.remember_month(spent=-23)
+
+                    Label:
+                        text: func.remember_month(income=-23)
+                    
+                    Label:
+                        text: func.remember_month(-24)
+
+                    Label:
+                        text: func.remember_month(saved=-24)
+                        color: func.estimated_total_savings(self.text)
+
+                    Label:
+                        text: func.remember_month(spent=-24)
+
+                    Label:
+                        text: func.remember_month(income=-24)
+
             Button:
                 text: 'Close'
                 on_release: root.dismiss()
