@@ -6,7 +6,7 @@ import re
 def check_input(word=None, num=None):
     if num is not None:
         if (re.match(r'^[0-9]*\.?[0-9]{0,2}$', num) and not
-            re.match(r'^0[0-9]+', num)):
+                re.match(r'^0[0-9]+', num)):
             return True
         else:
             return False
