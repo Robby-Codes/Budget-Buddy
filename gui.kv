@@ -113,15 +113,6 @@ WindowManager:
             on_release:
                 app.root.current = 'forgots' if func.check_account() is False else app.root.current
 
-        Button:
-            text: 'X'
-            size_hint: 0.03, 0.03
-            pos_hint: {'top': 1, 'x': 0.97}
-            background_color: 0.95, 0, 0, 1
-            on_release:
-                exit()
-
-
 <SecurityQuestion@Popup>:
     title: 'Custom Security Question'
     title_size: 18
@@ -289,14 +280,6 @@ WindowManager:
             on_release:
                 app.root.current = 'logins'
 
-        Button:
-            text: 'X'
-            size_hint: 0.03, 0.03
-            pos_hint: {'top': 1, 'x': 0.97}
-            background_color: 0.95, 0, 0, 1
-            on_release:
-                exit()
-
 <AccountRecovery@Popup>:
     title: 'Your Account Log-In Information'
     title_size: 18
@@ -394,14 +377,6 @@ WindowManager:
             font_size: 20
             size_hint: 0.1, 0.05
             pos_hint: {'top': 0.97, 'x': 0.78}
-            
-        Button:
-            text: 'X'
-            size_hint: 0.03, 0.03
-            pos_hint: {'top': 1, 'x': 0.97}
-            background_color: 0.95, 0, 0, 1
-            on_release:
-                exit()
 
         FloatLayout:
             canvas:
