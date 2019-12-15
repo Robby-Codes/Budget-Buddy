@@ -88,6 +88,7 @@ def new_account():
             password: {
                 'Budget_Data': {
                     'FreeToUse': ['0', '0'],
+                    'Investments': ['0', '0'],
                     'Utilities': ['0', '0'],
                     'Groceries': ['0', '0'],
                     'Internet': ['0', '0'],
@@ -222,6 +223,7 @@ def calc_savings_spending(bar):
         income = data['income']
         spending = eval(
             data[name][passw]['Budget_Data']['FreeToUse'][1]
+            + '+' + data[name][passw]['Budget_Data']['Investments'][1]
             + '+' + data[name][passw]['Budget_Data']['Utilities'][1]
             + '+' + data[name][passw]['Budget_Data']['Groceries'][1]
             + '+' + data[name][passw]['Budget_Data']['Internet'][1]
@@ -249,6 +251,7 @@ def estimated_savings():
         income = data['income']
         spending = eval(
             data[name][passw]['Budget_Data']['FreeToUse'][0]
+            + '+' + data[name][passw]['Budget_Data']['Investments'][0]
             + '+' + data[name][passw]['Budget_Data']['Utilities'][0]
             + '+' + data[name][passw]['Budget_Data']['Groceries'][0]
             + '+' + data[name][passw]['Budget_Data']['Internet'][0]
@@ -381,6 +384,7 @@ def reset_for_new_month():
     data[name][password] = {
                 'Budget_Data': {
                     'FreeToUse': ['0', '0'],
+                    'Investments': ['0', '0'],
                     'Utilities': ['0', '0'],
                     'Groceries': ['0', '0'],
                     'Internet': ['0', '0'],

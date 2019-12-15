@@ -464,6 +464,42 @@ WindowManager:
                             estimatedsavings.color = func.estimated_savings_color() if func.check_input(num=freetouse.text) else estimatedsavings.color
 
                     Label:
+                        text: 'Investments'
+                        font_size: 30
+                        color: 0, 0, 0, 1
+                        text_size: self.size
+                        halign: 'left'
+
+                    Label:
+                        id: investmentspending
+                        text: func.add_commas(func.remember_spending('Investments'))
+                        font_size: 25
+                        color: func.remember_color('Investments')
+                        text_size: self.size
+                        halign: 'right'
+
+                    ProgressBar:
+                        id: investmentbar
+                        min: 0
+                        max: eval(func.remember_budget('Investments'))
+                        value: eval(func.find_spending('Investments', 'whole'))
+
+                    TextInput:
+                        id: investment
+                        multiline: False
+                        text: func.remember_budget('Investments')
+                        color: 0.3, 0.3, 0.3, 1
+                        text_size: self.size
+                        halign: 'right'
+                        valign: 'top'
+                        on_text_validate:
+                            investmentbar.max = investment.text if investment.text != '' and func.check_input(num=investment.text) and func.new_budget_check('Investments', investment.text) else investmentbar.max
+                            investmentspending.color = func.remember_color('Investments')
+                            investmentbar.value = eval(investment.text) if investmentbar.max < investmentbar.value and func.check_input(num=investment.text) else eval(func.find_spending('Investments', 'whole'))
+                            estimatedsavings.text = '$' + func.add_commas(func.estimated_savings()) if func.check_input(num=investment.text) else estimatedsavings.text
+                            estimatedsavings.color = func.estimated_savings_color() if func.check_input(num=investment.text) else estimatedsavings.color
+
+                    Label:
                         text: 'Utilities'
                         font_size: 30
                         color: 0, 0, 0, 1
@@ -1060,6 +1096,56 @@ WindowManager:
                             size_hint_y: None
                             height: 2
 
+
+
+                        Label:
+                            text: 'Investments'
+                            color: 0, 0, 0, 1 
+                            font_size: 20
+
+                        Label:
+                            id: investmentpercent
+                            text: func.find_spending('Investments', 'percent') + '%'
+                            color: 0, 0, 0, 1 
+
+                        Label:
+                            id: investmenttotal
+                            text: '$' + func.add_commas(func.find_spending('Investments', 'whole'))
+                            color: 0, 0, 0, 1 
+
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            size_hint_y: None
+                            height: 2
+
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            size_hint_y: None
+                            height: 2
+                            
+                        Label:
+                            canvas:
+                                Color:
+                                    rgb: 0.2, 0.2, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            size_hint_y: None
+                            height: 2
+
+
+
+
                         Label:
                             text: 'Utilities'
                             color: 0, 0, 0, 1 
@@ -1626,6 +1712,10 @@ WindowManager:
                     freetousebar.value = eval(func.find_spending('FreeToUse', 'whole')) if func.choose_category() == 'FreeToUse' and func.user_earned() == False else freetousebar.value
                     freetousetotal.text = '$' + func.add_commas(func.find_spending('FreeToUse', 'whole')) if func.choose_category() == 'FreeToUse' and func.user_earned() == False else '$' + freetousespending.text
                     
+                    investmentspending.text = func.add_commas(func.log_it()) if func.choose_category() == 'Investments' and func.user_earned() == False else investmentspending.text
+                    investmentbar.value = eval(func.find_spending('Investments', 'whole')) if func.choose_category() == 'Investments' and func.user_earned() == False else investmentbar.value
+                    investmenttotal.text = '$' + func.add_commas(func.find_spending('Investments', 'whole')) if func.choose_category() == 'Investments' and func.user_earned() == False else '$' + investmentspending.text
+
                     utilitiesspending.text = func.add_commas(func.log_it()) if func.choose_category() == 'Utilities' and func.user_earned() == False else utilitiesspending.text
                     utilitiesbar.value = eval(func.find_spending('Utilities', 'whole')) if func.choose_category() == 'Utilities' and func.user_earned() == False else utilitiesbar.value
                     utilitiestotal.text = '$' + func.add_commas(func.find_spending('Utilities', 'whole')) if func.choose_category() == 'Utilities' and func.user_earned() == False else '$' + utilitiesspending.text
@@ -1667,6 +1757,7 @@ WindowManager:
                     othertotal.text = '$' + func.add_commas(func.find_spending('Other', 'whole')) if func.choose_category() == 'Other' and func.user_earned() == False else '$' + otherspending.text
 
                     freetousespending.color = func.remember_color('FreeToUse') if func.user_earned() == False else freetousespending.color
+                    investmentspending.color = func.remember_color('Investments') if func.user_earned() == False else investmentspending.color
                     utilitiesspending.color = func.remember_color('Utilities') if func.user_earned() == False else utilitiesspending.color
                     groceriesspending.color = func.remember_color('Groceries') if func.user_earned() == False else groceriesspending.color
                     internetspending.color = func.remember_color('Internet') if func.user_earned() == False else internetspending.color
@@ -1679,6 +1770,7 @@ WindowManager:
                     otherspending.color = func.remember_color('Other') if func.user_earned() == False else otherspending.color
 
                     freetousepercent.text = func.find_spending('FreeToUse', 'percent') + '%' if func.user_earned() == False else freetousepercent.text
+                    investmentpercent.text = func.find_spending('Investments', 'percent') + '%' if func.user_earned() == False else investmentpercent.text
                     utilitiespercent.text = func.find_spending('Utilities', 'percent') + '%' if func.user_earned() == False else utilitiespercent.text
                     groceriespercent.text = func.find_spending('Groceries', 'percent') + '%' if func.user_earned() == False else groceriespercent.text
                     internetpercent.text = func.find_spending('Internet', 'percent') + '%' if func.user_earned() == False else internetpercent.text
@@ -1703,6 +1795,7 @@ WindowManager:
                     earned.background_color = 0.4, 0.4, 0.4, 1
                     spent.background_color = 0.4, 0.4, 0.4, 1
                     freetouselog.background_color = 0.4, 0.4, 0.4, 1
+                    investmentslog.background_color = 0.4, 0.4, 0.4, 1
                     utilitieslog.background_color = 0.4, 0.4, 0.4, 1
                     grocerieslog.background_color = 0.4, 0.4, 0.4, 1
                     internetlog.background_color = 0.4, 0.4, 0.4, 1
@@ -1741,6 +1834,29 @@ WindowManager:
                         on_release:
                             func.transaction_type('FreeToUse')
                             freetouselog.background_color = 0, 1, 0, 1
+                            investmentslog.background_color = 0.4, 0.4, 0.4, 1
+                            utilitieslog.background_color = 0.4, 0.4, 0.4, 1
+                            grocerieslog.background_color = 0.4, 0.4, 0.4, 1
+                            internetlog.background_color = 0.4, 0.4, 0.4, 1
+                            cellphonelog.background_color = 0.4, 0.4, 0.4, 1
+                            gaslog.background_color = 0.4, 0.4, 0.4, 1
+                            rentlog.background_color = 0.4, 0.4, 0.4, 1
+                            bankaccountlog.background_color = 0.4, 0.4, 0.4, 1
+                            carinsurancelog.background_color = 0.4, 0.4, 0.4, 1
+                            healthinsurancelog.background_color = 0.4, 0.4, 0.4, 1
+                            otherlog.background_color = 0.4, 0.4, 0.4, 1
+
+                    Button:
+                        id: investmentslog
+                        text: 'Investments'
+                        font_size: 20
+                        background_color: 0.4, 0.4, 0.4, 1
+                        size_hint_y: None
+                        height: 75
+                        on_release:
+                            func.transaction_type('Investments')
+                            freetouselog.background_color = 0.4, 0.4, 0.4, 1
+                            investmentslog.background_color = 0, 1, 0, 1
                             utilitieslog.background_color = 0.4, 0.4, 0.4, 1
                             grocerieslog.background_color = 0.4, 0.4, 0.4, 1
                             internetlog.background_color = 0.4, 0.4, 0.4, 1
@@ -1762,6 +1878,7 @@ WindowManager:
                         on_release:
                             func.transaction_type('Utilities')
                             freetouselog.background_color = 0.4, 0.4, 0.4, 1
+                            investmentslog.background_color = 0.4, 0.4, 0.4, 1
                             utilitieslog.background_color = 0, 1, 0, 1
                             grocerieslog.background_color = 0.4, 0.4, 0.4, 1
                             internetlog.background_color = 0.4, 0.4, 0.4, 1
@@ -1783,6 +1900,7 @@ WindowManager:
                         on_release:
                             func.transaction_type('Groceries')
                             freetouselog.background_color = 0.4, 0.4, 0.4, 1
+                            investmentslog.background_color = 0.4, 0.4, 0.4, 1
                             utilitieslog.background_color = 0.4, 0.4, 0.4, 1
                             grocerieslog.background_color = 0, 1, 0, 1
                             internetlog.background_color = 0.4, 0.4, 0.4, 1
@@ -1804,6 +1922,7 @@ WindowManager:
                         on_release:
                             func.transaction_type('Internet')
                             freetouselog.background_color = 0.4, 0.4, 0.4, 1
+                            investmentslog.background_color = 0.4, 0.4, 0.4, 1
                             utilitieslog.background_color = 0.4, 0.4, 0.4, 1
                             grocerieslog.background_color = 0.4, 0.4, 0.4, 1
                             internetlog.background_color = 0, 1, 0, 1
@@ -1825,6 +1944,7 @@ WindowManager:
                         on_release:
                             func.transaction_type('CellPhone')
                             freetouselog.background_color = 0.4, 0.4, 0.4, 1
+                            investmentslog.background_color = 0.4, 0.4, 0.4, 1
                             utilitieslog.background_color = 0.4, 0.4, 0.4, 1
                             grocerieslog.background_color = 0.4, 0.4, 0.4, 1
                             internetlog.background_color = 0.4, 0.4, 0.4, 1
@@ -1846,6 +1966,7 @@ WindowManager:
                         on_release:
                             func.transaction_type('Gas')
                             freetouselog.background_color = 0.4, 0.4, 0.4, 1
+                            investmentslog.background_color = 0.4, 0.4, 0.4, 1
                             utilitieslog.background_color = 0.4, 0.4, 0.4, 1
                             grocerieslog.background_color = 0.4, 0.4, 0.4, 1
                             internetlog.background_color = 0.4, 0.4, 0.4, 1
@@ -1867,6 +1988,7 @@ WindowManager:
                         on_release:
                             func.transaction_type('Rent')
                             freetouselog.background_color = 0.4, 0.4, 0.4, 1
+                            investmentslog.background_color = 0.4, 0.4, 0.4, 1
                             utilitieslog.background_color = 0.4, 0.4, 0.4, 1
                             grocerieslog.background_color = 0.4, 0.4, 0.4, 1
                             internetlog.background_color = 0.4, 0.4, 0.4, 1
@@ -1888,6 +2010,7 @@ WindowManager:
                         on_release:
                             func.transaction_type('BankAccount')
                             freetouselog.background_color = 0.4, 0.4, 0.4, 1
+                            investmentslog.background_color = 0.4, 0.4, 0.4, 1
                             utilitieslog.background_color = 0.4, 0.4, 0.4, 1
                             grocerieslog.background_color = 0.4, 0.4, 0.4, 1
                             internetlog.background_color = 0.4, 0.4, 0.4, 1
@@ -1909,6 +2032,7 @@ WindowManager:
                         on_release:
                             func.transaction_type('CarInsurance')
                             freetouselog.background_color = 0.4, 0.4, 0.4, 1
+                            investmentslog.background_color = 0.4, 0.4, 0.4, 1
                             utilitieslog.background_color = 0.4, 0.4, 0.4, 1
                             grocerieslog.background_color = 0.4, 0.4, 0.4, 1
                             internetlog.background_color = 0.4, 0.4, 0.4, 1
@@ -1930,6 +2054,7 @@ WindowManager:
                         on_release:
                             func.transaction_type('HealthInsurance')
                             freetouselog.background_color = 0.4, 0.4, 0.4, 1
+                            investmentslog.background_color = 0.4, 0.4, 0.4, 1
                             utilitieslog.background_color = 0.4, 0.4, 0.4, 1
                             grocerieslog.background_color = 0.4, 0.4, 0.4, 1
                             internetlog.background_color = 0.4, 0.4, 0.4, 1
@@ -1951,6 +2076,7 @@ WindowManager:
                         on_release:
                             func.transaction_type('Other')
                             freetouselog.background_color = 0.4, 0.4, 0.4, 1
+                            investmentslog.background_color = 0.4, 0.4, 0.4, 1
                             utilitieslog.background_color = 0.4, 0.4, 0.4, 1
                             grocerieslog.background_color = 0.4, 0.4, 0.4, 1
                             internetlog.background_color = 0.4, 0.4, 0.4, 1
