@@ -3,6 +3,10 @@ Budget Buddy is a graphical user interface which allows one to create budgets, k
 earnings, and savings. Just log in using whatever username and password you want and begin tracking
 your finances!
 
+# How To Run Budget Buddy
+To be able to run this program you need to have Python 3, Pip, and Kivy installed. 
+Download this repository and then simply run the python file called "main.py"
+
 ## Tools Used
 ```
 Languages:                  Version Control:
